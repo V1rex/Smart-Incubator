@@ -2,4 +2,8 @@
     <string name="app_name">Smart Incubator</string>
     <string name="login_text">Login</string>
     <string name="register_text">Register</string>
+    <string name="username_text">Username or Email</string>
+    <string name="password_text">Password</string>
+    <string name="repassword_text">Re-Password</string>
+
 </resources>

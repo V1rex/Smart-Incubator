@@ -1,10 +1,13 @@
-package com.v1rex.smartincubator;
+package com.v1rex.smartincubator.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.v1rex.smartincubator.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+
 
             }
         });
@@ -33,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent =  new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
 
             }
         });
