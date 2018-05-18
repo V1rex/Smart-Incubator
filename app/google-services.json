@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "775246463174",
+    "firebase_url": "https://smart-incubator.firebaseio.com",
+    "project_id": "smart-incubator",
+    "storage_bucket": "smart-incubator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775246463174:android:1cc82c2ea512fe3d",
+        "android_client_info": {
+          "package_name": "com.v1rex.smartincubator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775246463174-dsf3hilsunhf7odlaoc0d4vl1d4b0sqt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.v1rex.smartincubator",
+            "certificate_hash": "a7f316bf893177ffb3d6242fca92c34a83306c10"
+          }
+        },
+        {
+          "client_id": "775246463174-e9ova9498s2f60452sfgsi7bsctjd8ur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtt2QETJJ5_kwFlp7J_SL-WAc9kN6fmM8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775246463174-e9ova9498s2f60452sfgsi7bsctjd8ur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
