@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Smart Incubator</string>
+    <string name="login_text">Login</string>
+    <string name="register_text">Register</string>
+</resources>
