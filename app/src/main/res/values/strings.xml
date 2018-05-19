@@ -2,7 +2,7 @@
     <string name="app_name">Smart Incubator</string>
     <string name="login_text">Login</string>
     <string name="register_text">Register</string>
-    <string name="username_text">Username or Email</string>
+    <string name="username_text">Email</string>
     <string name="password_text">Password</string>
     <string name="repassword_text">Re-Password</string>
     <string name="title_activity_login2">Sign in</string>
@@ -14,7 +14,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_password_required">The password field is required</string>
-    <string name="error_field_username_required">The email/username field is required</string>
+    <string name="error_field_username_required">The email field is required</string>
 
 
 </resources>
