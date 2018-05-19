@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 import com.v1rex.smartincubator.R;
 
-public class MentorsFragment extends Fragment {
+public class MessagesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mentors, container, false);
+        return inflater.inflate(R.layout.fragment_message, container, false);
     }
 }

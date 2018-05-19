@@ -11,4 +11,9 @@
         android:id="@+id/nav_users"
         android:icon="@drawable/user"
         android:title="@string/mentors_name_fragments"/>
+
+    <item
+        android:id="@+id/nav_messages"
+        android:icon="@drawable/mail"
+        android:title="@string/mentors_name_fragments"/>
 </menu>

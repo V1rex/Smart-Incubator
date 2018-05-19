@@ -21,6 +21,13 @@
     <string name="error_action_login_sucessed">Logged Successfully!</string>
     <string name="startups_name_fragment">Startups</string>
     <string name="mentors_name_fragments">Mentors</string>
+    <string name="messages_name_fragments">Messages</string>
+    <string name="toolbar_settings_name">Settings</string>
+    <string name="toolbar_search_name">Search</string>
+    <string name="toolbar_logout_name">Logout</string>
+    <string name="title_activity_settings">Settings</string>
+
+
 
 
 </resources>
