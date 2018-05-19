@@ -15,6 +15,12 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_password_required">The password field is required</string>
     <string name="error_field_username_required">The email field is required</string>
+    <string name="error_action_registration_failed">Register Failed</string>
+    <string name="error_action_registration_sucessed">Registered Successfully!</string>
+    <string name="error_action_loging_failed">Login Failed</string>
+    <string name="error_action_login_sucessed">Logged Successfully!</string>
+    <string name="startups_name_fragment">Startups</string>
+    <string name="mentors_name_fragments">Mentors</string>
 
 
 </resources>

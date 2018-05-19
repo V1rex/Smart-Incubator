@@ -3,8 +3,6 @@
     package="com.v1rex.smartincubator">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -20,6 +18,7 @@
         </activity>
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.BottonNavigationActivity"></activity>
     </application>
 
 </manifest>

@@ -20,13 +20,16 @@ import com.v1rex.smartincubator.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static final String KEY_USERNAME_ENTRY = "email_entry";
+    private static final String KEY_PASSWORD_ENTRY = "password_entry";
+
     private FirebaseAuth mAuth;
 
-    EditText mUserNameEditText;
-    EditText mPasswordEditText;
-    Button mRegisterBtn;
-    LinearLayout mProgressRegisterLayout;
-    TextView mErrorRegisterTextView;
+    private EditText mUserNameEditText;
+    private EditText mPasswordEditText;
+    private Button mRegisterBtn;
+    private LinearLayout mProgressRegisterLayout;
+    private TextView mErrorRegisterTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,28 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState != null){
+            String savedEmail = savedInstanceState.getString(KEY_USERNAME_ENTRY);
+            mUserNameEditText.setText(savedEmail);
+
+            String savedPassword = savedInstanceState.getString(KEY_PASSWORD_ENTRY);
+            mPasswordEditText.setText(savedPassword);
+        }
+
 
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        outState.putString(KEY_USERNAME_ENTRY, mUserNameEditText.getText().toString());
+        outState.putString(KEY_PASSWORD_ENTRY, mPasswordEditText.getText().toString());
+
+        super.onSaveInstanceState(outState);
+
+    }
+
+
 
     @Override
     protected void onStart() {
@@ -112,14 +135,14 @@ public class RegisterActivity extends AppCompatActivity {
                         mPasswordEditText.setVisibility(View.VISIBLE);
                         mRegisterBtn.setVisibility(View.VISIBLE);
                         mErrorRegisterTextView.setVisibility(View.VISIBLE);
-                        mErrorRegisterTextView.setText("Register Failed");
+                        mErrorRegisterTextView.setText(getString(R.string.error_action_registration_failed));
 
                     } else{
                         mUserNameEditText.setVisibility(View.VISIBLE);
                         mPasswordEditText.setVisibility(View.VISIBLE);
                         mRegisterBtn.setVisibility(View.VISIBLE);
                         mErrorRegisterTextView.setVisibility(View.VISIBLE);
-                        mErrorRegisterTextView.setText("Registered Successfully!");
+                        mErrorRegisterTextView.setText(getString(R.string.error_action_registration_failed));
                     }
 
                 }

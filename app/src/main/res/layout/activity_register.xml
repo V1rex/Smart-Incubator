@@ -45,7 +45,7 @@
                 android:layout_marginRight="16dp"
                 android:textAlignment="center"
                 android:inputType="text"
-                />
+                android:saveEnabled="false"/>
 
         </LinearLayout>
 
@@ -79,7 +79,7 @@
                 android:inputType="textPassword"
                 android:layout_marginRight="16dp"
                 android:textAlignment="center"
-                />
+                android:saveEnabled="false"/>
 
         </LinearLayout>
 

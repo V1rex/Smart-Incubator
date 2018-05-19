@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/nav_startups"
+        android:icon="@drawable/startup"
+        android:title="@string/startups_name_fragment"/>
+
+    <item
+        android:id="@+id/nav_users"
+        android:icon="@drawable/user"
+        android:title="@string/mentors_name_fragments"/>
+</menu>

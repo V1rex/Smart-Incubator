@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.v1rex.smartincubator.R;
 
 public class MainActivity extends AppCompatActivity {
-
-    Button mLoginBtn;
-    Button mRegisterBtn;
+    private FirebaseAuth mAuth;
+    private Button mLoginBtn;
+    private Button mRegisterBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
 }

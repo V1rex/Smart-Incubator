@@ -1,43 +1,38 @@
 package com.v1rex.smartincubator.Activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.v1rex.smartincubator.Model.User;
+
 import com.v1rex.smartincubator.R;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private static final String KEY_USERNAME_ENTRY = "email_entry";
+    private static final String KEY_PASSWORD_ENTRY = "password_entry";
 
     private FirebaseAuth mAuth;
 
-    EditText mUserNameEditText;
-    EditText mPasswordEditText;
-    Button mLoginBtn;
-    LinearLayout mProgressLayout;
-    TextView mErrorLoginTextView;
+    private EditText mUserNameEditText;
+    private EditText mPasswordEditText;
+    private Button mLoginBtn;
+    private LinearLayout mProgressLayout;
+    private TextView mErrorLoginTextView;
 
 
     @Override
@@ -66,6 +61,22 @@ public class LoginActivity extends AppCompatActivity {
         mProgressLayout = (LinearLayout) findViewById(R.id.progess_login);
         mProgressLayout.setVisibility(View.GONE);
 
+        if(savedInstanceState != null){
+            String savedEmail = savedInstanceState.getString(KEY_USERNAME_ENTRY);
+            mUserNameEditText.setText(savedEmail);
+
+            String savedPassword = savedInstanceState.getString(KEY_PASSWORD_ENTRY);
+            mPasswordEditText.setText(savedPassword);
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(KEY_USERNAME_ENTRY, mUserNameEditText.getText().toString());
+        outState.putString(KEY_PASSWORD_ENTRY, mPasswordEditText.getText().toString());
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -134,14 +145,16 @@ public class LoginActivity extends AppCompatActivity {
                         mPasswordEditText.setVisibility(View.VISIBLE);
                         mLoginBtn.setVisibility(View.VISIBLE);
                         mErrorLoginTextView.setVisibility(View.VISIBLE);
-                        mErrorLoginTextView.setText("Login Failed");
+                        mErrorLoginTextView.setText(getString(R.string.error_action_loging_failed));
 
                     } else{
                         mUserNameEditText.setVisibility(View.VISIBLE);
                         mPasswordEditText.setVisibility(View.VISIBLE);
                         mLoginBtn.setVisibility(View.VISIBLE);
                         mErrorLoginTextView.setVisibility(View.VISIBLE);
-                        mErrorLoginTextView.setText("Logged Successfully");
+                        mErrorLoginTextView.setText(getString(R.string.error_action_login_sucessed));
+                        Intent intent = new Intent(LoginActivity.this, BottonNavigationActivity.class);
+                        startActivity(intent);
 
                     }
 
