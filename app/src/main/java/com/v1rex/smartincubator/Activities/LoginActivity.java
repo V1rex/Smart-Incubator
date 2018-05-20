@@ -3,6 +3,7 @@ package com.v1rex.smartincubator.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,11 +29,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private EditText mUserNameEditText;
-    private EditText mPasswordEditText;
+    private EditText mUserNameEditText, mPasswordEditText;
     private Button mLoginBtn;
-    private LinearLayout mProgressLayout;
-    private TextView mErrorLoginTextView;
+    private TextInputLayout mEmailTextInputLaout, mPasswordTextInputLayout;
+    private LinearLayout mProgressLayout, mLoginView;
+
 
 
     @Override
@@ -45,12 +46,12 @@ public class LoginActivity extends AppCompatActivity {
 //        actionBar.hide();
 
         mAuth = FirebaseAuth.getInstance();
-
-
+        mLoginView = (LinearLayout) findViewById(R.id.loginView);
+        mEmailTextInputLaout = (TextInputLayout) findViewById(R.id.input_layout_email);
+        mPasswordTextInputLayout = (TextInputLayout) findViewById(R.id.input_layout_password);
         mUserNameEditText = (EditText) findViewById(R.id.user_login_edit_text);
         mPasswordEditText = (EditText) findViewById(R.id.password_login_edit_text);
         mLoginBtn = (Button) findViewById(R.id.login_action_btn);
-        mErrorLoginTextView = (TextView)findViewById(R.id.error_login_message);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        mProgressLayout = (LinearLayout) findViewById(R.id.progess_login);
+        mProgressLayout = (LinearLayout) findViewById(R.id.progress_login);
         mProgressLayout.setVisibility(View.GONE);
 
         if(savedInstanceState != null){
@@ -89,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login()
     {
-        mErrorLoginTextView.setVisibility(View.GONE);
+
         if (mAuth == null) {
             return;
         }
@@ -100,13 +101,11 @@ public class LoginActivity extends AppCompatActivity {
         String password = mPasswordEditText.getText().toString();
 
         if (!TextUtils.isEmpty(password) ) {
-            mErrorLoginTextView.setVisibility(View.VISIBLE);
-            mErrorLoginTextView.setText(getString(R.string.error_field_password_required));
+            mPasswordTextInputLayout.setError(getString(R.string.error_field_password_required));
             cancel = true;
 
         } else if(!isPasswordValid(password)){
-            mErrorLoginTextView.setVisibility(View.VISIBLE);
-            mErrorLoginTextView.setText(getString(R.string.error_invalid_password));
+            mPasswordTextInputLayout.setError(getString(R.string.error_invalid_password));
             cancel = true;
         } else{
             cancel = false;
@@ -115,21 +114,19 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (TextUtils.isEmpty(emailOrUserName)) {
-            mErrorLoginTextView.setVisibility(View.VISIBLE);
-            mErrorLoginTextView.setText(getString(R.string.error_field_username_required));
+            mEmailTextInputLaout.setError(getString(R.string.error_field_username_required));
+
             cancel = true;
 
 
         } else if (!isEmailValid(emailOrUserName)) {
-            mErrorLoginTextView.setVisibility(View.VISIBLE);
-            mErrorLoginTextView.setText(getString(R.string.error_invalid_email));
+            mEmailTextInputLaout.setError(getString(R.string.error_invalid_email));
             cancel = true;
         } else{
             cancel = false;
         }
 
         if(cancel == false){
-            mErrorLoginTextView.setVisibility(View.GONE);
             mUserNameEditText.setVisibility(View.INVISIBLE);
             mPasswordEditText.setVisibility(View.INVISIBLE);
             mLoginBtn.setVisibility(View.INVISIBLE);
@@ -144,17 +141,14 @@ public class LoginActivity extends AppCompatActivity {
                         mUserNameEditText.setVisibility(View.VISIBLE);
                         mPasswordEditText.setVisibility(View.VISIBLE);
                         mLoginBtn.setVisibility(View.VISIBLE);
-                        mErrorLoginTextView.setVisibility(View.VISIBLE);
-                        mErrorLoginTextView.setText(getString(R.string.error_action_loging_failed));
+                        mEmailTextInputLaout.setError(getString(R.string.error_action_loging_failed));
 
                     } else{
-                        mUserNameEditText.setVisibility(View.VISIBLE);
-                        mPasswordEditText.setVisibility(View.VISIBLE);
-                        mLoginBtn.setVisibility(View.VISIBLE);
-                        mErrorLoginTextView.setVisibility(View.VISIBLE);
-                        mErrorLoginTextView.setText(getString(R.string.error_action_login_sucessed));
+
+                        mLoginView.setVisibility(View.GONE);
                         Intent intent = new Intent(LoginActivity.this, BottonNavigationActivity.class);
                         startActivity(intent);
+                        finish();
 
                     }
 
@@ -167,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
 
 
     private boolean isEmailValid(String email) {

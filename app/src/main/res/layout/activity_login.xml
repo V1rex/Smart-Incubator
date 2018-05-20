@@ -10,138 +10,118 @@
 
 
     <LinearLayout
+        android:id="@+id/loginView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="340dp"
         android:layout_centerVertical="true"
-        android:gravity="center_vertical"
-        android:paddingTop="150dp"
-        android:orientation="vertical">
+        android:layout_margin="32dp"
+        android:paddingTop="42dp"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/roundedbutton"
+        android:backgroundTint="#808e8c8c">
 
-        <LinearLayout
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_email"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@drawable/roundedbutton"
-            android:layout_marginRight="32dp"
-            android:layout_marginLeft="32dp"
-            android:backgroundTint="@color/colorPrimary">
-
-            <ImageView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:src="@drawable/user"
-                android:layout_gravity="center"
-                android:paddingLeft="8dp"/>
+            android:layout_height="wrap_content"
+           >
 
             <EditText
                 android:id="@+id/user_login_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="@string/username_text"
-                android:textColor="@color/colorFlatWhite"
-                android:shadowColor="@color/colorFlatWhite"
-                android:textColorHighlight="@color/colorFlatWhite"
-                android:textColorHint="@color/colorFlatWhite"
-                android:layout_marginRight="16dp"
-                android:textAlignment="center"
-                android:inputType="text"
-                android:saveEnabled="false"/>
+                />
+        </android.support.design.widget.TextInputLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_password"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@drawable/roundedbutton"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginLeft="32dp"
-            android:backgroundTint="@color/colorPrimary">
-
-            <ImageView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:src="@drawable/locked"
-                android:layout_gravity="center"
-                android:paddingLeft="8dp"/>
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            >
 
             <EditText
                 android:id="@+id/password_login_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_gravity="center"
-                android:hint="@string/password_text"
-                android:textColor="@color/colorFlatWhite"
-                android:shadowColor="@color/colorFlatWhite"
-                android:textColorHighlight="@color/colorFlatWhite"
-                android:textColorHint="@color/colorFlatWhite"
+                android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:layout_marginRight="16dp"
-                android:textAlignment="center"
-                android:saveEnabled="false"/>
+                android:hint="@string/password_text"
+                android:paddingTop="16dp"
+                />
+        </android.support.design.widget.TextInputLayout>
 
-        </LinearLayout>
-
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/login_action_btn"
-            android:layout_width="240dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:background="@drawable/roundedbutton"
-            android:backgroundTint="@color/colorFlatWhite"
-            android:fontFamily="sans-serif-condensed"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:textColor="@color/colorFlatWhite"
+            android:background="@color/colorPrimary"
             android:text="@string/login_text"
-            android:textAllCaps="false"
-            android:textSize="18sp"
             />
 
         <TextView
-            android:id="@+id/error_login_message"
-            android:layout_width="match_parent"
+            android:id="@+id/link_register"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login right now ..."
+            android:layout_marginBottom="24dp"
+            android:text="@string/login_dont_have_account"
             android:gravity="center"
-            android:textSize="22sp"
-            android:textColor="#2d2b2b"
-            android:fontFamily="sans-serif-condensed"
-            android:visibility="gone"/>
-
-
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/progess_login"
+        android:id="@+id/progress_login"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginLeft="68dp"
-        android:background="@drawable/roundedbutton"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_height="match_parent"
+        android:background="#92000000"
         android:orientation="vertical"
-        android:visibility="gone">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login right now ..."
-            android:gravity="center"
-            android:textSize="24sp"
-            android:textColor="#2d2b2b"
-            android:fontFamily="sans-serif-condensed"
-            />
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        >
 
-        <ProgressBar
-            android:id="@+id/login_progress"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/rounded_layout"
+            android:backgroundTint="@color/colorFlatWhite"
+            android:orientation="vertical"
+            android:layout_margin="32dp"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_action"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="#2d2b2b"
+                android:fontFamily="sans-serif-condensed"
+                />
+
+            <ProgressBar
+                android:id="@+id/login_progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+
     </LinearLayout>
+
+
+
+
+
 
 
 

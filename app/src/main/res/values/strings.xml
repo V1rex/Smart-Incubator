@@ -5,6 +5,10 @@
     <string name="username_text">Email</string>
     <string name="password_text">Password</string>
     <string name="repassword_text">Re-Password</string>
+    <string name="login_dont_have_account">Don"t have account? Register</string>
+    <string name="login_action">Login right now ...</string>
+
+    <string name="register_have_account">Already a member? Login</string>
     <string name="title_activity_login2">Sign in</string>
 
     <!-- Strings related to login -->
