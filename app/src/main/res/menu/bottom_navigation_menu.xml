@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/nav_startups"
-        android:icon="@drawable/startup"
+        android:icon="@drawable/startup1"
         android:title="@string/startups_name_fragment"/>
 
     <item

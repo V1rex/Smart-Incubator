@@ -142,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                         mPasswordEditText.setVisibility(View.VISIBLE);
                         mRegisterBtn.setVisibility(View.VISIBLE);
                         mErrorRegisterTextView.setVisibility(View.VISIBLE);
-                        mErrorRegisterTextView.setText(getString(R.string.error_action_registration_failed));
+                        mErrorRegisterTextView.setText(getString(R.string.error_action_registration_sucessed));
                     }
 
                 }
