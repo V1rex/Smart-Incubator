@@ -1,6 +1,8 @@
 package com.v1rex.smartincubator.Activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,25 +27,24 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private EditText mUserNameEditText;
-    private EditText mPasswordEditText;
+    private EditText mUserNameEditText, mPasswordEditText;
+    private TextInputLayout mEmailTextInputLayout, mPasswordInputLayout;
     private Button mRegisterBtn;
-    private LinearLayout mProgressRegisterLayout;
-    private TextView mErrorRegisterTextView;
+    private LinearLayout mProgressRegisterLayout , mRegisterView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.hide();
 
         mAuth = FirebaseAuth.getInstance();
 
         mUserNameEditText = (EditText) findViewById(R.id.user_register_edit_text);
         mPasswordEditText = (EditText) findViewById(R.id.password_register_edit_text);
         mProgressRegisterLayout = (LinearLayout) findViewById(R.id.progess_register);
-        mErrorRegisterTextView = (TextView) findViewById(R.id.error_register_message);
+        mRegisterView = (LinearLayout) findViewById(R.id.registerView);
+        mEmailTextInputLayout = (TextInputLayout) findViewById(R.id.input_layout_email_register);
+        mPasswordInputLayout = (TextInputLayout) findViewById(R.id.input_layout_password_register);
 
         mRegisterBtn = (Button) findViewById(R.id.register_action_btn);
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -80,12 +81,18 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+
 
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+        finish();
+    }
+
     private void register(){
-        mErrorRegisterTextView.setVisibility(View.GONE);
+
         if(mAuth == null){
 
         }
@@ -96,34 +103,30 @@ public class RegisterActivity extends AppCompatActivity {
         String password = mPasswordEditText.getText().toString();
 
         if (TextUtils.isEmpty(password) ) {
-            mErrorRegisterTextView.setVisibility(View.VISIBLE);
-            mErrorRegisterTextView.setText(getString(R.string.error_field_password_required));
+            mPasswordInputLayout.setError(getString(R.string.error_field_password_required));
             cancel = true;
 
         } else if(!isPasswordValid(password)){
-            mErrorRegisterTextView.setVisibility(View.VISIBLE);
-            mErrorRegisterTextView.setText(getString(R.string.error_invalid_password));
+            mPasswordInputLayout.setError(getString(R.string.error_invalid_password));
+
             cancel = true;
         }
 
         if (TextUtils.isEmpty(email)) {
-            mErrorRegisterTextView.setVisibility(View.VISIBLE);
-            mErrorRegisterTextView.setText(getString(R.string.error_field_username_required));
+            mEmailTextInputLayout.setError(getString(R.string.error_field_username_required));
+
             cancel = true;
 
 
         } else if (!isEmailValid(email)) {
-            mErrorRegisterTextView.setVisibility(View.VISIBLE);
-            mErrorRegisterTextView.setText(getString(R.string.error_invalid_email));
+            mEmailTextInputLayout.setError(getString(R.string.error_invalid_email));
+
             cancel = true;
         }
 
 
         if( cancel == false){
-            mErrorRegisterTextView.setVisibility(View.GONE);
-            mUserNameEditText.setVisibility(View.INVISIBLE);
-            mPasswordEditText.setVisibility(View.INVISIBLE);
-            mRegisterBtn.setVisibility(View.INVISIBLE);
+            mRegisterView.setVisibility(View.INVISIBLE);
             mProgressRegisterLayout.setVisibility(View.VISIBLE);
 
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -134,15 +137,12 @@ public class RegisterActivity extends AppCompatActivity {
                         mUserNameEditText.setVisibility(View.VISIBLE);
                         mPasswordEditText.setVisibility(View.VISIBLE);
                         mRegisterBtn.setVisibility(View.VISIBLE);
-                        mErrorRegisterTextView.setVisibility(View.VISIBLE);
-                        mErrorRegisterTextView.setText(getString(R.string.error_action_registration_failed));
+                        mEmailTextInputLayout.setError(getString(R.string.error_action_registration_failed));
+
 
                     } else{
-                        mUserNameEditText.setVisibility(View.VISIBLE);
-                        mPasswordEditText.setVisibility(View.VISIBLE);
-                        mRegisterBtn.setVisibility(View.VISIBLE);
-                        mErrorRegisterTextView.setVisibility(View.VISIBLE);
-                        mErrorRegisterTextView.setText(getString(R.string.error_action_registration_sucessed));
+                        mRegisterView.setVisibility(View.GONE);
+                        startActivity(new Intent(RegisterActivity.this, UserInformationsActivity.class));
                     }
 
                 }

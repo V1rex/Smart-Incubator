@@ -1,6 +1,8 @@
 package com.v1rex.smartincubator.Model;
 
-public class Mentor {
+import java.io.Serializable;
+
+public class Mentor implements Serializable {
     private String mLastName ;
     private String mFirstName;
     private String mCity;
@@ -8,10 +10,9 @@ public class Mentor {
     private String mAccountType;
     private String mUserId;
 
-    public Mentor(String mCity, String mSpeciality, String mAccountType, String mUserId, String mLastName , String mFirstName) {
+    public Mentor(String mCity, String mSpeciality, String mLastName , String mFirstName, String mUserId ) {
         this.mCity = mCity;
         this.mSpeciality = mSpeciality;
-        this.mAccountType = mAccountType;
         this.mUserId = mUserId;
         this.mFirstName = mFirstName;
         this.mLastName = mLastName;

@@ -13,7 +13,7 @@
     <item
         android:id="@+id/action_logout"
         android:icon="@drawable/ic_logout"
-        android:title="@string/toolbar_search_name"
+        android:title="@string/toolbar_logout_name"
         app:showAsAction="always"/>
 
     <!-- Settings, should always be in the overflow -->

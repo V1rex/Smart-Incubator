@@ -7,9 +7,48 @@
     <string name="repassword_text">Re-Password</string>
     <string name="login_dont_have_account">Don"t have account? Register</string>
     <string name="login_action">Login right now ...</string>
+    <string name="register_action">Registering right now ...</string>
 
     <string name="register_have_account">Already a member? Login</string>
     <string name="title_activity_login2">Sign in</string>
+    <string name="field_requierd">This field is requierd</string>
+    <string name="user_informations_activity">User Informations</string>
+    <string name="mentor_informations_activity">Mentor Informations</string>
+    <string name="startup_informations_activity">Startup Informations</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="age">Age</string>
+    <string name="im">I am :</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="startup">Startup</string>
+    <string name="mentor">Mentor</string>
+    <string name="account_type">Account type:</string>
+    <string name="submit">Submit</string>
+
+    <string name="startup_name">Startup name</string>
+    <string name="associate_startup">Association(optional)</string>
+    <string name="description_startup">Startup description</string>
+    <string name="Website_startup">Startup website(optional)</string>
+    <string name="Facebook_startup">Startup facebook(optional)</string>
+    <string name="date_incubation_startup">Date of incubation</string>
+    <string name="juridique_status_startup">Juridique status</string>
+    <string name="creation_date_startup">Creation date of the startup</string>
+    <string name="number_employees_startup">Number of employees</string>
+    <string name="objective_startup">Startup objective(optional)</string>
+    <string name="fond_startup">Startup fond</string>
+    <string name="chiffre_startup">Startup chiffre</string>
+    <string name="domain_startup">Startup domain</string>
+    <string name="need_startup">Startup need</string>
+
+
+    <string name="last_name_mentor">Mentor Last Name</string>
+
+    <string name="first_name_mentor">Mentor First Name</string>
+
+    <string name="city_mentor">Mentor City</string>
+    <string name="specialty_mentor">Mentor Specialty</string>
+
 
     <!-- Strings related to login -->
 
@@ -30,8 +69,6 @@
     <string name="toolbar_search_name">Search</string>
     <string name="toolbar_logout_name">Logout</string>
     <string name="title_activity_settings">Settings</string>
-
-
 
 
 </resources>

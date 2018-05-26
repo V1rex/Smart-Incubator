@@ -17,6 +17,7 @@ import com.v1rex.smartincubator.R;
 
 public class BottonNavigationActivity extends AppCompatActivity {
     private Toolbar toolbar;
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +28,15 @@ public class BottonNavigationActivity extends AppCompatActivity {
         toolbar.setTitle(getString(R.string.app_name));
         toolbar.setSubtitle(getString(R.string.startups_name_fragment));
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StartupsFragment()).commit();
 
 
     }
+
+
 
     @Override
     public void onBackPressed() {

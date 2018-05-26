@@ -1,6 +1,8 @@
 package com.v1rex.smartincubator.Model;
 
-public class Startup {
+import java.io.Serializable;
+
+public class Startup implements Serializable {
 
     private String mStartupName;
     private String mAssociate;
@@ -23,7 +25,7 @@ public class Startup {
 
     }
 
-    public Startup(String mStartupName, String mAssociate, String mDescription, String mWebsite, String mPageFacebook, String mDateOfIncubation, String mJuridiqueSatatus, String mCreationDate, String mActivitySecteur, String mNumberEmployees, String mObjective, String mFond, String mChiffre, String mUserId, String mNeed, String mDomain) {
+    public Startup(String mStartupName, String mAssociate, String mDescription, String mWebsite, String mPageFacebook, String mDateOfIncubation, String mJuridiqueSatatus, String mCreationDate, String mNumberEmployees, String mObjective, String mFond, String mChiffre, String mUserId, String mNeed, String mDomain) {
         this.mStartupName = mStartupName;
         this.mAssociate = mAssociate;
         this.mDescription = mDescription;
@@ -32,7 +34,6 @@ public class Startup {
         this.mDateOfIncubation = mDateOfIncubation;
         this.mJuridiqueSatatus = mJuridiqueSatatus;
         this.mCreationDate = mCreationDate;
-        this.mActivitySecteur = mActivitySecteur;
         this.mNumberEmployees = mNumberEmployees;
         this.mObjective = mObjective;
         this.mFond = mFond;

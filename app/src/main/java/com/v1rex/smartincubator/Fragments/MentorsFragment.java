@@ -1,5 +1,6 @@
 package com.v1rex.smartincubator.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.v1rex.smartincubator.Activities.MentorProfileActivity;
+import com.v1rex.smartincubator.Activities.StartupProfileActivity;
 import com.v1rex.smartincubator.Model.Mentor;
 import com.v1rex.smartincubator.Model.Startup;
 import com.v1rex.smartincubator.R;
@@ -43,10 +46,20 @@ public class MentorsFragment extends Fragment {
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Mentor, MentorViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MentorViewHolder holder, int position, @NonNull Mentor model) {
+            protected void onBindViewHolder(@NonNull MentorViewHolder holder, int position, @NonNull final Mentor model) {
                 holder.setmNameTextView(model.getmLastName() + " "+ model.getmFirstName());
                 holder.setmCityTextView(model.getmCity());
                 holder.setmSpecialityTextView(model.getmSpeciality());
+
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), MentorProfileActivity.class);
+                        intent.putExtra("Object Mentor", model);
+                        startActivity(intent);
+                    }
+                });
 
             }
 

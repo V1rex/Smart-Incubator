@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.MentorRegisterActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbare"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:titleTextColor="@color/colorFlatWhite"
+        app:subtitleTextColor="@color/colorFlatWhite"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:title="@string/mentor_informations_activity"
+        android:theme="@style/Theme.AppCompat.Light"
+        app:popupTheme="@style/Theme.AppCompat.Light"/>
+    <ScrollView
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="16dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/first_name_input_text_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/first_name_edit_text_mentor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/first_name_mentor"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/last_name_input_text_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/last_name_edit_text_mentor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/last_name_mentor"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/city_input_text_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/city_edit_text_mentor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/city_mentor"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/speciality_input_text_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/speciality_edit_text_mentor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/specialty_mentor"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/submit_action_btn_mentor"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:textColor="@color/colorFlatWhite"
+                android:background="@color/colorPrimary"
+                android:text="@string/submit"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

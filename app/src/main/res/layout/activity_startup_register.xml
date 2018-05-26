@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.StartupRegisterActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:titleTextColor="@color/colorFlatWhite"
+        app:subtitleTextColor="@color/colorFlatWhite"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:title="@string/startup_informations_activity"
+        android:theme="@style/Theme.AppCompat.Light"
+        app:popupTheme="@style/Theme.AppCompat.Light"/>
+
+    <ScrollView
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="16dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/startup_name_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/startup_name_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/startup_name"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/associate_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/associate_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/associate_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/description_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:backgroundTint="@color/colorFlatWhite"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/description_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:inputType="text"
+                    android:hint="@string/description_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/website_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/website_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/Website_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/facebook_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/facebook_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/Facebook_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/date_incubation_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/date_incubation_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/date_incubation_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/juridique_status_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/juridique_status_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/juridique_status_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/creation_date_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/creation_date_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/creation_date_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/number_employees_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/number_employees_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="@string/number_employees_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/objective_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:backgroundTint="@color/colorFlatWhite"
+                android:gravity="center"
+                >
+
+                <EditText
+                    android:id="@+id/objective_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:inputType="text"
+                    android:hint="@string/objective_startup"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/fond_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/fond_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/fond_startup"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/chiffre_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/chiffre_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/chiffre_startup"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/domain_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/domain_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/domain_startup"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/need_input_text_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite">
+
+                <EditText
+                    android:id="@+id/need_edit_text_startp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/need_startup"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/submit_action_btn_startup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:textColor="@color/colorFlatWhite"
+                android:background="@color/colorPrimary"
+                android:text="@string/submit"
+                />
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

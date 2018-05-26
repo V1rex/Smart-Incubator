@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import com.v1rex.smartincubator.R;
 
+import org.w3c.dom.Text;
+
 
 public class LoginActivity extends AppCompatActivity {
     private static final String KEY_USERNAME_ENTRY = "email_entry";
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginBtn;
     private TextInputLayout mEmailTextInputLaout, mPasswordTextInputLayout;
     private LinearLayout mProgressLayout, mLoginView;
+    private TextView mRegisterLink;
 
 
 
@@ -59,6 +62,15 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        mRegisterLink = (TextView) findViewById(R.id.link_register);
+        mRegisterLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
+            }
+        });
         mProgressLayout = (LinearLayout) findViewById(R.id.progress_login);
         mProgressLayout.setVisibility(View.GONE);
 
@@ -83,8 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+
 
     }
 
@@ -162,7 +173,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
+    }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
