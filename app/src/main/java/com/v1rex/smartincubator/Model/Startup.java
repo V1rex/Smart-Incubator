@@ -2,7 +2,7 @@ package com.v1rex.smartincubator.Model;
 
 import java.io.Serializable;
 
-public class Startup implements Serializable {
+public class Startup {
 
     private String mStartupName;
     private String mAssociate;

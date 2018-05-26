@@ -54,7 +54,7 @@ public class StartupsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), StartupProfileActivity.class);
-                        intent.putExtra("Object Startup", model);
+                        intent.putExtra("UserId Startup", model.getmUserId());
                         startActivity(intent);
                     }
                 });

@@ -97,6 +97,42 @@
 
             </android.support.design.widget.TextInputLayout>
 
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/email_input_text_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/email_edit_text_mentor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/email_mentor"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/number_phone_input_text_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorFlatWhite"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/number_phone_edit_text_mentor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:hint="@string/phone_number_mentor"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/submit_action_btn_mentor"
                 android:layout_width="fill_parent"

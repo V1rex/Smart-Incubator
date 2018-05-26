@@ -48,6 +48,8 @@
 
     <string name="city_mentor">Mentor City</string>
     <string name="specialty_mentor">Mentor Specialty</string>
+    <string name="email_mentor">Mentor Email</string>
+    <string name="phone_number_mentor">Mentor Phone Number</string>
 
 
     <!-- Strings related to login -->
@@ -69,6 +71,12 @@
     <string name="toolbar_search_name">Search</string>
     <string name="toolbar_logout_name">Logout</string>
     <string name="title_activity_settings">Settings</string>
+
+
+    <string name="update">Update</string>
+    <string name="loading_data">Loading your data ...</string>
+
+
 
 
 </resources>

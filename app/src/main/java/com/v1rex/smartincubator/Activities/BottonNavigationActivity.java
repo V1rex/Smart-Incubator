@@ -53,7 +53,7 @@ public class BottonNavigationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_settings:
-//                startActivity(new Intent(BottonNavigationActivity.this, SettingsActivity.class));
+                startActivity(new Intent(BottonNavigationActivity.this, SettingsActivity.class));
                 return true;
             case  R.id.action_search:
                 startActivity(new Intent(BottonNavigationActivity.this, SearchActivity.class));

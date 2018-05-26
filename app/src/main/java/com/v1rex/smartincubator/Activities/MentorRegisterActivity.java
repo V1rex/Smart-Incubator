@@ -22,8 +22,8 @@ public class MentorRegisterActivity extends AppCompatActivity {
     private DatabaseReference ref = database.getReference("Data");
     private FirebaseAuth mAuth;
 
-    private EditText mLastNameEditText , mFirstNameEditText, mCityEditText, mSpecialityEditText;
-    private TextInputLayout mLastNameTextInput , mFirstNameTextInput, mCityTextInput, mSpecialityTextInput;
+    private EditText mLastNameEditText , mFirstNameEditText, mCityEditText, mSpecialityEditText, mEmailEditText , mPhoneNumberEditText;
+    private TextInputLayout mLastNameTextInput , mFirstNameTextInput, mCityTextInput, mSpecialityTextInput, mEmailTextInput, mPhoneNumberTextInput;
     private Button mSubmitMentorBtn;
 
     @Override
@@ -44,6 +44,13 @@ public class MentorRegisterActivity extends AppCompatActivity {
 
         mSpecialityEditText = (EditText) findViewById(R.id.speciality_edit_text_mentor);
         mSpecialityTextInput = (TextInputLayout) findViewById(R.id.speciality_input_text_mentor);
+
+        mEmailEditText = (EditText) findViewById(R.id.email_edit_text_mentor);
+        mEmailTextInput = (TextInputLayout) findViewById(R.id.email_input_text_mentor);
+
+        mPhoneNumberEditText = (EditText) findViewById(R.id.number_phone_edit_text_mentor);
+        mPhoneNumberTextInput = (TextInputLayout) findViewById(R.id.number_phone_input_text_mentor);
+
 
         mSubmitMentorBtn = (Button) findViewById(R.id.submit_action_btn_mentor);
         mSubmitMentorBtn.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +74,8 @@ public class MentorRegisterActivity extends AppCompatActivity {
         String firstName  = mFirstNameEditText.getText().toString();
         String city = mCityEditText.getText().toString();
         String specialty = mSpecialityEditText.getText().toString();
+        String email = mEmailEditText.getText().toString();
+        String phoneNumber = mPhoneNumberEditText.getText().toString();
         boolean cancel = false;
 
         if(TextUtils.isEmpty(lastName)){
@@ -81,10 +90,17 @@ public class MentorRegisterActivity extends AppCompatActivity {
         } if(TextUtils.isEmpty(specialty)){
             mSpecialityTextInput.setError(getString(R.string.field_requierd));
             cancel = true;
+        } if(TextUtils.isEmpty(email)){
+            mEmailTextInput.setError(getString(R.string.field_requierd));
+            cancel = true;
+
+        } if(TextUtils.isEmpty(phoneNumber)){
+            mPhoneNumberTextInput.setError(getString(R.string.field_requierd));
+            cancel = true;
         }
 
         if(cancel == false){
-            Mentor mentor = new Mentor(city, specialty , lastName, firstName, mAuth.getUid());
+            Mentor mentor = new Mentor(city, specialty , lastName, firstName, email, phoneNumber, mAuth.getUid());
             DatabaseReference mentorsRef = ref.child("mentors");
             DatabaseReference mentorRef = mentorsRef.child(mentor.getmUserId());
             mentorRef.setValue(mentor);

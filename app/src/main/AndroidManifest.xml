@@ -24,12 +24,12 @@
         <activity
             android:name=".Activities.BottonNavigationActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".Activities.SearchActivity" />
         <activity android:name=".Activities.UserInformationsActivity" />
         <activity android:name=".Activities.MentorRegisterActivity" />
         <activity android:name=".Activities.StartupRegisterActivity" />
         <activity android:name=".Activities.MentorProfileActivity" />
-        <activity android:name=".Activities.StartupProfileActivity"></activity>
+        <activity android:name=".Activities.StartupProfileActivity" />
+        <activity android:name=".Activities.SettingsActivity"></activity>
     </application>
 
 </manifest>

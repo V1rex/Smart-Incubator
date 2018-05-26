@@ -91,6 +91,7 @@ public class UserInformationsActivity extends AppCompatActivity {
         String email = mEmailEditText.getText().toString();
         String age = mAgeEditText.getText().toString();
         String sexe = "";
+        String accountType = "";
 
 
 
@@ -143,11 +144,17 @@ public class UserInformationsActivity extends AppCompatActivity {
             mAccountTypeRequierdTextView.setVisibility(View.VISIBLE);
 
         } else{
+            if(startupSelected == true){
+                accountType = "Startup";
+
+            } else if(mentorSlected == true){
+                accountType = "Mentor";
+            }
 
         }
 
         if(cancel == false){
-            User user = new User(lastName, firstName, email, sexe, age, mAuth.getUid());
+            User user = new User(lastName, firstName, email, sexe, age,accountType, mAuth.getUid());
             DatabaseReference usersRef = ref.child("users");
             DatabaseReference userRef = usersRef.child(user.getmUserId());
             userRef.setValue(user);

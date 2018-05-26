@@ -2,24 +2,36 @@ package com.v1rex.smartincubator.Model;
 
 import java.io.Serializable;
 
-public class Mentor implements Serializable {
+public class Mentor  {
     private String mLastName ;
     private String mFirstName;
     private String mCity;
     private String mSpeciality;
-    private String mAccountType;
+    private String mEmail;
+    private String mPhoneNumber;
     private String mUserId;
 
-    public Mentor(String mCity, String mSpeciality, String mLastName , String mFirstName, String mUserId ) {
+    public Mentor(String mCity, String mSpeciality, String mLastName , String mFirstName,String mEmail, String mPhoneNumber, String mUserId ) {
         this.mCity = mCity;
         this.mSpeciality = mSpeciality;
         this.mUserId = mUserId;
         this.mFirstName = mFirstName;
         this.mLastName = mLastName;
+        this.mEmail = mEmail;
+        this.mPhoneNumber = mPhoneNumber;
     }
 
     public Mentor(){
 
+    }
+
+
+    public String getmEmail() {
+        return mEmail;
+    }
+
+    public String getmPhoneNumber() {
+        return mPhoneNumber;
     }
 
     public String getmCity() {
@@ -30,9 +42,6 @@ public class Mentor implements Serializable {
         return mSpeciality;
     }
 
-    public String getmAccountType() {
-        return mAccountType;
-    }
 
     public String getmUserId() {
         return mUserId;

@@ -56,7 +56,7 @@ public class MentorsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), MentorProfileActivity.class);
-                        intent.putExtra("Object Mentor", model);
+                        intent.putExtra("Mentor userId", model.getmUserId());
                         startActivity(intent);
                     }
                 });

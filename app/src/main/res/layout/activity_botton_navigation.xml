@@ -15,7 +15,10 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/Theme.AppCompat.Light"
-        app:popupTheme="@style/Theme.AppCompat.Light"/>
+        app:popupTheme="@style/Theme.AppCompat.Light"
+        >
+
+    </android.support.v7.widget.Toolbar>
 
 
     <FrameLayout
