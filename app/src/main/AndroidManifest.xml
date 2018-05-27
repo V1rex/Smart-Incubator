@@ -29,7 +29,8 @@
         <activity android:name=".Activities.StartupRegisterActivity" />
         <activity android:name=".Activities.MentorProfileActivity" />
         <activity android:name=".Activities.StartupProfileActivity" />
-        <activity android:name=".Activities.SettingsActivity"></activity>
+        <activity android:name=".Activities.SettingsActivity" />
+        <activity android:name=".Activities.SearchActivity"></activity>
     </application>
 
 </manifest>

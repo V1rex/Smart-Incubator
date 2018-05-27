@@ -75,8 +75,8 @@
 
     <string name="update">Update</string>
     <string name="loading_data">Loading your data ...</string>
-
-
+    <string name="search_type">Search type:</string>
+    <string name="search">Search by need or speciality</string>
 
 
 </resources>
