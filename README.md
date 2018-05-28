@@ -1,6 +1,6 @@
 # Smart Incubator
 
-![app icon](https://thumb.ibb.co/crc2Qy/icon.png)
+![](https://raw.githubusercontent.com/V1rex/SmartIncubator/master/app/src/main/res/drawable-xxhdpi/icon.png =250x250)
 
 An Android App coded in Java that use Firebase Backend for helping startup to find Mentors. 
 
