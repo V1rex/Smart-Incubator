@@ -40,7 +40,6 @@ public class BottonNavigationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
     }
 
     @Override
