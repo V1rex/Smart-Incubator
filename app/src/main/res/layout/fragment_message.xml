@@ -2,5 +2,146 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/meetings_recyclerview"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/linearlayout_received"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#92000000"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_layout"
+            android:backgroundTint="@color/colorFlatWhite"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_margin="32dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/exit_received"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_highlight_off_black_24dp"
+                    android:background="@android:color/transparent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meeting Informations:"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="#2d2b2b"
+                    android:fontFamily="sans-serif-condensed"
+                    />
+                <ImageButton
+                    android:id="@+id/update_received"
+                    android:layout_marginLeft="8dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_offline_pin_black_24dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+            
+            <TextView
+                android:id="@+id/received_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Name: Mohamed Amine Bahij"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:id="@+id/received_user_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Email: go4computergeek@gmail.com"
+                android:textSize="16dp"/>
+
+
+            <TextView
+                android:id="@+id/received_user_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Type: Mentor "
+                android:textSize="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_vertical"/>
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/accept_received_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="accept"
+                        android:textAppearance="?android:textAppearanceMedium" />
+                    <RadioButton
+                        android:id="@+id/refuse_received_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="refuse"
+                        android:textAppearance="?android:textAppearanceMedium" />
+                </RadioGroup>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/see_profile_received"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See profile"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"/>
+
+
+            
+
+
+            
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>

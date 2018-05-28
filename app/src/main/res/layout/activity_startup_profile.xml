@@ -6,317 +6,492 @@
     android:layout_height="match_parent"
     tools:context=".Activities.StartupProfileActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="3">
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:background="@drawable/wallpaper_startup"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingBottom="24dp">
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:background="@drawable/wallpaper_startup"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/startup" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="24dp">
 
-                <TextView
-                    android:id="@+id/startup_name_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="@string/startup_name"
-                    android:textColor="@color/colorFlatWhite"
-                    android:textSize="22sp" />
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/startup" />
 
-                <TextView
-                    android:id="@+id/startup_domain_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="@string/domain_startup"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/startup_name_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@string/startup_name"
+                        android:textColor="@color/colorFlatWhite"
+                        android:textSize="22sp" />
 
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:paddingTop="58dp"
-            android:paddingLeft="28dp"
-            android:paddingRight="28dp">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical">
-
-
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="100dp"
-                      android:orientation="horizontal"
-                      android:padding="8dp">
-
-                      <ImageView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:src="@drawable/associate" />
-
-                      <LinearLayout
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="vertical"
-                          android:paddingLeft="16dp">
-
-                          <TextView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:fontFamily="sans-serif-condensed"
-                              android:text="@string/need_startup"
-                              android:textSize="20sp" />
-
-                          <TextView
-                              android:id="@+id/startup_need_profile"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="Programmers"
-                              android:textColor="@color/colorPrimaryDark"
-                              android:textSize="18sp" />
-
-                      </LinearLayout>
-
-                  </LinearLayout>
-
-
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="100dp"
-                      android:orientation="horizontal"
-                      android:padding="8dp">
-
-                      <ImageView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:src="@drawable/statue" />
-
-                      <LinearLayout
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="vertical"
-                          android:paddingLeft="16dp">
-
-                          <TextView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:fontFamily="sans-serif-condensed"
-                              android:text="@string/juridique_status_startup"
-                              android:textSize="20sp" />
-
-                          <TextView
-                              android:id="@+id/startup_jurdique_profile"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="SARL"
-                              android:textColor="@color/colorPrimaryDark"
-                              android:textSize="18sp" />
-
-                      </LinearLayout>
-
-                  </LinearLayout>
-
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="100dp"
-                      android:orientation="horizontal"
-                      android:padding="8dp">
-
-                      <ImageView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:src="@drawable/calendar" />
-
-                      <LinearLayout
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="vertical"
-                          android:paddingLeft="16dp">
-
-                          <TextView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:fontFamily="sans-serif-condensed"
-                              android:text="@string/creation_date_startup"
-                              android:textSize="20sp" />
-
-                          <TextView
-                              android:id="@+id/startup_date_creation_profile"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="16/07/2018"
-                              android:textColor="@color/colorPrimaryDark"
-                              android:textSize="18sp" />
-
-                      </LinearLayout>
-
-                  </LinearLayout>
-
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="100dp"
-                      android:orientation="horizontal"
-                      android:padding="8dp">
-
-                      <ImageView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:src="@drawable/employees" />
-
-                      <LinearLayout
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="vertical"
-                          android:paddingLeft="16dp">
-
-                          <TextView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:fontFamily="sans-serif-condensed"
-                              android:text="@string/number_employees_startup"
-                              android:textSize="20sp" />
-
-                          <TextView
-                              android:id="@+id/startup_number_employees_profile"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="10"
-                              android:textColor="@color/colorPrimaryDark"
-                              android:textSize="18sp" />
-
-                      </LinearLayout>
-
-                  </LinearLayout>
+                    <TextView
+                        android:id="@+id/startup_domain_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@string/domain_startup"
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
 
 
-            </ScrollView>
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="92dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginRight="22dp"
-        app:cardCornerRadius="8dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:weightSum="3">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="@string/fond_startup"
-                    android:textSize="22dp" />
-
-                <TextView
-                    android:id="@+id/startup_fond_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="18000dh"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1.5"
-                android:orientation="vertical">
+                android:paddingTop="58dp"
+                android:paddingLeft="28dp"
+                android:paddingRight="28dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="@string/chiffre_startup"
-                    android:textSize="22dp" />
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/startup_chiffre_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="12000dh"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/associate" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingLeft="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-condensed"
+                                    android:text="@string/need_startup"
+                                    android:textSize="20sp" />
+
+                                <TextView
+                                    android:id="@+id/startup_need_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Programmers"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="18sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/statue" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingLeft="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-condensed"
+                                    android:text="@string/juridique_status_startup"
+                                    android:textSize="20sp" />
+
+                                <TextView
+                                    android:id="@+id/startup_jurdique_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="SARL"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="18sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/calendar" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingLeft="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-condensed"
+                                    android:text="@string/creation_date_startup"
+                                    android:textSize="20sp" />
+
+                                <TextView
+                                    android:id="@+id/startup_date_creation_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="16/07/2018"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="18sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/employees" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingLeft="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-condensed"
+                                    android:text="@string/number_employees_startup"
+                                    android:textSize="20sp" />
+
+                                <TextView
+                                    android:id="@+id/startup_number_employees_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="18sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </ScrollView>
+
+            </RelativeLayout>
 
 
         </LinearLayout>
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            app:cardCornerRadius="8dp">
 
-    </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:weightSum="3">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        app:fabSize="normal"
-        android:src="@drawable/ic_message_black_24dp"
-        android:layout_margin="16dp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@string/fond_startup"
+                        android:textSize="22dp" />
+
+                    <TextView
+                        android:id="@+id/startup_fond_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="18000dh"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@string/chiffre_startup"
+                        android:textSize="22dp" />
+
+                    <TextView
+                        android:id="@+id/startup_chiffre_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="12000dh"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:fabSize="normal"
+            android:src="@drawable/ic_message_black_24dp"
+            android:layout_margin="16dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/meeting_startup_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#92000000"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_layout"
+            android:backgroundTint="@color/colorFlatWhite"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_margin="32dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/exit_mettings_startup"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_highlight_off_black_24dp"
+                    android:background="@android:color/transparent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meeting Informations:"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="#2d2b2b"
+                    android:fontFamily="sans-serif-condensed"
+                    />
+                <ImageButton
+                    android:id="@+id/send_mettings_startup"
+                    android:layout_marginLeft="8dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_offline_pin_black_24dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_place_meeting_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/meeting_place_edit_text_startup"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:inputType="textEmailAddress"
+                    android:hint="Meeting Place"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/set_date_startup_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:padding="4dp"
+                android:textColor="@color/colorFlatWhite"
+                android:background="@color/colorPrimary"
+                android:text="Set Date"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                />
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/set_time_startup_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textColor="@color/colorFlatWhite"
+                android:background="@color/colorPrimary"
+                android:text="Set time"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/date_picker_startup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/finished_date_startup"
+
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_offline_pin_white_24dp"
+            android:background="@android:color/transparent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="56dp"
+            android:orientation="vertical">
+
+            <DatePicker
+                android:id="@+id/date_picker_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFlatWhite"
+                />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_picker_startup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/finished_time_startup"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_offline_pin_white_24dp"
+            android:background="@android:color/transparent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="56dp"
+            android:orientation="vertical">
+
+            <TimePicker
+                android:id="@+id/time_picker_startup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFlatWhite"
+                />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>

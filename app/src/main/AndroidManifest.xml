@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.v1rex.smartincubator">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"

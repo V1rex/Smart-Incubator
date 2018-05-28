@@ -23,10 +23,10 @@ public class MentorViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setmCityTextView(String city){
-        mCityTextView.setText(city);
+        mCityTextView.setText("City: " +  city);
     }
 
     public void setmSpecialityTextView(String speciality){
-        mSpecialityTextView.setText(speciality);
+        mSpecialityTextView.setText("Speciality: " + speciality);
     }
 }

@@ -7,6 +7,11 @@
     android:background="@drawable/gradient"
     tools:context=".Activities.MentorProfileActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <android.support.v7.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
@@ -174,16 +179,187 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_message_mentor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/ic_message_black_24dp"
+            app:fabSize="normal" />
+    </RelativeLayout>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_message_black_24dp"
-        app:fabSize="normal" />
+    <LinearLayout
+        android:id="@+id/meeting_mentor_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#92000000"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_layout"
+            android:backgroundTint="@color/colorFlatWhite"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_margin="32dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/exit_mettings_mentor"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_highlight_off_black_24dp"
+                    android:background="@android:color/transparent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meeting Informations:"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="#2d2b2b"
+                    android:fontFamily="sans-serif-condensed"
+                    />
+                <ImageButton
+                    android:id="@+id/send_mettings_mentor"
+                    android:layout_marginLeft="8dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_offline_pin_black_24dp"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_place_meeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            <EditText
+                android:id="@+id/meeting_place_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:inputType="textEmailAddress"
+                android:hint="Meeting Place"
+                />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/set_date_mentor_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:padding="4dp"
+                android:textColor="@color/colorFlatWhite"
+                android:background="@color/colorPrimary"
+                android:text="Set Date"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                />
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/set_time_mentor_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textColor="@color/colorFlatWhite"
+                android:background="@color/colorPrimary"
+                android:text="Set time"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/date_picker_mentor_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/finished_date_mentor"
+
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_offline_pin_white_24dp"
+            android:background="@android:color/transparent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="56dp"
+            android:orientation="vertical">
+
+            <DatePicker
+                android:id="@+id/date_picker_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFlatWhite"
+                />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_picker_mentor_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/finished_time_mentor"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_offline_pin_white_24dp"
+            android:background="@android:color/transparent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="56dp"
+            android:orientation="vertical">
+
+            <TimePicker
+                android:id="@+id/time_picker_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFlatWhite"
+                />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

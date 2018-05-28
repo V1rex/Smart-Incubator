@@ -1,49 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_startups"
     android:layout_width="match_parent"
-    android:layout_height="90dp">
+    android:layout_height="220dp"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="16dp">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/icon_mentor"
-            android:layout_width="76dp"
-            android:layout_height="76dp"
-            android:src="@drawable/profile"
-            android:layout_margin="8dp"
-            />
+        android:layout_height="match_parent"
+        android:background="@drawable/wallpaper_mentor">
+
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/mentor_name_text_view"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:background="#aaffffff"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MVJI"
-                android:textSize="22sp"
-                android:layout_marginTop="8dp"
-                android:textColor="#393939"
-                />
-            <TextView
-                android:id="@+id/mentor_speciality_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Speciality : Programmation"
-                android:textSize="16sp"
-                />
-            <TextView
-                android:id="@+id/mentor_city_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="City : Agadir"
-                android:textSize="16sp"
-                />
+                android:layout_marginTop="32dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mentor_speciality_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Domain : Sante"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/mentor_city_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manque : Programmation"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/profile" />
+
+        <TextView
+            android:id="@+id/mentor_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal"
+            android:text="MVJI"
+            android:textColor="#ffffff"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/icon_mentor"-->
+            <!--android:layout_width="76dp"-->
+            <!--android:layout_height="76dp"-->
+            <!--android:src="@drawable/profile"-->
+            <!--android:layout_margin="8dp"-->
+            <!--/>-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+            <!--<TextView-->
+                <!--android:id="@+id/mentor_name_text_view"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="MVJI"-->
+                <!--android:textSize="22sp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:textColor="#393939"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/mentor_speciality_text_view"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Speciality : Programmation"-->
+                <!--android:textSize="16sp"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/mentor_city_text_view"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="City : Agadir"-->
+                <!--android:textSize="16sp"-->
+                <!--/>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
 
 </android.support.v7.widget.CardView>
