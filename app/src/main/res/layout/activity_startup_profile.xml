@@ -360,7 +360,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Meeting Informations:"
+                    android:text="@string/meeting_informations"
                     android:gravity="center"
                     android:textSize="20sp"
                     android:textColor="#2d2b2b"
@@ -369,7 +369,6 @@
                 <ImageButton
                     android:id="@+id/send_mettings_startup"
                     android:layout_marginLeft="8dp"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_offline_pin_black_24dp"
@@ -389,7 +388,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="78dp"
                     android:inputType="textEmailAddress"
-                    android:hint="Meeting Place"
+                    android:hint="@string/meeting_place"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -403,7 +402,7 @@
                 android:padding="4dp"
                 android:textColor="@color/colorFlatWhite"
                 android:background="@color/colorPrimary"
-                android:text="Set Date"
+                android:text="@string/meeting_set_date"
                 android:drawableLeft="@drawable/ic_date_range_black_24dp"
                 />
 
@@ -415,7 +414,7 @@
                 android:padding="4dp"
                 android:textColor="@color/colorFlatWhite"
                 android:background="@color/colorPrimary"
-                android:text="Set time"
+                android:text="@string/meeting_set_time"
                 android:drawableLeft="@drawable/ic_access_time_black_24dp"
                 />
 
@@ -433,7 +432,6 @@
         android:orientation="vertical">
         <ImageButton
             android:id="@+id/finished_date_startup"
-
             android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

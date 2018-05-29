@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +58,8 @@ public class UserInformationsActivity extends AppCompatActivity {
         mAccountTypeRequierdTextView = (TextView) findViewById(R.id.account_type_requierd_text_view);
 
         mSubmit = (Button) findViewById(R.id.submit_action_btn);
+
+        // get the email of the user
         mEmailEditText.setText(mAuth.getCurrentUser().getEmail());
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -70,11 +70,6 @@ public class UserInformationsActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
     }
 
     @Override
@@ -82,17 +77,21 @@ public class UserInformationsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method for submitting the user informations
+     */
     private void submit(){
         mSexeRequierdTextView.setVisibility(View.GONE);
         mAccountTypeRequierdTextView.setVisibility(View.GONE);
+        // a boolean to cancel submit if something is not good
         boolean cancel = false;
+
         String lastName= mLastNameEditText.getText().toString();
         String firstName = mFirstNameEditText.getText().toString();
         String email = mEmailEditText.getText().toString();
         String age = mAgeEditText.getText().toString();
         String sexe = "";
         String accountType = "";
-
 
 
         Boolean maleSelected = mMaleButton.isChecked();
@@ -106,7 +105,6 @@ public class UserInformationsActivity extends AppCompatActivity {
         } else if(TextUtils.isEmpty(email)){
             mEmailTextInputLayout.setError(getString(R.string.field_requierd));
             cancel = true;
-
         }
 
         if(TextUtils.isEmpty(lastName)){
@@ -142,7 +140,6 @@ public class UserInformationsActivity extends AppCompatActivity {
         if(startupSelected== false && mentorSlected == false){
             cancel = true;
             mAccountTypeRequierdTextView.setVisibility(View.VISIBLE);
-
         } else{
             if(startupSelected == true){
                 accountType = "Startup";
@@ -154,10 +151,14 @@ public class UserInformationsActivity extends AppCompatActivity {
         }
 
         if(cancel == false){
+            //Creating a new User object for submitting it
             User user = new User(lastName, firstName, email, sexe, age,accountType, mAuth.getUid());
+
+            // Setting where to submit the user in the firebase realtime database
             DatabaseReference usersRef = ref.child("users");
             DatabaseReference userRef = usersRef.child(user.getmUserId());
             userRef.setValue(user);
+
 
             if(mentorSlected == true){
                 startActivity(new Intent(UserInformationsActivity.this, MentorRegisterActivity.class));
@@ -171,10 +172,10 @@ public class UserInformationsActivity extends AppCompatActivity {
 
     }
 
+    // check if the email is good
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
     }
-
 
 }

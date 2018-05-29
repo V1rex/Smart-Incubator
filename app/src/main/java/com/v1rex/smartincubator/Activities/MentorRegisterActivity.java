@@ -1,7 +1,6 @@
 package com.v1rex.smartincubator.Activities;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ public class MentorRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mentor_register);
+        // get instance of the Auth firebase
         mAuth = FirebaseAuth.getInstance();
 
         mLastNameEditText = (EditText) findViewById(R.id.last_name_edit_text_mentor);
@@ -76,6 +76,8 @@ public class MentorRegisterActivity extends AppCompatActivity {
         String specialty = mSpecialityEditText.getText().toString();
         String email = mEmailEditText.getText().toString();
         String phoneNumber = mPhoneNumberEditText.getText().toString();
+
+        // boolean for cancelling the submit if something is wrong
         boolean cancel = false;
 
         if(TextUtils.isEmpty(lastName)){
@@ -100,10 +102,15 @@ public class MentorRegisterActivity extends AppCompatActivity {
         }
 
         if(cancel == false){
+            // Creating a Mentor object
             Mentor mentor = new Mentor(city, specialty , lastName, firstName, email, phoneNumber, mAuth.getUid());
+
+            // Setting where to store informations about the mentor in the firebase Realtime Database
             DatabaseReference mentorsRef = ref.child("mentors");
             DatabaseReference mentorRef = mentorsRef.child(mentor.getmUserId());
             mentorRef.setValue(mentor);
+
+
             startActivity(new Intent(MentorRegisterActivity.this, BottonNavigationActivity.class));
         }
 

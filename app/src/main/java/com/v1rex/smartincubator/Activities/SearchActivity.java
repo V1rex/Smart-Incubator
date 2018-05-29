@@ -31,24 +31,25 @@ public class SearchActivity extends AppCompatActivity {
     private ImageButton mBackButton;
     private RadioButton mStartupRadioButton, mMentorRadioButton;
 
-    DatabaseReference mReferenceStartups;
-    FirebaseRecyclerAdapter<Startup, StartupViewHolder> StartupfirebaseRecyclerAdapter;
-    FirebaseRecyclerOptions<Startup> Startupoptions;
+    private DatabaseReference mReferenceStartups;
+    private FirebaseRecyclerAdapter<Startup, StartupViewHolder> StartupfirebaseRecyclerAdapter;
+    private FirebaseRecyclerOptions<Startup> Startupoptions;
 
-    DatabaseReference mReferenceMentors;
-    FirebaseRecyclerAdapter<Mentor, MentorViewHolder> MentorfirebaseRecyclerAdapter;
-    FirebaseRecyclerOptions<Mentor> Mentoroptions;
+    private DatabaseReference mReferenceMentors;
+    private FirebaseRecyclerAdapter<Mentor, MentorViewHolder> MentorfirebaseRecyclerAdapter;
+    private FirebaseRecyclerOptions<Mentor> Mentoroptions;
 
     private RecyclerView mStartupsRecyclerView , mMentorsRecyclerView;
     private LinearLayout mStartupsLinearLayout, mMentorsLinearLayout;
 
-    String searchText;
+    private String searchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // setting the return button manually
         mBackButton = (ImageButton) findViewById(R.id.search_back_button);
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +92,11 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * search between startups or mentors
+     * @param search
+     */
     private void search(String search){
         if(mStartupRadioButton.isChecked() == true){
             mStartupsLinearLayout.setVisibility(View.VISIBLE);
@@ -144,6 +150,7 @@ public class SearchActivity extends AppCompatActivity {
 
             mReferenceMentors = FirebaseDatabase.getInstance().getReference().child("Data").child("mentors");
             mReferenceMentors.keepSynced(true);
+            // setting the query for the search
             Query query = mReferenceMentors.orderByChild("mSpeciality").startAt(search);
 
             Mentoroptions = new FirebaseRecyclerOptions.Builder<Mentor>().setQuery(query, Mentor.class).build();
@@ -176,22 +183,10 @@ public class SearchActivity extends AppCompatActivity {
                 }
             };
 
-
             mMentorsRecyclerView.setAdapter(MentorfirebaseRecyclerAdapter);
             MentorfirebaseRecyclerAdapter.startListening();
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
 }

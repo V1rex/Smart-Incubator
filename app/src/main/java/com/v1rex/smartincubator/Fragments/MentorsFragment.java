@@ -16,25 +16,25 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.v1rex.smartincubator.Activities.MentorProfileActivity;
-import com.v1rex.smartincubator.Activities.StartupProfileActivity;
 import com.v1rex.smartincubator.Model.Mentor;
-import com.v1rex.smartincubator.Model.Startup;
 import com.v1rex.smartincubator.R;
 import com.v1rex.smartincubator.ViewHolder.MentorViewHolder;
-import com.v1rex.smartincubator.ViewHolder.StartupViewHolder;
+
 
 public class MentorsFragment extends Fragment {
 
     private RecyclerView mList;
-    DatabaseReference mReference;
-    FirebaseRecyclerAdapter<Mentor, MentorViewHolder> firebaseRecyclerAdapter;
-    FirebaseRecyclerOptions<Mentor> options;
-    View view;
+    private DatabaseReference mReference;
+    private FirebaseRecyclerAdapter<Mentor, MentorViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerOptions<Mentor> options;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_mentors, container, false);
+
+        //Setting where to find data in the realtime database
         mReference = FirebaseDatabase.getInstance().getReference().child("Data").child("mentors");
         mReference.keepSynced(true);
 
@@ -44,6 +44,7 @@ public class MentorsFragment extends Fragment {
 
         options = new FirebaseRecyclerOptions.Builder<Mentor>().setQuery(mReference, Mentor.class).build();
 
+        // setting the firebaseRecyclerAdapter for the showing Mentors
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Mentor, MentorViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MentorViewHolder holder, int position, @NonNull final Mentor model) {
@@ -51,7 +52,7 @@ public class MentorsFragment extends Fragment {
                 holder.setmCityTextView(model.getmCity());
                 holder.setmSpecialityTextView(model.getmSpeciality());
 
-
+                // open the mentor profile if the item is clicked
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -67,7 +68,6 @@ public class MentorsFragment extends Fragment {
             @Override
             public MentorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_mentors_layout,parent, false);
-
                 return new MentorViewHolder(view) ;
             }
         };
@@ -75,12 +75,14 @@ public class MentorsFragment extends Fragment {
         return view;
     }
 
+    // Listening for changes in the Realtime Database
     @Override
     public void onStart() {
         super.onStart();
         firebaseRecyclerAdapter.startListening();
     }
 
+    // Stop listening for changes in the Realtime Database
     @Override
     public void onStop() {
         super.onStop();

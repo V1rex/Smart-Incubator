@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +24,7 @@ import com.v1rex.smartincubator.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    String accountType;
+    private String accountType;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference refUsers, refMentors, refStartups ;
     private FirebaseAuth mAuth;
@@ -44,19 +43,20 @@ public class SettingsActivity extends AppCompatActivity {
     private Button mSubmitMentorBtn;
 
 
-    View mMentorInformationsRelativeLayout, mStartupInformationsRelativeLayout, mLoadingData;
+    private View mMentorInformationsRelativeLayout, mStartupInformationsRelativeLayout, mLoadingData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-
+        // getting Auth firebase instance
         mAuth = FirebaseAuth.getInstance();
+
         mMentorInformationsRelativeLayout = (RelativeLayout) findViewById(R.id.mentor_layout_settings);
         mStartupInformationsRelativeLayout = (RelativeLayout) findViewById(R.id.startup_layout_settings);
         mLoadingData = (LinearLayout) findViewById(R.id.progress_loading);
 
-
+        // getting user infromations for the purpose of getting the user account type
         refUsers = database.getReference("Data").child("users");
 
         valueEventListenerUser = new ValueEventListener() {
@@ -79,11 +79,13 @@ public class SettingsActivity extends AppCompatActivity {
         refUsers.addValueEventListener(valueEventListenerUser);
 
 
-
-
     }
 
+    /**
+     * choosing wich view to display and load mentor or startup informations
+     */
     private void choose(){
+        //if account type is a startup show the view for it
         if(accountType.equals("Startup")){
             mStartupInformationsRelativeLayout.setVisibility(View.VISIBLE);
             valueEventListenerStartup = new ValueEventListener() {
@@ -104,10 +106,12 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             };
             refStartups = database.getReference("Data").child("startups");
+
             refStartups.addValueEventListener(valueEventListenerStartup);
 
-
-        } else if(accountType.equals("Mentor")){
+        }
+        //if account type is a mentor show the view for it
+        else if(accountType.equals("Mentor")){
             mMentorInformationsRelativeLayout.setVisibility(View.VISIBLE);
 
             valueEventListenerMentor = new ValueEventListener() {
@@ -134,6 +138,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * show mentor informations in the text field etc.
+     */
     private void openMentor(){
         if(mentor != null){
             mLastNameEditText = (EditText) findViewById(R.id.last_name_edit_text_mentor_settings);
@@ -198,6 +205,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * show startup informations in the text field etc.
+     */
     private void openStartup(){
         if(startup != null){
             mStartupNameEditText = (EditText) findViewById(R.id.startup_name_edit_text_startp_settings);
@@ -326,6 +336,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * update mentor informations
+     */
     private void submitMentor(){
 
         String lastName = mLastNameEditText.getText().toString();
@@ -371,6 +384,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * update startup informations
+     */
     private void submitStartup(){
         String mStartupName = mStartupNameEditText.getText().toString();
         String mAssociate = mAssociateEditText.getText().toString();

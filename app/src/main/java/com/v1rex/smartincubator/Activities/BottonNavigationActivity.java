@@ -18,12 +18,14 @@ import com.v1rex.smartincubator.R;
 public class BottonNavigationActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_botton_navigation);
 
 
+        // Setting the toolbar
         toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getString(R.string.app_name));
@@ -37,11 +39,9 @@ public class BottonNavigationActivity extends AppCompatActivity {
 
     }
 
-
-
     @Override
     public void onBackPressed() {
-    }
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

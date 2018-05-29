@@ -1,7 +1,6 @@
 package com.v1rex.smartincubator.Activities;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import com.v1rex.smartincubator.Model.Startup;
 import com.v1rex.smartincubator.R;
 
 public class StartupRegisterActivity extends AppCompatActivity {
+
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref = database.getReference("Data");
     private FirebaseAuth mAuth;
@@ -33,6 +33,7 @@ public class StartupRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup_register);
+        // gettting instance of the Auth firebase
         mAuth = FirebaseAuth.getInstance();
 
         mStartupNameEditText = (EditText) findViewById(R.id.startup_name_edit_text_startp);
@@ -90,6 +91,9 @@ public class StartupRegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * A method for submitting the startup informations
+     */
     private void submit(){
 
         String mStartupName = mStartupNameEditText.getText().toString();
@@ -107,6 +111,7 @@ public class StartupRegisterActivity extends AppCompatActivity {
         String mNeed = mNeedEditText.getText().toString();
         String mDomain = mDomainEditText.getText().toString();
 
+        // a boolean for cancelling action if something is wrong
         boolean cancel = false;
 
         if(TextUtils.isEmpty(mStartupName)){
@@ -144,8 +149,10 @@ public class StartupRegisterActivity extends AppCompatActivity {
 
 
             if(cancel == false){
+            //Creating a new Startup object
                 Startup startup = new Startup(mStartupName, mAssociate, mDescription, mWebsite, mPageFacebook,  mDateOfIncubation, mJuridiqueSatatus, mCreationDate, mNumberEmployees, mObjective, mFond,  mChiffre, mAuth.getUid(), mNeed, mDomain);
 
+                // setting where to store startup informations in the firebase Realtime Database
                 DatabaseReference startupsRef = ref.child("startups");
                 DatabaseReference startupRef = startupsRef.child(startup.getmUserId());
                 startupRef.setValue(startup);
@@ -155,11 +162,8 @@ public class StartupRegisterActivity extends AppCompatActivity {
 
     }
 
-
-
     @Override
     public void onBackPressed() {
-
 
     }
 }

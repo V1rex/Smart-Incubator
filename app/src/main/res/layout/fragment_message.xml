@@ -12,8 +12,6 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
         android:id="@+id/linearlayout_received"
         android:layout_width="match_parent"
@@ -48,7 +46,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Meeting Informations:"
+                    android:text="@string/meeting_informations"
                     android:gravity="center"
                     android:textSize="20sp"
                     android:textColor="#2d2b2b"
@@ -95,7 +93,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status"
+                    android:text="@string/meeting_status"
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"/>
 
@@ -107,13 +105,13 @@
                         android:id="@+id/accept_received_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="accept"
+                        android:text="@string/meeting_status_accept"
                         android:textAppearance="?android:textAppearanceMedium" />
                     <RadioButton
                         android:id="@+id/refuse_received_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="refuse"
+                        android:text="@string/meeting_status_refuse"
                         android:textAppearance="?android:textAppearanceMedium" />
                 </RadioGroup>
 
@@ -129,13 +127,9 @@
                 android:id="@+id/see_profile_received"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="See profile"
+                android:text="@string/see_profile"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"/>
-
-
-            
-
 
             
         </LinearLayout>

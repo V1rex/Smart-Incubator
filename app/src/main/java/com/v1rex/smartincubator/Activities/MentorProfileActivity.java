@@ -1,7 +1,6 @@
 package com.v1rex.smartincubator.Activities;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +55,10 @@ public class MentorProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mentor_profile);
+
+        // getting instance of the Auth firebase
         mAuth = FirebaseAuth.getInstance();
+        // getting the userId for the purpose of the choosing what Startup to show
         Intent intent = getIntent();
         final String userId = intent.getStringExtra("Mentor userId");
 
@@ -83,6 +85,7 @@ public class MentorProfileActivity extends AppCompatActivity {
         mDateLayout = (LinearLayout) findViewById(R.id.date_picker_mentor_layout);
         mTimeLayout = (LinearLayout) findViewById(R.id.time_picker_mentor_layout);
 
+        // showing a popup for sending a meeting
         mSendMessageButton = (FloatingActionButton) findViewById(R.id.fab_message_mentor);
         mSendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,17 +143,22 @@ public class MentorProfileActivity extends AppCompatActivity {
                     SimpleDateFormat date = new SimpleDateFormat ("yyyy.MM.dd 'at' hh:mm");
                     String dateAndTime = date.format(calendar.getTime());
 
+                    // creating a meeting object for the user who will receive the meeting
                     Meeting meeting = new Meeting(mAuth.getUid(), userId, mPlaceEdit.getText().toString(), dateAndTime, "","You received" );
 
+                    // setting where to store meetings informations for the user who will receive it
                     DatabaseReference usersRef = ref.child("users");
                     DatabaseReference userRef = usersRef.child(meeting.getmUserIdReceived()).child("mettings").child(meeting.getmUserIdSent());
+                    // store the meetings for user who received
                     userRef.setValue(meeting);
                     mMeetingsInformations.setVisibility(View.GONE);
 
-
+                    // creating a meeting object for the user who send the meeting
                     Meeting meeting2 = new Meeting(mAuth.getUid(), userId, mPlaceEdit.getText().toString(), dateAndTime, "","You sented" );
+                    // setting where to store meetings informations for the user who send it
                     DatabaseReference usersRef1 = ref.child("users");
                     DatabaseReference userRef2 = usersRef1.child(meeting.getmUserIdSent()).child("mettings").child(meeting2.getmUserIdReceived());
+                    // store the meetings for user who sent
                     userRef2.setValue(meeting2);
                 }
 
@@ -168,7 +176,7 @@ public class MentorProfileActivity extends AppCompatActivity {
         ValueEventListener valueEventListenerMentor = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                // using the stored userId for getting the specific mentor
                 mentor = dataSnapshot.child(userId).getValue(Mentor.class);
                 show();
             }
@@ -178,11 +186,16 @@ public class MentorProfileActivity extends AppCompatActivity {
 
             }
         };
+        // loading the specific startups informations
         refUser = database.getReference("Data").child("mentors");
+        // listening for the change in the Startup database
         refUser.addValueEventListener(valueEventListenerMentor);
 
     }
 
+    /**
+     * showing the mentor informations from the Startup object
+     */
     private void show(){
         mMentorNameTextView.setText(mentor.getmFirstName() + " " + mentor.getmLastName());
         mMentorSpecialityTextView.setText(mentor.getmSpeciality());

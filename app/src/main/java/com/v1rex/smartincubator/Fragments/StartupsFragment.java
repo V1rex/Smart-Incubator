@@ -24,15 +24,17 @@ import com.v1rex.smartincubator.ViewHolder.StartupViewHolder;
 public class StartupsFragment extends Fragment {
 
     private RecyclerView mList;
-    DatabaseReference mReference;
-    FirebaseRecyclerAdapter<Startup, StartupViewHolder> firebaseRecyclerAdapter;
-    FirebaseRecyclerOptions<Startup> options;
-    View view;
+    private DatabaseReference mReference;
+    private FirebaseRecyclerAdapter<Startup, StartupViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerOptions<Startup> options;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_startups, container, false);
+
+        //Setting where to find data in the realtime database
         mReference = FirebaseDatabase.getInstance().getReference().child("Data").child("startups");
         mReference.keepSynced(true);
 
@@ -42,6 +44,7 @@ public class StartupsFragment extends Fragment {
 
         options = new FirebaseRecyclerOptions.Builder<Startup>().setQuery(mReference, Startup.class).build();
 
+        // setting the firebaseRecyclerAdapter for the showing Startups
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Startup, StartupViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull StartupViewHolder holder, int position, @NonNull final Startup model) {
@@ -50,6 +53,7 @@ public class StartupsFragment extends Fragment {
                 holder.setmDomainTextView("Domain :" + " "+ model.getmDomain());
 
 
+                // open the startup profile if the item is clicked
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -65,22 +69,22 @@ public class StartupsFragment extends Fragment {
             public StartupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_startups_layout, parent, false);
-
                 return new StartupViewHolder(view);
             }
         };
 
         mList.setAdapter(firebaseRecyclerAdapter);
         return view ;
-
     }
 
+    // Listening for changes in the Realtime Database
     @Override
     public void onStart() {
         super.onStart();
         firebaseRecyclerAdapter.startListening();
     }
 
+    // Stop listening for changes in the Realtime Database
     @Override
     public void onStop() {
         super.onStop();

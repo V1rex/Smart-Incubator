@@ -12,9 +12,9 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Check if the user is logged for purpose of choosing the mainActivity for the app
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             startActivity(new Intent(SplashActivity.this, BottonNavigationActivity.class));
-
         } else if(FirebaseAuth.getInstance().getCurrentUser() == null){
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
         }

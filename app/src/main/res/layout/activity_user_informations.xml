@@ -15,7 +15,6 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp"
         app:title="@string/user_informations_activity"
-
         android:theme="@style/Theme.AppCompat.Light"
         app:popupTheme="@style/Theme.AppCompat.Light"/>
 
@@ -174,9 +173,6 @@
                 </RadioGroup>
 
 
-
-
-
             </LinearLayout>
 
             <TextView
@@ -201,8 +197,6 @@
 
 
         </LinearLayout>
-
-
 
 
     </ScrollView>
