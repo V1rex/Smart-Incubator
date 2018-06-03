@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -24,6 +25,7 @@ import com.v1rex.smartincubator.ViewHolder.MentorViewHolder;
 public class MentorsFragment extends Fragment {
 
     private RecyclerView mList;
+    private LinearLayout mLoaderMentor;
     private DatabaseReference mReference;
     private FirebaseRecyclerAdapter<Mentor, MentorViewHolder> firebaseRecyclerAdapter;
     private FirebaseRecyclerOptions<Mentor> options;
@@ -38,6 +40,9 @@ public class MentorsFragment extends Fragment {
         mReference = FirebaseDatabase.getInstance().getReference().child("Data").child("mentors");
         mReference.keepSynced(true);
 
+        mLoaderMentor = (LinearLayout) view.findViewById(R.id.mentor_load_progress);
+        mLoaderMentor.setVisibility(View.VISIBLE);
+
         mList = (RecyclerView) view.findViewById(R.id.mentors_recyclerview);
         mList.setHasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this.getActivity()));
@@ -48,6 +53,7 @@ public class MentorsFragment extends Fragment {
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Mentor, MentorViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MentorViewHolder holder, int position, @NonNull final Mentor model) {
+                mLoaderMentor.setVisibility(View.GONE);
                 holder.setmNameTextView(model.getmLastName() + " "+ model.getmFirstName());
                 holder.setmCityTextView(model.getmCity());
                 holder.setmSpecialityTextView(model.getmSpeciality());
