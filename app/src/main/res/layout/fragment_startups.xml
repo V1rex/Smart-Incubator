@@ -7,4 +7,34 @@
         android:layout_width="match_parent"
         android:id="@+id/startups_recyclerview"/>
 
+  <LinearLayout
+      android:id="@+id/startup_load_progress"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_centerVertical="true"
+      android:orientation="vertical"
+      >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/loading_data"
+          android:gravity="center"
+          android:textSize="24sp"
+          android:textColor="#2d2b2b"
+          android:fontFamily="sans-serif-condensed"
+          />
+      <ProgressBar
+          android:padding="16dp"
+          style="?android:attr/progressBarStyleLarge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          />
+
+  </LinearLayout>
+
+
 </RelativeLayout>
+

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -24,6 +25,7 @@ import com.v1rex.smartincubator.ViewHolder.StartupViewHolder;
 public class StartupsFragment extends Fragment {
 
     private RecyclerView mList;
+    private LinearLayout mLoaderStartup;
     private DatabaseReference mReference;
     private FirebaseRecyclerAdapter<Startup, StartupViewHolder> firebaseRecyclerAdapter;
     private FirebaseRecyclerOptions<Startup> options;
@@ -38,6 +40,9 @@ public class StartupsFragment extends Fragment {
         mReference = FirebaseDatabase.getInstance().getReference().child("Data").child("startups");
         mReference.keepSynced(true);
 
+        mLoaderStartup = (LinearLayout) view.findViewById(R.id.startup_load_progress);
+        mLoaderStartup.setVisibility(View.VISIBLE);
+
         mList = (RecyclerView) view.findViewById(R.id.startups_recyclerview);
         mList.setHasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this.getActivity()));
@@ -48,6 +53,7 @@ public class StartupsFragment extends Fragment {
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Startup, StartupViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull StartupViewHolder holder, int position, @NonNull final Startup model) {
+                mLoaderStartup.setVisibility(View.GONE);
                 holder.setmNeedTextView("Need :" + " "+  model.getmNeed());
                 holder.setmNameTextView(model.getmStartupName());
                 holder.setmDomainTextView("Domain :" + " "+ model.getmDomain());
@@ -71,6 +77,8 @@ public class StartupsFragment extends Fragment {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_startups_layout, parent, false);
                 return new StartupViewHolder(view);
             }
+
+
         };
 
         mList.setAdapter(firebaseRecyclerAdapter);

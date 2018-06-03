@@ -26,6 +26,7 @@
     <string name="mentor">Mentor</string>
     <string name="account_type">Account type:</string>
     <string name="submit">Submit</string>
+    <string name="loading">Loading</string>
 
     <string name="meeting_informations">Meeting Informations:</string>
     <string name="meeting_place">Meeting Place</string>
