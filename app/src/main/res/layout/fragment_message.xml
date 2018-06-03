@@ -13,6 +13,34 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/message_load_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="#2d2b2b"
+            android:fontFamily="sans-serif-condensed"
+            />
+        <ProgressBar
+            android:padding="16dp"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearlayout_received"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

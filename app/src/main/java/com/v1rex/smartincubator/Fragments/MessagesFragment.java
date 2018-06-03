@@ -33,6 +33,7 @@ import com.v1rex.smartincubator.ViewHolder.MeetingsViewHolder;
 public class MessagesFragment extends Fragment {
 
     private RecyclerView mList;
+    private LinearLayout mLoaderMessage;
     private DatabaseReference mReference;
     private FirebaseRecyclerAdapter<Meeting, MeetingsViewHolder> firebaseRecyclerAdapter;
     private FirebaseRecyclerOptions<Meeting> options;
@@ -75,6 +76,9 @@ public class MessagesFragment extends Fragment {
         mReference = FirebaseDatabase.getInstance().getReference().child("Data").child("users").child(mAuth.getUid()).child("mettings");
         mReference.keepSynced(true);
 
+        mLoaderMessage = (LinearLayout) view.findViewById(R.id.message_load_progress);
+        mLoaderMessage.setVisibility(View.VISIBLE);
+
         mList =(RecyclerView) view.findViewById(R.id.meetings_recyclerview);
         mList.setHasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this.getActivity()));
@@ -93,6 +97,7 @@ public class MessagesFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull MeetingsViewHolder holder, int position, @NonNull final Meeting model) {
+                mLoaderMessage.setVisibility(View.GONE);
                 holder.setmPlaceTextView(model.getmPlace());
                 holder.setmTypeEditText(model.getmType());
                 holder.setmDateEditText(model.getmDate());
