@@ -2,7 +2,7 @@
 
 ![](https://image.ibb.co/nQT12d/Screenshot_20180528_212525.png)
 
-An Android App coded in Java that use Firebase Backend for helping startup to find Mentors. 
+An Android App coded in Java that use Firebase as Backend for helping startup to find Mentors. 
 
 App features : 
 
@@ -16,7 +16,7 @@ App features :
 # Setup firebase:
 1. Create an new firebase project 
 2. Add just the google-services.json to /app folder
-3. Enable email authentication method in you firebase 
+3. Enable email authentication method in your firebase project
 4. Change Realtime Database rules with this : 
 
 ```sh
