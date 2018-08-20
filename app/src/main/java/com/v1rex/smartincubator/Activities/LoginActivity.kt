@@ -19,63 +19,37 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 import com.v1rex.smartincubator.R
+import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : AppCompatActivity() {
 
     private var mAuth: FirebaseAuth? = null
 
-    private var mUserNameEditText: EditText? = null
-    private var mPasswordEditText: EditText? = null
-    private var mLoginBtn: Button? = null
-    private var mEmailTextInputLaout: TextInputLayout? = null
-    private var mPasswordTextInputLayout: TextInputLayout? = null
-    private var mProgressLayout: LinearLayout? = null
-    private var mLoginView: LinearLayout? = null
-    private var mRegisterLink: TextView? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
         // getting instance of the firebase auth for authenticating the user
         mAuth = FirebaseAuth.getInstance()
 
-        mLoginView = findViewById<View>(R.id.loginView) as LinearLayout
-        mEmailTextInputLaout = findViewById<View>(R.id.input_layout_email) as TextInputLayout
-        mPasswordTextInputLayout = findViewById<View>(R.id.input_layout_password) as TextInputLayout
-        mUserNameEditText = findViewById<View>(R.id.user_login_edit_text) as EditText
-        mPasswordEditText = findViewById<View>(R.id.password_login_edit_text) as EditText
-        mLoginBtn = findViewById<View>(R.id.login_action_btn) as Button
+        login_action_btn.setOnClickListener { login() }
 
-        mLoginBtn!!.setOnClickListener { login() }
-
-        mRegisterLink = findViewById<View>(R.id.link_register) as TextView
-        mRegisterLink!!.setOnClickListener {
+        link_register.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
             finish()
         }
-        mProgressLayout = findViewById<View>(R.id.progress_login) as LinearLayout
-        mProgressLayout!!.visibility = View.GONE
 
+        progress_login.visibility = View.GONE
 
         if (savedInstanceState != null) {
             val savedEmail = savedInstanceState.getString(KEY_USERNAME_ENTRY)
-            mUserNameEditText!!.setText(savedEmail)
+            user_login_edit_text.setText(savedEmail)
 
             val savedPassword = savedInstanceState.getString(KEY_PASSWORD_ENTRY)
-            mPasswordEditText!!.setText(savedPassword)
+            password_login_edit_text.setText(savedPassword)
         }
 
-    }
-
-
-    // save the email and password when the user have make the app in the background
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(KEY_USERNAME_ENTRY, mUserNameEditText!!.text.toString())
-        outState.putString(KEY_PASSWORD_ENTRY, mPasswordEditText!!.text.toString())
-        super.onSaveInstanceState(outState)
     }
 
     /**
@@ -90,27 +64,28 @@ class LoginActivity : AppCompatActivity() {
         // a boolean for canceling the process of login if something is wrong
         var cancel = false
 
-        val emailOrUserName = mUserNameEditText!!.text.toString()
-        val password = mPasswordEditText!!.text.toString()
+        val emailOrUserName = user_login_edit_text.text.toString()
+        val password = password_login_edit_text.text.toString()
 
         if (!TextUtils.isEmpty(password)) {
-            mPasswordTextInputLayout!!.error = getString(R.string.error_field_password_required)
+            input_layout_password.error = getString(R.string.error_field_password_required)
             cancel = true
 
+
         } else if (!isPasswordValid(password)) {
-            mPasswordTextInputLayout!!.error = getString(R.string.error_invalid_password)
+            input_layout_password.error = getString(R.string.error_invalid_password)
             cancel = true
+
         } else {
             cancel = false
         }
 
 
-
         if (TextUtils.isEmpty(emailOrUserName)) {
-            mEmailTextInputLaout!!.error = getString(R.string.error_field_username_required)
+            input_layout_email.error = getString(R.string.error_field_username_required)
             cancel = true
         } else if (!isEmailValid(emailOrUserName)) {
-            mEmailTextInputLaout!!.error = getString(R.string.error_invalid_email)
+            input_layout_email.error = getString(R.string.error_invalid_email)
             cancel = true
         } else {
             cancel = false
@@ -118,23 +93,23 @@ class LoginActivity : AppCompatActivity() {
 
         // if nothing is wrong then login
         if (cancel == false) {
-            mUserNameEditText!!.visibility = View.INVISIBLE
-            mPasswordEditText!!.visibility = View.INVISIBLE
-            mLoginBtn!!.visibility = View.INVISIBLE
-            mProgressLayout!!.visibility = View.VISIBLE
+            user_login_edit_text.visibility = View.INVISIBLE
+            password_login_edit_text.visibility = View.INVISIBLE
+            login_action_btn.visibility = View.INVISIBLE
+            progress_login.visibility = View.VISIBLE
 
             mAuth!!.signInWithEmailAndPassword(emailOrUserName, password).addOnCompleteListener(this) { task ->
-                mProgressLayout!!.visibility = View.GONE
+                progress_login.visibility = View.GONE
 
                 if (!task.isSuccessful) {
-                    mUserNameEditText!!.visibility = View.VISIBLE
-                    mPasswordEditText!!.visibility = View.VISIBLE
-                    mLoginBtn!!.visibility = View.VISIBLE
-                    mEmailTextInputLaout!!.error = getString(R.string.error_action_loging_failed)
+                    user_login_edit_text.visibility = View.VISIBLE
+                    password_login_edit_text.visibility = View.VISIBLE
+                    login_action_btn.visibility = View.VISIBLE
+                    input_layout_email.error = getString(R.string.error_action_loging_failed)
 
                 } else {
 
-                    mLoginView!!.visibility = View.GONE
+                    loginView.visibility = View.GONE
                     val intent = Intent(this@LoginActivity, BottonNavigationActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -142,15 +117,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-
         }
 
-
-    }
-
-    override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
     }
 
     /**
@@ -159,10 +127,8 @@ class LoginActivity : AppCompatActivity() {
      * @return boolean
      */
     private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
         return email.contains("@")
     }
-
 
     /**
      * checking the password
@@ -170,13 +136,23 @@ class LoginActivity : AppCompatActivity() {
      * @return boolean
      */
     private fun isPasswordValid(password: String): Boolean {
-        //TODO: Replace this with your own logic
         return password.length > 4
     }
 
     companion object {
-
         private val KEY_USERNAME_ENTRY = "email_entry"
         private val KEY_PASSWORD_ENTRY = "password_entry"
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
+    // save the email and password when the user have make the app in the background
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(KEY_USERNAME_ENTRY, user_login_edit_text.text.toString())
+        outState.putString(KEY_PASSWORD_ENTRY, password_login_edit_text.text.toString())
+        super.onSaveInstanceState(outState)
     }
 }
