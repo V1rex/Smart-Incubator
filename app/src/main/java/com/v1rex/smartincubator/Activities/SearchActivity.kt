@@ -23,13 +23,9 @@ import com.v1rex.smartincubator.Model.Startup
 import com.v1rex.smartincubator.R
 import com.v1rex.smartincubator.ViewHolder.MentorViewHolder
 import com.v1rex.smartincubator.ViewHolder.StartupViewHolder
+import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
-
-    private var mSearchView: SearchView? = null
-    private var mBackButton: ImageButton? = null
-    private var mStartupRadioButton: RadioButton? = null
-    private var mMentorRadioButton: RadioButton? = null
 
     private var mReferenceStartups: DatabaseReference? = null
     private var StartupfirebaseRecyclerAdapter: FirebaseRecyclerAdapter<Startup, StartupViewHolder>? = null
@@ -39,11 +35,6 @@ class SearchActivity : AppCompatActivity() {
     private var MentorfirebaseRecyclerAdapter: FirebaseRecyclerAdapter<Mentor, MentorViewHolder>? = null
     private var Mentoroptions: FirebaseRecyclerOptions<Mentor>? = null
 
-    private var mStartupsRecyclerView: RecyclerView? = null
-    private var mMentorsRecyclerView: RecyclerView? = null
-    private var mStartupsLinearLayout: LinearLayout? = null
-    private var mMentorsLinearLayout: LinearLayout? = null
-
     private var searchText: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,30 +42,18 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         // setting the return button manually
-        mBackButton = findViewById<View>(R.id.search_back_button) as ImageButton
-        mBackButton!!.setOnClickListener {
+        search_back_button.setOnClickListener {
             startActivity(Intent(this@SearchActivity, BottonNavigationActivity::class.java))
             finish()
         }
 
-        mStartupsRecyclerView = findViewById<View>(R.id.search_startups_recyclerview) as RecyclerView
-
-        mMentorsRecyclerView = findViewById<View>(R.id.search_mentors_recyclerview) as RecyclerView
-
-        mMentorsLinearLayout = findViewById<View>(R.id.linearlayout_mentor_search) as LinearLayout
-
-
-        mStartupsLinearLayout = findViewById<View>(R.id.linearlayout_startup_search) as LinearLayout
-
-        mStartupRadioButton = findViewById<View>(R.id.startup_radio_button_search) as RadioButton
-        mMentorRadioButton = findViewById<View>(R.id.mentor_radio_button_search) as RadioButton
         search(searchText)
 
-        mSearchView = findViewById<View>(R.id.search_view_activity) as SearchView
-        searchText = mSearchView!!.query.toString()
-        mSearchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchText = search_view_activity.query.toString()
+
+        search_view_activity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                searchText = mSearchView!!.query.toString()
+                searchText = search_view_activity.query.toString()
                 search(searchText)
                 return true
             }
@@ -83,8 +62,6 @@ class SearchActivity : AppCompatActivity() {
                 return true
             }
         })
-
-
     }
 
 
@@ -93,11 +70,11 @@ class SearchActivity : AppCompatActivity() {
      * @param search
      */
     private fun search(search: String?) {
-        if (mStartupRadioButton!!.isChecked == true) {
-            mStartupsLinearLayout!!.visibility = View.VISIBLE
-            mMentorsLinearLayout!!.visibility = View.GONE
-            mStartupsRecyclerView!!.setHasFixedSize(true)
-            mStartupsRecyclerView!!.layoutManager = LinearLayoutManager(this@SearchActivity)
+        if (startup_radio_button_search.isChecked == true) {
+            linearlayout_startup_search.visibility = View.VISIBLE
+            linearlayout_mentor_search.visibility = View.GONE
+            search_startups_recyclerview.setHasFixedSize(true)
+            search_startups_recyclerview.layoutManager = LinearLayoutManager(this@SearchActivity)
             mReferenceStartups = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
             mReferenceStartups!!.keepSynced(true)
             val query = mReferenceStartups!!.orderByChild("mNeed").startAt(search)
@@ -127,14 +104,14 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
 
-            mStartupsRecyclerView!!.adapter = StartupfirebaseRecyclerAdapter
+            search_startups_recyclerview.adapter = StartupfirebaseRecyclerAdapter
             StartupfirebaseRecyclerAdapter!!.startListening()
 
-        } else if (mMentorRadioButton!!.isChecked == true) {
-            mStartupsLinearLayout!!.visibility = View.GONE
-            mMentorsLinearLayout!!.visibility = View.VISIBLE
-            mMentorsRecyclerView!!.setHasFixedSize(true)
-            mMentorsRecyclerView!!.layoutManager = LinearLayoutManager(this@SearchActivity)
+        } else if (mentor_radio_button_search.isChecked == true) {
+            linearlayout_startup_search.visibility = View.GONE
+            linearlayout_mentor_search.visibility = View.VISIBLE
+            search_mentors_recyclerview.setHasFixedSize(true)
+            search_mentors_recyclerview.layoutManager = LinearLayoutManager(this@SearchActivity)
 
 
             mReferenceMentors = FirebaseDatabase.getInstance().reference.child("Data").child("mentors")
@@ -142,7 +119,7 @@ class SearchActivity : AppCompatActivity() {
             // setting the query for the search
             val query = mReferenceMentors!!.orderByChild("mSpeciality").startAt(search)
 
-            Mentoroptions = FirebaseRecyclerOptions.Builder<Mentor>().setQuery(query, Mentor::class.java!!).build()
+            Mentoroptions = FirebaseRecyclerOptions.Builder<Mentor>().setQuery(query, Mentor::class.java).build()
 
             MentorfirebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Mentor, MentorViewHolder>(Mentoroptions!!) {
                 override fun onBindViewHolder(holder: MentorViewHolder, position: Int, model: Mentor) {
@@ -166,7 +143,7 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
 
-            mMentorsRecyclerView!!.adapter = MentorfirebaseRecyclerAdapter
+            search_mentors_recyclerview.adapter = MentorfirebaseRecyclerAdapter
             MentorfirebaseRecyclerAdapter!!.startListening()
         }
     }
