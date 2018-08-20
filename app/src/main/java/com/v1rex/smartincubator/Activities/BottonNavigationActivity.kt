@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 
 import com.google.firebase.auth.FirebaseAuth
 import com.v1rex.smartincubator.Fragments.MentorsFragment
@@ -54,8 +53,6 @@ class BottonNavigationActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, StartupsFragment()).commit()
     }
 
-    override fun onBackPressed() {}
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.toolbar, menu)
         return super.onCreateOptionsMenu(menu)
@@ -76,10 +73,10 @@ class BottonNavigationActivity : AppCompatActivity() {
                 startActivity(Intent(this@BottonNavigationActivity, MainActivity::class.java))
                 return super.onOptionsItemSelected(item)
             }
-
             else -> return super.onOptionsItemSelected(item)
         }
 
-
     }
+
+    override fun onBackPressed() {}
 }
