@@ -115,7 +115,7 @@ class SettingsActivity : AppCompatActivity() {
 
         }
 
-        refUsers!!.addValueEventListener(valueEventListenerUser)
+        refUsers!!.addValueEventListener(valueEventListenerUser as ValueEventListener)
 
 
     }
@@ -144,7 +144,7 @@ class SettingsActivity : AppCompatActivity() {
             }
             refStartups = database.getReference("Data").child("startups")
 
-            refStartups!!.addValueEventListener(valueEventListenerStartup)
+            refStartups!!.addValueEventListener(valueEventListenerStartup as ValueEventListener)
 
         } else if (accountType == "Mentor") {
             mMentorInformationsRelativeLayout!!.visibility = View.VISIBLE
@@ -164,7 +164,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
             refMentors = database.getReference("Data").child("mentors")
-            refMentors!!.addValueEventListener(valueEventListenerMentor)
+            refMentors!!.addValueEventListener(valueEventListenerMentor as ValueEventListener)
 
 
         }//if account type is a mentor show the view for it

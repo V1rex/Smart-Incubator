@@ -14,26 +14,25 @@ import com.v1rex.smartincubator.Fragments.MentorsFragment
 import com.v1rex.smartincubator.Fragments.MessagesFragment
 import com.v1rex.smartincubator.Fragments.StartupsFragment
 import com.v1rex.smartincubator.R
+import kotlinx.android.synthetic.main.activity_botton_navigation.*
 
 class BottonNavigationActivity : AppCompatActivity() {
-    private var toolbar: Toolbar? = null
-    private var bottomNavigationView: BottomNavigationView? = null
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         var selectedFragment: android.support.v4.app.Fragment? = null
         when (item.itemId) {
             R.id.nav_startups -> {
                 selectedFragment = StartupsFragment()
-                toolbar!!.subtitle = getString(R.string.startups_name_fragment)
+                my_toolbar.subtitle = getString(R.string.startups_name_fragment)
             }
             R.id.nav_users -> {
                 selectedFragment = MentorsFragment()
-                toolbar!!.subtitle = getString(R.string.mentors_name_fragments)
+                my_toolbar.subtitle = getString(R.string.mentors_name_fragments)
             }
 
             R.id.nav_messages -> {
                 selectedFragment = MessagesFragment()
-                toolbar!!.subtitle = getString(R.string.messages_name_fragments)
+                my_toolbar.subtitle = getString(R.string.messages_name_fragments)
             }
         }
 
@@ -46,19 +45,13 @@ class BottonNavigationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_botton_navigation)
 
-
         // Setting the toolbar
-        toolbar = findViewById(R.id.my_toolbar)
-        setSupportActionBar(toolbar)
-        toolbar!!.title = getString(R.string.app_name)
-        toolbar!!.subtitle = getString(R.string.startups_name_fragment)
+        setSupportActionBar(my_toolbar as Toolbar)
+        my_toolbar.title = getString(R.string.app_name)
+        my_toolbar.subtitle = getString(R.string.startups_name_fragment)
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView!!.setOnNavigationItemSelectedListener(navListener)
-
+        bottom_navigation.setOnNavigationItemSelectedListener(navListener)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, StartupsFragment()).commit()
-
-
     }
 
     override fun onBackPressed() {}
