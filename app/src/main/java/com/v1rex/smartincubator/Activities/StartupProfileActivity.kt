@@ -24,45 +24,22 @@ import com.google.firebase.database.ValueEventListener
 import com.v1rex.smartincubator.Model.Meeting
 import com.v1rex.smartincubator.Model.Startup
 import com.v1rex.smartincubator.R
+import kotlinx.android.synthetic.main.activity_startup_profile.*
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
 class StartupProfileActivity : AppCompatActivity() {
-    private var mStartupNameTextView: TextView? = null
-    private var mStartupDomainTextView: TextView? = null
-    private var mStartupFondTextView: TextView? = null
-    private var mStartupChiffreTextView: TextView? = null
-    private var mStartupNeedTextView: TextView? = null
-    private var mStartupJuridiqueTextView: TextView? = null
-    private var mStartupCreateDateTextView: TextView? = null
-    private var mStartupNumberEmployees: TextView? = null
     private var startup: Startup? = null
 
     private val database = FirebaseDatabase.getInstance()
     private var refUser: DatabaseReference? = null
 
-
-    private var mSetDateBtn: Button? = null
-    private var mSetTimeBtn: Button? = null
-    private var mExitButton: ImageButton? = null
-    private var mSendButton: ImageButton? = null
-    private var mExitDate: ImageButton? = null
-    private var mExitTime: ImageButton? = null
-    private var mPLaceTextInput: TextInputLayout? = null
-    private var mPlaceEdit: EditText? = null
-
-    private var mSendMessageButton: FloatingActionButton? = null
-    private var mDate: DatePicker? = null
-    private var mTime: TimePicker? = null
-
-    private var mMeetingsInformations: LinearLayout? = null
-    private var mDateLayout: LinearLayout? = null
-    private var mTimeLayout: LinearLayout? = null
     private var mAuth: FirebaseAuth? = null
 
     private val databaseMeetings = FirebaseDatabase.getInstance()
     private val ref = databaseMeetings.getReference("Data")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_startup_profile)
@@ -73,52 +50,30 @@ class StartupProfileActivity : AppCompatActivity() {
         val intent = intent
         val userId = intent.getStringExtra("UserId Startup")
 
-        mDate = findViewById<View>(R.id.date_picker_startup) as DatePicker
-        mTime = findViewById<View>(R.id.time_picker_startup) as TimePicker
+        finished_date_startup.setOnClickListener { date_picker_startup_layout.visibility = View.GONE }
 
-        mExitDate = findViewById<View>(R.id.finished_date_startup) as ImageButton
-        mExitDate!!.setOnClickListener { mDateLayout!!.visibility = View.GONE }
-
-        mExitTime = findViewById<View>(R.id.finished_time_startup) as ImageButton
-        mExitTime!!.setOnClickListener { mTimeLayout!!.visibility = View.GONE }
-
-        mMeetingsInformations = findViewById<View>(R.id.meeting_startup_linearlayout) as LinearLayout
-        mDateLayout = findViewById<View>(R.id.date_picker_startup_layout) as LinearLayout
-        mTimeLayout = findViewById<View>(R.id.time_picker_startup_layout) as LinearLayout
+        finished_time_startup.setOnClickListener { time_picker_startup_layout.visibility = View.GONE }
 
         // showing a popup for sending a meeting
-        mSendMessageButton = findViewById<View>(R.id.fab) as FloatingActionButton
-        mSendMessageButton!!.setOnClickListener { mMeetingsInformations!!.visibility = View.VISIBLE }
+        fab.setOnClickListener { meeting_startup_linearlayout.visibility = View.VISIBLE }
 
 
+        set_date_startup_btn.setOnClickListener { date_picker_startup_layout.visibility = View.VISIBLE }
 
-        mStartupNameTextView = findViewById<View>(R.id.startup_name_profile) as TextView
-        mStartupDomainTextView = findViewById<View>(R.id.startup_domain_profile) as TextView
-        mStartupFondTextView = findViewById<View>(R.id.startup_fond_profile) as TextView
-        mStartupChiffreTextView = findViewById<View>(R.id.startup_chiffre_profile) as TextView
-        mStartupNeedTextView = findViewById<View>(R.id.startup_need_profile) as TextView
-        mStartupJuridiqueTextView = findViewById<View>(R.id.startup_jurdique_profile) as TextView
-        mStartupCreateDateTextView = findViewById<View>(R.id.startup_date_creation_profile) as TextView
-        mStartupNumberEmployees = findViewById<View>(R.id.startup_number_employees_profile) as TextView
+        set_time_startup_btn.setOnClickListener { time_picker_startup_layout.visibility = View.VISIBLE }
 
-        mSetDateBtn = findViewById<View>(R.id.set_date_startup_btn) as Button
-        mSetDateBtn!!.setOnClickListener { mDateLayout!!.visibility = View.VISIBLE }
-        mSetTimeBtn = findViewById<View>(R.id.set_time_startup_btn) as Button
-        mSetTimeBtn!!.setOnClickListener { mTimeLayout!!.visibility = View.VISIBLE }
+        exit_mettings_startup.setOnClickListener { meeting_startup_linearlayout.visibility = View.GONE }
 
-        mExitButton = findViewById<View>(R.id.exit_mettings_startup) as ImageButton
-        mExitButton!!.setOnClickListener { mMeetingsInformations!!.visibility = View.GONE }
 
-        mSendButton = findViewById<View>(R.id.send_mettings_startup) as ImageButton
-        mSendButton!!.setOnClickListener {
-            if (TextUtils.isEmpty(mPlaceEdit!!.text.toString())) {
-                mPLaceTextInput!!.error = getString(R.string.field_requierd)
+        send_mettings_startup.setOnClickListener {
+            if (TextUtils.isEmpty(meeting_place_edit_text_startup.text.toString())) {
+                input_layout_place_meeting_startup.error = getString(R.string.field_requierd)
             } else {
-                val day = mDate!!.dayOfMonth
-                val month = mDate!!.month
-                val year = mDate!!.year
-                val hour = mTime!!.currentHour
-                val minute = mTime!!.currentMinute
+                val day = date_picker_startup.dayOfMonth
+                val month = date_picker_startup.month
+                val year = date_picker_startup.year
+                val hour = time_picker_startup.currentHour
+                val minute = time_picker_startup.currentMinute
 
                 val calendar = Calendar.getInstance()
                 calendar.set(year, month, day, hour, minute)
@@ -127,17 +82,17 @@ class StartupProfileActivity : AppCompatActivity() {
                 val dateAndTime = date.format(calendar.time)
 
                 // creating a meeting object for the user who will receive the meeting
-                val meeting = Meeting(mAuth!!.uid.toString(), userId, mPlaceEdit!!.text.toString(), dateAndTime, "", "Received")
+                val meeting = Meeting(mAuth!!.uid.toString(), userId, meeting_place_edit_text_startup.text.toString(), dateAndTime, "", "Received")
 
                 // setting where to store meetings informations for the user who will receive it
                 val usersRef = ref.child("users")
                 val userRef = usersRef.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
                 // store the meetings for user who received
                 userRef.setValue(meeting)
-                mMeetingsInformations!!.visibility = View.GONE
+                meeting_startup_linearlayout.visibility = View.GONE
 
                 // creating a meeting object for the user who send the meeting
-                val meeting2 = Meeting(mAuth!!.uid.toString(), userId, mPlaceEdit!!.text.toString(), dateAndTime, "", "You sented")
+                val meeting2 = Meeting(mAuth!!.uid.toString(), userId, meeting_place_edit_text_startup.text.toString(), dateAndTime, "", "You sented")
                 // setting where to store meetings informations for the user who send it
                 val usersRef1 = ref.child("users")
                 val userRef2 = usersRef1.child(meeting.mUserIdSent).child("mettings").child(meeting2.mUserIdReceived)
@@ -146,8 +101,6 @@ class StartupProfileActivity : AppCompatActivity() {
                 userRef2.setValue(meeting2)
             }
         }
-        mPLaceTextInput = findViewById<View>(R.id.input_layout_place_meeting_startup) as TextInputLayout
-        mPlaceEdit = findViewById<View>(R.id.meeting_place_edit_text_startup) as EditText
 
         // loading the specific startups informations
         refUser = database.getReference("Data").child("startups")
@@ -170,13 +123,13 @@ class StartupProfileActivity : AppCompatActivity() {
      * showing the startup informations from the Startup object
      */
     private fun show() {
-        mStartupNameTextView!!.text = startup!!.mStartupName
-        mStartupDomainTextView!!.text = startup!!.mDomain
-        mStartupFondTextView!!.text = startup!!.mFond
-        mStartupChiffreTextView!!.text = startup!!.mChiffre
-        mStartupNeedTextView!!.text = startup!!.mNeed
-        mStartupJuridiqueTextView!!.text = startup!!.mJuridiqueSatatus
-        mStartupCreateDateTextView!!.text = startup!!.mCreationDate
-        mStartupNumberEmployees!!.text = startup!!.mNumberEmployees
+        startup_name_profile.text = startup!!.mStartupName
+        startup_domain_profile.text = startup!!.mDomain
+        startup_fond_profile.text = startup!!.mFond
+        startup_chiffre_profile.text = startup!!.mChiffre
+        startup_need_profile.text = startup!!.mNeed
+        startup_jurdique_profile.text = startup!!.mJuridiqueSatatus
+        startup_date_creation_profile.text = startup!!.mCreationDate
+        startup_number_employees_profile.text = startup!!.mNumberEmployees
     }
 }
