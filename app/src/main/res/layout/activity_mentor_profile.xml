@@ -202,7 +202,7 @@
         android:background="#92000000"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         >
 
         <LinearLayout
