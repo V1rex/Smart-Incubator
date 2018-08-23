@@ -10,6 +10,7 @@ import android.view.MenuItem
 
 import com.google.firebase.auth.FirebaseAuth
 import com.v1rex.smartincubator.Fragments.MentorsFragment
+import com.v1rex.smartincubator.Fragments.MeetingsFragment
 import com.v1rex.smartincubator.Fragments.MessagesFragment
 import com.v1rex.smartincubator.Fragments.StartupsFragment
 import com.v1rex.smartincubator.R
@@ -32,6 +33,11 @@ class BottonNavigationActivity : AppCompatActivity() {
             R.id.nav_messages -> {
                 selectedFragment = MessagesFragment()
                 my_toolbar.subtitle = getString(R.string.messages_name_fragments)
+            }
+
+            R.id.nav_meetings -> {
+                selectedFragment = MeetingsFragment()
+                my_toolbar.subtitle = getString(R.string.meetings_name_fragments)
             }
         }
 

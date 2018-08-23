@@ -9,7 +9,6 @@
     <string name="register_action">Registering right now ...</string>
 
 
-
     <string name="register_have_account">Already a member? Login</string>
     <string name="title_activity_login2">Sign in</string>
     <string name="field_requierd">This field is requierd</string>
@@ -65,7 +64,6 @@
 
     <!-- Strings related to login -->
 
-
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -77,7 +75,8 @@
     <string name="error_action_login_sucessed">Logged Successfully!</string>
     <string name="startups_name_fragment">Startups</string>
     <string name="mentors_name_fragments">Mentors</string>
-    <string name="messages_name_fragments">Meetings</string>
+    <string name="messages_name_fragments">Messages</string>
+    <string name="meetings_name_fragments">Meetings</string>
     <string name="toolbar_settings_name">Settings</string>
     <string name="toolbar_search_name">Search</string>
     <string name="toolbar_logout_name">Logout</string>
@@ -85,9 +84,10 @@
 
 
     <string name="update">Update</string>
-    <string name="loading_data">Loading your data ...</string>
+    <string name="loading_data">Loading your data …</string>
     <string name="search_type">Search type:</string>
     <string name="search">Search by need or speciality</string>
+
 
 
 </resources>

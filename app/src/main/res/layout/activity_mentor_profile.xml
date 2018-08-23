@@ -190,7 +190,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/ic_message_black_24dp"
+            app:srcCompat="@drawable/ic_message_black_24dp"
             app:fabSize="normal" />
     </RelativeLayout>
 
@@ -202,7 +202,7 @@
         android:background="#92000000"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <LinearLayout
@@ -224,7 +224,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_highlight_off_black_24dp"
+                    app:srcCompat="@drawable/ic_highlight_off_black_24dp"
                     android:background="@android:color/transparent"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_offline_pin_black_24dp"
+                    app:srcCompat="@drawable/ic_offline_pin_black_24dp"
                     android:background="@android:color/transparent"/>
 
             </LinearLayout>
@@ -306,7 +306,7 @@
             android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_offline_pin_white_24dp"
+            app:srcCompat="@drawable/ic_offline_pin_white_24dp"
             android:background="@android:color/transparent"/>
 
         <LinearLayout
@@ -339,7 +339,7 @@
             android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_offline_pin_white_24dp"
+            app:srcCompat="@drawable/ic_offline_pin_white_24dp"
             android:background="@android:color/transparent"/>
 
         <LinearLayout

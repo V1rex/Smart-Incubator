@@ -48,7 +48,7 @@
         android:background="#92000000"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <LinearLayout
