@@ -129,7 +129,7 @@ class UserInformationsActivity : AppCompatActivity() {
 
     // check if the email is good
     private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
+
         return email.contains("@")
     }
 
