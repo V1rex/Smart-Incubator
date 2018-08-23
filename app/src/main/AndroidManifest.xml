@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.v1rex.smartincubator">
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -30,7 +29,8 @@
         <activity android:name=".Activities.MentorProfileActivity" />
         <activity android:name=".Activities.StartupProfileActivity" />
         <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.SearchActivity"></activity>
+        <activity android:name=".Activities.SearchActivity" />
+        <activity android:name=".Activities.SendMessagesActivity"></activity>
     </application>
 
 </manifest>

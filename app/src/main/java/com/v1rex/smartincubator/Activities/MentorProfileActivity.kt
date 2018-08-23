@@ -49,15 +49,11 @@ class MentorProfileActivity : AppCompatActivity() {
         val intent = intent
         val userId = intent.getStringExtra("Mentor userId")
 
-        finished_date_mentor.setOnClickListener { date_picker_mentor_layout.visibility = View.GONE }
+        /* finished_date_mentor.setOnClickListener { date_picker_mentor_layout.visibility = View.GONE }
 
-        finished_time_mentor.setOnClickListener { time_picker_mentor_layout.visibility = View.GONE }
+        finished_time_mentor.setOnClickListener { time_picker_mentor_layout.visibility = View.GONE } */
 
-        // showing a popup for sending a meeting
-        fab_message_mentor.setOnClickListener { meeting_mentor_linearlayout.visibility = View.VISIBLE }
-
-
-        set_date_mentor_btn.setOnClickListener { date_picker_mentor_layout.visibility = View.VISIBLE }
+        /*  set_date_mentor_btn.setOnClickListener { date_picker_mentor_layout.visibility = View.VISIBLE }
 
         set_time_mentor_btn.setOnClickListener { time_picker_mentor_layout.visibility = View.VISIBLE }
 
@@ -101,8 +97,12 @@ class MentorProfileActivity : AppCompatActivity() {
                 // store the meetings for user who sent
                 userRef2.setValue(meeting2)
             }
-        }
+        } */
 
+        // showing a popup for sending a meeting
+        fab_message_mentor.setOnClickListener {
+            startActivity(Intent(this, SendMessagesActivity::class.java))
+        }
 
 
         val valueEventListenerMentor = object : ValueEventListener {
