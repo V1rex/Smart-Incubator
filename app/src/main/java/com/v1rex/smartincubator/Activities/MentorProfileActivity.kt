@@ -101,7 +101,11 @@ class MentorProfileActivity : AppCompatActivity() {
 
         // showing a popup for sending a meeting
         fab_message_mentor.setOnClickListener {
-            startActivity(Intent(this, SendMessagesActivity::class.java))
+            val intent = Intent(this, SendMessagesActivity::class.java)
+            intent.putExtra("name", mentor!!.mFirstName + " " + mentor!!.mLastName)
+            intent.putExtra("type", mentor!!.mSpeciality)
+            intent.putExtra("userId", mentor!!.mUserId)
+            startActivity(intent)
         }
 
 

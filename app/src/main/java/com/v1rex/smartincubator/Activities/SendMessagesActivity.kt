@@ -12,6 +12,17 @@ class SendMessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_messages)
 
+        return_button.setOnClickListener{
+            finish()
+        }
+
+        val intent = intent
+        var name = intent.getStringExtra("name")
+        var type = intent.getStringExtra("type")
+        var userId = intent.getStringExtra("userId")
+
+        message_name.setText(name)
+        message_type.setText(type)
 
 
     }
