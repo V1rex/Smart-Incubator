@@ -50,22 +50,29 @@ class StartupProfileActivity : AppCompatActivity() {
         val intent = intent
         val userId = intent.getStringExtra("UserId Startup")
 
-        finished_date_startup.setOnClickListener { date_picker_startup_layout.visibility = View.GONE }
+       /* finished_date_startup.setOnClickListener { date_picker_startup_layout.visibility = View.GONE }
 
-        finished_time_startup.setOnClickListener { time_picker_startup_layout.visibility = View.GONE }
+        finished_time_startup.setOnClickListener { time_picker_startup_layout.visibility = View.GONE } */
 
         // showing a popup for sending a meeting
-        fab.setOnClickListener { meeting_startup_linearlayout.visibility = View.VISIBLE }
+        fab.setOnClickListener {
+//            meeting_startup_linearlayout.visibility = View.VISIBLE
+            val intent = Intent(this, SendMessagesActivity::class.java)
+            intent.putExtra("name", startup!!.mStartupName)
+            intent.putExtra("type", startup!!.mNeed)
+            intent.putExtra("userId", startup!!.mUserId)
+            startActivity(intent)
+        }
 
 
-        set_date_startup_btn.setOnClickListener { date_picker_startup_layout.visibility = View.VISIBLE }
+        /*set_date_startup_btn.setOnClickListener { date_picker_startup_layout.visibility = View.VISIBLE }
 
         set_time_startup_btn.setOnClickListener { time_picker_startup_layout.visibility = View.VISIBLE }
 
-        exit_mettings_startup.setOnClickListener { meeting_startup_linearlayout.visibility = View.GONE }
+        exit_mettings_startup.setOnClickListener { meeting_startup_linearlayout.visibility = View.GONE } */
 
 
-        send_mettings_startup.setOnClickListener {
+       /* send_mettings_startup.setOnClickListener {
             if (TextUtils.isEmpty(meeting_place_edit_text_startup.text.toString())) {
                 input_layout_place_meeting_startup.error = getString(R.string.field_requierd)
             } else {
@@ -100,7 +107,7 @@ class StartupProfileActivity : AppCompatActivity() {
                 // store the meetings for user who sent
                 userRef2.setValue(meeting2)
             }
-        }
+        } */
 
         // loading the specific startups informations
         refUser = database.getReference("Data").child("startups")
