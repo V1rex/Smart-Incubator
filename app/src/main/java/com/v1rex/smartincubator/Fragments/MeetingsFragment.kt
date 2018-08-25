@@ -78,6 +78,7 @@ class MeetingsFragment : Fragment() {
         mReference = FirebaseDatabase.getInstance().reference.child("Data").child("users").child(mAuth!!.uid!!).child("mettings")
         mReference!!.keepSynced(true)
 
+
         mLoaderMessage = view!!.findViewById<View>(R.id.message_load_progress) as LinearLayout
         mLoaderMessage!!.visibility = View.VISIBLE
 
