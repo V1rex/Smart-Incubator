@@ -135,6 +135,7 @@
                             >
 
                             <EditText
+                                android:id="@+id/message_edit_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="@string/message_edit_text"
