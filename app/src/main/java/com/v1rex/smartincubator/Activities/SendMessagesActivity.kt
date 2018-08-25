@@ -73,27 +73,29 @@ class SendMessagesActivity : AppCompatActivity() {
         mReference!!.keepSynced(true)
 
         var list = message_list as RecyclerView
-        list.setHasFixedSize(true)
         list.layoutManager = LinearLayoutManager(this)
+
 
         var options : FirebaseRecyclerOptions<Message>? = FirebaseRecyclerOptions.Builder<Message>().setQuery(mReference!! , Message::class.java!!).build()
 
 
         firebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Message , SendMessagesViewHolder>(options!!){
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SendMessagesViewHolder {
-                var view : View = LayoutInflater.from(this@SendMessagesActivity).inflate(R.layout.item_message_sent, parent, false)
+                var view : View? = null
+                var viewHolder : SendMessagesViewHolder? = null
                 if(viewType == 1){
                     view = LayoutInflater.from(this@SendMessagesActivity).inflate(R.layout.item_message_sent, parent, false)
+                    viewHolder = SendMessagesViewHolder(view!!, viewType)
 
                 } else if(viewType == 2){
-                    view = LayoutInflater.from(this@SendMessagesActivity).inflate(R.layout.item_message_received, parent, false)
+                   view = LayoutInflater.from(this@SendMessagesActivity).inflate(R.layout.item_message_received, parent, false)
+                    viewHolder = SendMessagesViewHolder(view!! , viewType)
                 }
-                return SendMessagesViewHolder(view, viewType)
+                return viewHolder!!
             }
 
             override fun onBindViewHolder(holder: SendMessagesViewHolder, position: Int, model: Message) {
                 var uid = mAuth!!.uid.toString()
-                holder.setMessageTextViewSented(model.message)
                 if(model.userSendId == uid){
                     holder.setMessageTextViewSented(model.message)
                 } else {
