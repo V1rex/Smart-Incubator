@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 import android.support.v7.widget.RecyclerView.NO_POSITION
-
+import com.v1rex.smartincubator.Model.MessageInformations
 
 
 class SendMessagesActivity : AppCompatActivity() {
@@ -90,11 +90,20 @@ class SendMessagesActivity : AppCompatActivity() {
             val timeSent = System.currentTimeMillis().toString()
             var time : String= "$day/$month/$year $hour:$minute"
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
+            var messageInformations = MessageInformations(name, userId, message1.message)
             message_edit_text.setText("")
+
             var reference1 = refSented.child(mAuth!!.uid.toString()).child(userId).child(timeSent)
             reference1.setValue(message1)
             var reference2 = refSented.child(userId).child(mAuth!!.uid.toString()).child(timeSent)
             reference2.setValue(message1)
+
+            var reference3 = refSented.child(mAuth!!.uid.toString()).child("Latest messages").child(userId)
+            reference3.setValue(messageInformations)
+
+            var reference4 = refSented.child(userId).child("Latest messages").child(mAuth!!.uid.toString())
+            messageInformations.userId = mAuth!!.uid.toString()
+            reference4.setValue(messageInformations)
 
             message_list.smoothScrollToPosition(firebaseRecyclerAdapter!!.itemCount)
         }
