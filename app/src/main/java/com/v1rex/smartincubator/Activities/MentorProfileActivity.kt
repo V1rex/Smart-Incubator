@@ -103,8 +103,9 @@ class MentorProfileActivity : AppCompatActivity() {
         fab_message_mentor.setOnClickListener {
             val intent = Intent(this, SendMessagesActivity::class.java)
             intent.putExtra("name", mentor!!.mFirstName + " " + mentor!!.mLastName)
-            intent.putExtra("type", mentor!!.mSpeciality)
+            intent.putExtra("needSpecialty", mentor!!.mSpeciality)
             intent.putExtra("userId", mentor!!.mUserId)
+            intent.putExtra("type","Mentor" )
             startActivity(intent)
         }
 

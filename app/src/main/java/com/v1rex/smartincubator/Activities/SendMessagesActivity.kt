@@ -1,10 +1,10 @@
 package com.v1rex.smartincubator.Activities
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -14,11 +14,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.v1rex.smartincubator.R
-import com.v1rex.smartincubator.ViewHolder.MeetingsViewHolder
 import com.v1rex.smartincubator.ViewHolder.SendMessagesViewHolder
 import kotlinx.android.synthetic.main.activity_send_messages.*
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
 import android.support.v7.widget.RecyclerView.NO_POSITION
 import com.google.firebase.database.*
@@ -47,6 +44,7 @@ class SendMessagesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_send_messages)
 
         var nameUser : String? = null
+        var need_specialityUser : String? = null
         var typeUser : String? = null
 
         return_button.setOnClickListener{
@@ -55,11 +53,12 @@ class SendMessagesActivity : AppCompatActivity() {
 
         val intent = intent
         var name = intent.getStringExtra("name")
+        var need_speciality = intent.getStringExtra("needSpecialty")
         var type = intent.getStringExtra("type")
         var userId = intent.getStringExtra("userId")
 
         message_name.setText(name)
-        message_type.setText(type)
+        message_need_specialty.setText(need_speciality)
 
         var refSented = ref.child("Messages")
 
@@ -83,6 +82,22 @@ class SendMessagesActivity : AppCompatActivity() {
 
         })
 
+        more_info_button.setOnClickListener{
+            var intent : Intent? = null
+            when(type){
+                "Mentor" -> {intent = Intent(this, MentorProfileActivity::class.java)
+                    intent.putExtra("Mentor userId", userId)
+                startActivity(intent)}
+                "Startup" -> {intent = Intent(this, StartupProfileActivity::class.java)
+                    intent.putExtra("UserId Startup", userId)
+                startActivity(intent)}
+
+
+
+
+            }
+        }
+
         fab_message_mentor.setOnClickListener {
             val now = Calendar.getInstance()
             val year = now.get(Calendar.YEAR)
@@ -95,7 +110,7 @@ class SendMessagesActivity : AppCompatActivity() {
             val timeSent = System.currentTimeMillis().toString()
             var time : String= "$day/$month/$year $hour:$minute"
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
-            var messageInformations = MessageInformations(name, type, userId, timeSent , message1.message)
+            var messageInformations = MessageInformations(name, need_speciality, userId, type, timeSent , message1.message)
             message_edit_text.setText("")
 
             var reference1 = refSented.child(mAuth!!.uid.toString()).child(userId).child(timeSent)
@@ -109,7 +124,8 @@ class SendMessagesActivity : AppCompatActivity() {
             var reference4 = refSented.child(userId).child("Latest messages").child(mAuth!!.uid.toString())
             messageInformations.userId = mAuth!!.uid.toString()
             messageInformations.name = nameUser.toString()
-            messageInformations.type = typeUser.toString()
+            messageInformations.need_speciality = need_specialityUser.toString()
+            messageInformations.typeUser = typeUser.toString()
             reference4.setValue(messageInformations)
 
             message_list.smoothScrollToPosition(firebaseRecyclerAdapter!!.itemCount)
@@ -190,6 +206,7 @@ class SendMessagesActivity : AppCompatActivity() {
                 // using the stored userId for getting the specific startup
                 user = dataSnapshot.child(mAuth!!.uid.toString()).getValue<User>(User::class.java)
                 nameUser = user!!.mFirstName +" " + user!!.mLastName
+                need_specialityUser = user!!.mAccountType
                 typeUser = user!!.mAccountType
                 if(user!!.mAccountType == "Startup"){
 
@@ -199,7 +216,7 @@ class SendMessagesActivity : AppCompatActivity() {
                             // using the stored userId for getting the specific startup
                             startup = dataSnapshot.child(mAuth!!.uid.toString()).getValue<Startup>(Startup::class.java)
                             nameUser = startup!!.mStartupName
-                            typeUser = startup!!.mNeed
+                            need_specialityUser = startup!!.mNeed
                         }
 
                         override fun onCancelled(databaseError: DatabaseError) {
@@ -216,7 +233,7 @@ class SendMessagesActivity : AppCompatActivity() {
                             // using the stored userId for getting the specific startup
                             mentor = dataSnapshot.child(mAuth!!.uid.toString()).getValue<Mentor>(Mentor::class.java)
                             nameUser = mentor!!.mLastName + " " + mentor!!.mFirstName
-                            typeUser = mentor!!.mSpeciality
+                            need_specialityUser = mentor!!.mSpeciality
 
                         }
 

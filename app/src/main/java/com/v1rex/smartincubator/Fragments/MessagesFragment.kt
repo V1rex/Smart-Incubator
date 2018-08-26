@@ -70,8 +70,9 @@ class MessagesFragment : Fragment() {
                 holder.itemView.setOnClickListener {
                     val intent = Intent(activity!!.baseContext, SendMessagesActivity::class.java)
                     intent.putExtra("name", model.name)
-                    intent.putExtra("type", model.type)
+                    intent.putExtra("needSpecialty", model.need_speciality)
                     intent.putExtra("userId", model.userId)
+                    intent.putExtra("type", model.typeUser)
                     startActivity(intent)
                 }
 

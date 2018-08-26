@@ -58,9 +58,10 @@ class StartupProfileActivity : AppCompatActivity() {
         fab.setOnClickListener {
 //            meeting_startup_linearlayout.visibility = View.VISIBLE
             val intent = Intent(this, SendMessagesActivity::class.java)
-            intent.putExtra("name", startup!!.mStartupName)
-            intent.putExtra("type", startup!!.mNeed)
-            intent.putExtra("userId", startup!!.mUserId)
+            intent.putExtra("name", startup!!.mStartupName )
+            intent.putExtra("needSpecialty", startup!!.mNeed )
+            intent.putExtra("userId", startup!!.mUserId )
+            intent.putExtra("type","Startup" )
             startActivity(intent)
         }
 

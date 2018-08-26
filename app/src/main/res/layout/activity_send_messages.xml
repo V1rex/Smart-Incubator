@@ -42,8 +42,9 @@
                         />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:layout_marginLeft="16dp"
                         >
@@ -58,7 +59,7 @@
                            />
 
                         <TextView
-                            android:id="@+id/message_type"
+                            android:id="@+id/message_need_specialty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Mentor"
@@ -67,6 +68,16 @@
 
 
                     </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/more_info_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_info"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp"
+                        />
 
                 </LinearLayout>
 
