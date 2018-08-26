@@ -47,6 +47,8 @@ class SendMessagesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_send_messages)
 
         var nameUser : String? = null
+        var typeUser : String? = null
+
         return_button.setOnClickListener{
             finish()
         }
@@ -93,7 +95,7 @@ class SendMessagesActivity : AppCompatActivity() {
             val timeSent = System.currentTimeMillis().toString()
             var time : String= "$day/$month/$year $hour:$minute"
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
-            var messageInformations = MessageInformations(name, userId, message1.message)
+            var messageInformations = MessageInformations(name, type, userId, message1.message)
             message_edit_text.setText("")
 
             var reference1 = refSented.child(mAuth!!.uid.toString()).child(userId).child(timeSent)
@@ -107,6 +109,7 @@ class SendMessagesActivity : AppCompatActivity() {
             var reference4 = refSented.child(userId).child("Latest messages").child(mAuth!!.uid.toString())
             messageInformations.userId = mAuth!!.uid.toString()
             messageInformations.name = nameUser.toString()
+            messageInformations.type = typeUser.toString()
             reference4.setValue(messageInformations)
 
             message_list.smoothScrollToPosition(firebaseRecyclerAdapter!!.itemCount)
@@ -187,6 +190,7 @@ class SendMessagesActivity : AppCompatActivity() {
                 // using the stored userId for getting the specific startup
                 user = dataSnapshot.child(mAuth!!.uid.toString()).getValue<User>(User::class.java)
                 nameUser = user!!.mFirstName +" " + user!!.mLastName
+                typeUser = user!!.mAccountType
                 if(user!!.mAccountType == "Startup"){
 
                     refUser = database.getReference("Data").child("startups")
@@ -195,6 +199,7 @@ class SendMessagesActivity : AppCompatActivity() {
                             // using the stored userId for getting the specific startup
                             startup = dataSnapshot.child(mAuth!!.uid.toString()).getValue<Startup>(Startup::class.java)
                             nameUser = startup!!.mStartupName
+                            typeUser = startup!!.mNeed
                         }
 
                         override fun onCancelled(databaseError: DatabaseError) {
@@ -211,6 +216,7 @@ class SendMessagesActivity : AppCompatActivity() {
                             // using the stored userId for getting the specific startup
                             mentor = dataSnapshot.child(mAuth!!.uid.toString()).getValue<Mentor>(Mentor::class.java)
                             nameUser = mentor!!.mLastName + " " + mentor!!.mFirstName
+                            typeUser = mentor!!.mSpeciality
 
                         }
 
