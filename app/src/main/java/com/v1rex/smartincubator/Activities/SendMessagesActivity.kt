@@ -13,10 +13,6 @@ import android.view.ViewGroup
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.v1rex.smartincubator.Model.Meeting
-import com.v1rex.smartincubator.Model.Message
 import com.v1rex.smartincubator.R
 import com.v1rex.smartincubator.ViewHolder.MeetingsViewHolder
 import com.v1rex.smartincubator.ViewHolder.SendMessagesViewHolder
@@ -25,7 +21,8 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 import android.support.v7.widget.RecyclerView.NO_POSITION
-import com.v1rex.smartincubator.Model.MessageInformations
+import com.google.firebase.database.*
+import com.v1rex.smartincubator.Model.*
 
 
 class SendMessagesActivity : AppCompatActivity() {
@@ -36,10 +33,20 @@ class SendMessagesActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
     private val ref = database.getReference("Data")
 
+    private val databaseUser = FirebaseDatabase.getInstance()
+    private var refUser: DatabaseReference? = null
+
+    private var user: User? = null
+    private var startup: Startup? = null
+    private var mentor: Mentor? = null
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_messages)
 
+        var nameUser : String? = null
         return_button.setOnClickListener{
             finish()
         }
@@ -53,8 +60,6 @@ class SendMessagesActivity : AppCompatActivity() {
         message_type.setText(type)
 
         var refSented = ref.child("Messages")
-
-
 
 
         message_edit_text.addTextChangedListener(object  : TextWatcher{
@@ -75,8 +80,6 @@ class SendMessagesActivity : AppCompatActivity() {
             }
 
         })
-
-
 
         fab_message_mentor.setOnClickListener {
             val now = Calendar.getInstance()
@@ -103,6 +106,7 @@ class SendMessagesActivity : AppCompatActivity() {
 
             var reference4 = refSented.child(userId).child("Latest messages").child(mAuth!!.uid.toString())
             messageInformations.userId = mAuth!!.uid.toString()
+            messageInformations.name = nameUser.toString()
             reference4.setValue(messageInformations)
 
             message_list.smoothScrollToPosition(firebaseRecyclerAdapter!!.itemCount)
@@ -177,6 +181,55 @@ class SendMessagesActivity : AppCompatActivity() {
         list.layoutManager = linearLayoutManager
         list.adapter = firebaseRecyclerAdapter
 
+        refUser = databaseUser.getReference("Data").child("users")
+        val valueEventListenerMentor = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // using the stored userId for getting the specific startup
+                user = dataSnapshot.child(mAuth!!.uid.toString()).getValue<User>(User::class.java)
+                nameUser = user!!.mFirstName +" " + user!!.mLastName
+                if(user!!.mAccountType == "Startup"){
+
+                    refUser = database.getReference("Data").child("startups")
+                    val valueEventListenerMentor = object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            // using the stored userId for getting the specific startup
+                            startup = dataSnapshot.child(mAuth!!.uid.toString()).getValue<Startup>(Startup::class.java)
+                            nameUser = startup!!.mStartupName
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+
+                        }
+                    }
+                    // listening for the change in the Startup database
+                    refUser!!.addValueEventListener(valueEventListenerMentor)
+
+                } else{
+                    refUser = database.getReference("Data").child("mentors")
+                    val valueEventListenerMentor = object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            // using the stored userId for getting the specific startup
+                            mentor = dataSnapshot.child(mAuth!!.uid.toString()).getValue<Mentor>(Mentor::class.java)
+                            nameUser = mentor!!.mLastName + " " + mentor!!.mFirstName
+
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+
+                        }
+                    }
+                    // listening for the change in the Startup database
+                    refUser!!.addValueEventListener(valueEventListenerMentor)
+                }
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        }
+        // listening for the change in the Startup database
+        refUser!!.addValueEventListener(valueEventListenerMentor)
 
 
     }
