@@ -98,6 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_alignBottom="@+id/message_list"
                 android:minHeight="72dp"
                 >
 

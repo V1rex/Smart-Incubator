@@ -21,7 +21,6 @@ class SendMessagesViewHolder (private val mView: View, private var number : Int)
 
     fun setMessageTextViewReceived(message : String){
         messageTextViewReceived!!.setText(message)
-
     }
 
     fun setMessageTextViewSented(message : String){

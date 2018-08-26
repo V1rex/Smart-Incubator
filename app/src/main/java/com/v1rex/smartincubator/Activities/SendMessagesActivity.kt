@@ -59,6 +59,7 @@ class SendMessagesActivity : AppCompatActivity() {
             val second = now.get(Calendar.SECOND)
             val millis = now.get(Calendar.MILLISECOND)
 
+            message_edit_text.setText("")
 
             var time : String= "$year $month $day $hour $minute ${second} $millis"
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
