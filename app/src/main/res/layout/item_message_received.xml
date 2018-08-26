@@ -24,8 +24,8 @@
             android:maxWidth="240dp"
             android:padding="8dp"
             android:background="@drawable/message_layout"
-            android:backgroundTint="#bdc3c7"
-            android:textColor="#fff"
+            android:backgroundTint="#ecf0f1"
+            android:textColor="#000000"
              />
     </LinearLayout>
 
