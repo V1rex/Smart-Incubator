@@ -53,6 +53,7 @@ class MessagesFragment : Fragment() {
 
         mList!!.layoutManager = linearLayoutManager
         linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
 
         options = FirebaseRecyclerOptions.Builder<MessageInformations>().setQuery(query, MessageInformations::class.java!!).build()
 
