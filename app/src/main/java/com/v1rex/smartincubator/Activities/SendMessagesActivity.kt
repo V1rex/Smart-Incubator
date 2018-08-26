@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +24,9 @@ import kotlinx.android.synthetic.main.activity_send_messages.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
+import android.support.v7.widget.RecyclerView.NO_POSITION
+
+
 
 class SendMessagesActivity : AppCompatActivity() {
 
@@ -49,6 +54,30 @@ class SendMessagesActivity : AppCompatActivity() {
 
         var refSented = ref.child("Messages")
 
+
+
+
+        message_edit_text.addTextChangedListener(object  : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+                if(p0.toString().trim().isEmpty()){
+                    fab_message_mentor.isEnabled = false
+                } else {
+                    fab_message_mentor.isEnabled = true
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+        })
+
+
+
         fab_message_mentor.setOnClickListener {
             val now = Calendar.getInstance()
             val year = now.get(Calendar.YEAR)
@@ -59,8 +88,6 @@ class SendMessagesActivity : AppCompatActivity() {
             val second = now.get(Calendar.SECOND)
             val millis = now.get(Calendar.MILLISECOND)
 
-
-
             var time : String= "$year $month $day $hour $minute ${second} $millis"
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
             message_edit_text.setText("")
@@ -69,13 +96,16 @@ class SendMessagesActivity : AppCompatActivity() {
             var reference2 = refSented.child(userId).child(mAuth!!.uid.toString()).child(message1.sentTime)
             reference2.setValue(message1)
 
+            message_list.smoothScrollToPosition(firebaseRecyclerAdapter!!.itemCount)
         }
 
         var mReference = refSented.child(mAuth!!.uid.toString()).child(userId)
         mReference!!.keepSynced(true)
 
         var list = message_list as RecyclerView
-        list.layoutManager = LinearLayoutManager(this)
+        var linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.stackFromEnd = true
+
 
 
         var options : FirebaseRecyclerOptions<Message>? = FirebaseRecyclerOptions.Builder<Message>().setQuery(mReference!! , Message::class.java!!).build()
@@ -93,6 +123,9 @@ class SendMessagesActivity : AppCompatActivity() {
                    view = LayoutInflater.from(this@SendMessagesActivity).inflate(R.layout.item_message_received, parent, false)
                     viewHolder = SendMessagesViewHolder(view!! , viewType)
                 }
+
+
+
                 return viewHolder!!
             }
 
@@ -103,6 +136,7 @@ class SendMessagesActivity : AppCompatActivity() {
                 } else {
                     holder.setMessageTextViewReceived(model.message)
                 }
+
             }
 
             override fun getItemViewType(position: Int): Int {
@@ -117,8 +151,22 @@ class SendMessagesActivity : AppCompatActivity() {
 
         }
 
-        list.adapter = firebaseRecyclerAdapter
+        firebaseRecyclerAdapter!!.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
 
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                super.onItemRangeChanged(positionStart, itemCount)
+
+                val messageCount = firebaseRecyclerAdapter!!.getItemCount()
+                val lastCompletelyVisiblePosition = linearLayoutManager.findLastCompletelyVisibleItemPosition()
+                if (lastCompletelyVisiblePosition == NO_POSITION || positionStart >= messageCount - 1 && lastCompletelyVisiblePosition == positionStart - 1) {
+                    list.scrollToPosition(positionStart)
+                }
+
+            }
+        })
+
+        list.layoutManager = linearLayoutManager
+        list.adapter = firebaseRecyclerAdapter
 
 
 
