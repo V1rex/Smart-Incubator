@@ -85,15 +85,15 @@ class SendMessagesActivity : AppCompatActivity() {
             val day = now.get(Calendar.DAY_OF_MONTH)
             val hour = now.get(Calendar.HOUR_OF_DAY)
             val minute = now.get(Calendar.MINUTE)
-            val second = now.get(Calendar.SECOND)
-            val millis = now.get(Calendar.MILLISECOND)
 
-            var time : String= "$year $month $day $hour $minute ${second} $millis"
+
+            val timeSent = System.currentTimeMillis().toString()
+            var time : String= "$day/$month/$year $hour:$minute"
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
             message_edit_text.setText("")
-            var reference1 = refSented.child(mAuth!!.uid.toString()).child(userId).child(message1.sentTime)
+            var reference1 = refSented.child(mAuth!!.uid.toString()).child(userId).child(timeSent)
             reference1.setValue(message1)
-            var reference2 = refSented.child(userId).child(mAuth!!.uid.toString()).child(message1.sentTime)
+            var reference2 = refSented.child(userId).child(mAuth!!.uid.toString()).child(timeSent)
             reference2.setValue(message1)
 
             message_list.smoothScrollToPosition(firebaseRecyclerAdapter!!.itemCount)
