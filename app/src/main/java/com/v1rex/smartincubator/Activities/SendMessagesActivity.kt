@@ -95,7 +95,7 @@ class SendMessagesActivity : AppCompatActivity() {
             val timeSent = System.currentTimeMillis().toString()
             var time : String= "$day/$month/$year $hour:$minute"
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
-            var messageInformations = MessageInformations(name, type, userId, message1.message)
+            var messageInformations = MessageInformations(name, type, userId, timeSent , message1.message)
             message_edit_text.setText("")
 
             var reference1 = refSented.child(mAuth!!.uid.toString()).child(userId).child(timeSent)

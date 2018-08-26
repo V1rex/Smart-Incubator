@@ -45,12 +45,16 @@ class MessagesFragment : Fragment() {
         //setting where to find meetings informations
         mReference = FirebaseDatabase.getInstance().reference.child("Data").child("Messages").child(mAuth!!.uid!!).child("Latest messages")
         mReference!!.keepSynced(true)
+        val query = mReference!!.orderByChild("time")
 
         mList = view.findViewById<RecyclerView>(R.id.messages_recyclerview) as RecyclerView
         mList!!.setHasFixedSize(true)
-        mList!!.layoutManager = LinearLayoutManager(this.activity)
+        var linearLayoutManager = LinearLayoutManager(this.activity)
 
-        options = FirebaseRecyclerOptions.Builder<MessageInformations>().setQuery(mReference!!, MessageInformations::class.java!!).build()
+        mList!!.layoutManager = linearLayoutManager
+        linearLayoutManager.reverseLayout = true
+
+        options = FirebaseRecyclerOptions.Builder<MessageInformations>().setQuery(query, MessageInformations::class.java!!).build()
 
         firebaseRecyclerAdapter = object :FirebaseRecyclerAdapter<MessageInformations,MessagesViewHolder>(options!!){
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessagesViewHolder {
