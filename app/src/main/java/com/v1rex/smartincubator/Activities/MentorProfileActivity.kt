@@ -21,8 +21,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.v1rex.smartincubator.Model.Meeting
 import com.v1rex.smartincubator.Model.Mentor
+import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_mentor_profile.*
 
@@ -36,6 +38,7 @@ class MentorProfileActivity : AppCompatActivity() {
     private var refUser: DatabaseReference? = null
     private var mAuth: FirebaseAuth? = null
     private val ref = database.getReference("Data")
+    private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,6 +129,25 @@ class MentorProfileActivity : AppCompatActivity() {
 
         // listening for the change in the Startup database
         refUser!!.addValueEventListener(valueEventListenerMentor)
+
+
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // using the stored userId for getting the specific mentor
+                user = dataSnapshot.child(mAuth!!.uid.toString()).getValue<User>(User::class.java)
+                user!!.registrationToken = FirebaseInstanceId.getInstance().token!!
+                var ref = refUser!!.child(user!!.mUserId.toString())
+                ref.setValue(user)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        }
+
+        refUser = database.getReference("Data").child("users")
+
+        // listening for the change in the Startup database
+        refUser!!.addValueEventListener(valueEventListener)
     }
 
 

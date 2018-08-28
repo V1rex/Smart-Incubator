@@ -13,10 +13,12 @@ import android.widget.LinearLayout
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.iid.FirebaseInstanceId
 import com.v1rex.smartincubator.Activities.StartupProfileActivity
 import com.v1rex.smartincubator.Model.Startup
+import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import com.v1rex.smartincubator.ViewHolder.StartupViewHolder
 
@@ -27,7 +29,6 @@ class StartupsFragment : Fragment() {
     private var mReference: DatabaseReference? = null
     private var firebaseRecyclerAdapter: FirebaseRecyclerAdapter<Startup, StartupViewHolder>? = null
     private var options: FirebaseRecyclerOptions<Startup>? = null
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View? = inflater.inflate(R.layout.fragment_startups, container, false)
@@ -72,7 +73,13 @@ class StartupsFragment : Fragment() {
         }
 
         mList!!.adapter = firebaseRecyclerAdapter
+
+
+
         return view
+
+
+
     }
 
     // Listening for changes in the Realtime Database

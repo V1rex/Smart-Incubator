@@ -33,7 +33,6 @@ class MessagesFragment : Fragment() {
     private var mAuth: FirebaseAuth? = null
 
     private val databaseMeetings = FirebaseDatabase.getInstance()
-    private var ref = databaseMeetings.getReference("Data")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -43,7 +42,7 @@ class MessagesFragment : Fragment() {
         mAuth = FirebaseAuth.getInstance()
 
         //setting where to find meetings informations
-        mReference = FirebaseDatabase.getInstance().reference.child("Data").child("Messages").child(mAuth!!.uid!!).child("Latest messages")
+        mReference = FirebaseDatabase.getInstance().reference.child("Data").child("LatestMessage").child(mAuth!!.uid!!)
         mReference!!.keepSynced(true)
         val query = mReference!!.orderByChild("time")
 
@@ -73,6 +72,7 @@ class MessagesFragment : Fragment() {
                     intent.putExtra("needSpecialty", model.need_speciality)
                     intent.putExtra("userId", model.userId)
                     intent.putExtra("type", model.typeUser)
+
                     startActivity(intent)
                 }
 

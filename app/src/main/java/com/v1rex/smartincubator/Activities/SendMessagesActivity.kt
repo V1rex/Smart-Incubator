@@ -29,6 +29,7 @@ class SendMessagesActivity : AppCompatActivity() {
     private val database = FirebaseDatabase.getInstance()
     private var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
     private val ref = database.getReference("Data")
+    private val refNotif = database.getReference("Data")
 
     private val databaseUser = FirebaseDatabase.getInstance()
     private var refUser: DatabaseReference? = null
@@ -46,6 +47,7 @@ class SendMessagesActivity : AppCompatActivity() {
         var nameUser : String? = null
         var need_specialityUser : String? = null
         var typeUser : String? = null
+        var registrationTokenUser : String? = null
 
         return_button.setOnClickListener{
             finish()
@@ -56,6 +58,7 @@ class SendMessagesActivity : AppCompatActivity() {
         var need_speciality = intent.getStringExtra("needSpecialty")
         var type = intent.getStringExtra("type")
         var userId = intent.getStringExtra("userId")
+        var registerToken = intent.getStringExtra("registerToken")
 
         message_name.setText(name)
         message_need_specialty.setText(need_speciality)
@@ -99,6 +102,8 @@ class SendMessagesActivity : AppCompatActivity() {
         }
 
         fab_message_mentor.setOnClickListener {
+
+
             val now = Calendar.getInstance()
             val year = now.get(Calendar.YEAR)
             val month = now.get(Calendar.MONTH) + 1 // Note: zero based!
@@ -106,27 +111,38 @@ class SendMessagesActivity : AppCompatActivity() {
             val hour = now.get(Calendar.HOUR_OF_DAY)
             val minute = now.get(Calendar.MINUTE)
 
-
             val timeSent = System.currentTimeMillis().toString()
             var time : String= "$day/$month/$year $hour:$minute"
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
             var messageInformations = MessageInformations(name, need_speciality, userId, type, timeSent , message1.message)
+
+            var notification = Notification(mAuth!!.uid.toString(), userId, registerToken , message_edit_text.text.toString(), nameUser.toString())
             message_edit_text.setText("")
 
+
+
             var reference1 = refSented.child(mAuth!!.uid.toString()).child(userId).child(timeSent)
+            message1.parent = userId
             reference1.setValue(message1)
             var reference2 = refSented.child(userId).child(mAuth!!.uid.toString()).child(timeSent)
+            message1.parent = mAuth!!.uid.toString()
             reference2.setValue(message1)
 
-            var reference3 = refSented.child(mAuth!!.uid.toString()).child("Latest messages").child(userId)
+            var refLatest = ref.child("LatestMessage")
+
+            var reference3 = refLatest.child(mAuth!!.uid.toString()).child(userId)
             reference3.setValue(messageInformations)
 
-            var reference4 = refSented.child(userId).child("Latest messages").child(mAuth!!.uid.toString())
+            var reference4 = refLatest.child(userId).child(mAuth!!.uid.toString())
             messageInformations.userId = mAuth!!.uid.toString()
+
             messageInformations.name = nameUser.toString()
             messageInformations.need_speciality = need_specialityUser.toString()
             messageInformations.typeUser = typeUser.toString()
             reference4.setValue(messageInformations)
+
+            var ref = refNotif.child("Notifications").child(notification.receiverUid).child(notification.senderUid).child(timeSent)
+            ref.setValue(notification)
 
             message_list.smoothScrollToPosition(firebaseRecyclerAdapter!!.itemCount)
         }
@@ -208,6 +224,24 @@ class SendMessagesActivity : AppCompatActivity() {
                 nameUser = user!!.mFirstName +" " + user!!.mLastName
                 need_specialityUser = user!!.mAccountType
                 typeUser = user!!.mAccountType
+                registrationTokenUser = user!!.registrationToken
+
+                refUser = databaseUser.getReference("Data").child("users")
+                val valueEventListenerReceiver = object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        // using the stored userId for getting the specific startup
+                        var user2 = dataSnapshot.child(userId).getValue<User>(User::class.java)
+                        registerToken = user2!!.registrationToken
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                    }
+                }
+                // listening for the change in the Startup database
+                refUser!!.addValueEventListener(valueEventListenerReceiver)
+
+
+
                 if(user!!.mAccountType == "Startup"){
 
                     refUser = database.getReference("Data").child("startups")
@@ -253,6 +287,8 @@ class SendMessagesActivity : AppCompatActivity() {
         }
         // listening for the change in the Startup database
         refUser!!.addValueEventListener(valueEventListenerMentor)
+
+
 
 
     }

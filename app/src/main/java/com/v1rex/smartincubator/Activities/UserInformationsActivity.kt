@@ -14,6 +14,8 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_user_informations.*
@@ -110,7 +112,8 @@ class UserInformationsActivity : AppCompatActivity() {
         if (cancel == false) {
             //Creating a new User object for submitting it
             val user = User(lastName, firstName, email, sexe, age, accountType, mAuth!!.uid.toString())
-
+            var firebaseMessaging = FirebaseInstanceId.getInstance().token
+            user.registrationToken = firebaseMessaging.toString()
             // Setting where to submit the user in the firebase realtime database
             val usersRef = ref.child("users")
             val userRef = usersRef.child(user.mUserId)

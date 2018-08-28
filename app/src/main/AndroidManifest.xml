@@ -31,6 +31,9 @@
         <activity android:name=".Activities.SettingsActivity" />
         <activity android:name=".Activities.SearchActivity" />
         <activity android:name=".Activities.SendMessagesActivity"></activity>
+
+
+
     </application>
 
 </manifest>
