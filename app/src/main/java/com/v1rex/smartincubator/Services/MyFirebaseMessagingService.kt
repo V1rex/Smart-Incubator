@@ -32,6 +32,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             receiverUid = remoteMessage!!.data.get("receiverUid").toString()
         }
 
+        sendNotif(remoteMessage.notification!!.title.toString() , remoteMessage.notification!!.body.toString(), nameUser , specialty_need , type , receiverUid)
+
 
     }
 
