@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.v1rex.smartincubator">
 
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -38,7 +41,8 @@
         <activity android:name=".Activities.StartupProfileActivity" />
         <activity android:name=".Activities.SettingsActivity" />
         <activity android:name=".Activities.SearchActivity" />
-        <activity android:name=".Activities.SendMessagesActivity"></activity>
+        <activity android:name=".Activities.SendMessagesActivity">
+        </activity>
 
         <service
             android:name=".Services.MyFirebaseMessagingService">

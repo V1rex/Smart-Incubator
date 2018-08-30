@@ -19,7 +19,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         super.onMessageReceived(remoteMessage)
 
-
         var nameUser : String = ""
         var specialty_need : String = ""
         var type : String = ""
