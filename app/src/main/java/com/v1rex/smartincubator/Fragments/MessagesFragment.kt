@@ -66,6 +66,14 @@ class MessagesFragment : Fragment() {
                 holder.setNameTextView(model.name)
                 holder.setMessageEditText(model.latestMessage)
 
+                holder.setTimeTextView(model.time)
+
+                if (model.typeUser == "Mentor" ){
+                    holder.setUserImageView(R.drawable.profile)
+                } else if (model.typeUser == "Startup"){
+                    holder.setUserImageView(R.drawable.startup)
+                }
+
                 holder.itemView.setOnClickListener {
                     val intent = Intent(activity!!.baseContext, SendMessagesActivity::class.java)
                     intent.putExtra("name", model.name)
