@@ -116,7 +116,7 @@ class SendMessagesActivity : AppCompatActivity() {
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
             var messageInformations = MessageInformations(name, need_speciality, userId, type, timeSent , message1.message)
 
-            var notification = Notification(mAuth!!.uid.toString(), userId, registerToken , message_edit_text.text.toString(), nameUser.toString(), need_speciality , typeUser.toString() )
+            var notification = Notification(mAuth!!.uid.toString(), userId, registerToken , message_edit_text.text.toString(), nameUser.toString(), need_specialityUser.toString() , typeUser.toString() )
             message_edit_text.setText("")
 
 
