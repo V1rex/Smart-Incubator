@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.v1rex.smartincubator.R
+import java.util.*
 
 
 class MessagesViewHolder (private val mView: View) : RecyclerView.ViewHolder(mView) {
@@ -35,7 +36,11 @@ class MessagesViewHolder (private val mView: View) : RecyclerView.ViewHolder(mVi
     }
 
     fun setTimeTextView(time : String){
-
+        var long  = time.toLong()
+        var calendar = Calendar.getInstance()
+        calendar.timeInMillis = long
+        var time : String = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)} "
+        timeTextView.setText(time)
     }
 
 
