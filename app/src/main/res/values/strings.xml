@@ -90,4 +90,7 @@
     <string name="search">Search by need or speciality</string>
 
 
+    <string name="empty_meeting">Oh ! it\'s look like that you have no meetings</string>
+
+
 </resources>

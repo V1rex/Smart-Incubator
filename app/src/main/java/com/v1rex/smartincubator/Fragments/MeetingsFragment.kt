@@ -27,6 +27,8 @@ import com.v1rex.smartincubator.Model.Meeting
 import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import com.v1rex.smartincubator.ViewHolder.MeetingsViewHolder
+import kotlinx.android.synthetic.main.fragment_meetings.*
+
 
 class MeetingsFragment : Fragment() {
 
@@ -52,6 +54,8 @@ class MeetingsFragment : Fragment() {
     private var mAcceptButton: RadioButton? = null
     private var mRefuseButton: RadioButton? = null
 
+    private var mEmptyMeetingsText: TextView? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val userId: String
@@ -70,6 +74,8 @@ class MeetingsFragment : Fragment() {
         mReceivedUserType = view!!.findViewById<View>(R.id.received_user_type) as TextView
         mSeeProfileReceived = view!!.findViewById<View>(R.id.see_profile_received) as TextView
 
+        mEmptyMeetingsText = view!!.findViewById<View>(R.id.empty_meetings_message) as TextView
+        mEmptyMeetingsText!!.visibility = View.GONE
 
         // getting Auth firebase instance
         mAuth = FirebaseAuth.getInstance()
@@ -201,6 +207,7 @@ class MeetingsFragment : Fragment() {
 
         if((firebaseRecyclerAdapter as FirebaseRecyclerAdapter<Meeting, MeetingsViewHolder>).itemCount == 0){
             mLoaderMessage!!.visibility = View.GONE
+            mEmptyMeetingsText!!.visibility = View.VISIBLE
 
         }
         mList!!.adapter = firebaseRecyclerAdapter

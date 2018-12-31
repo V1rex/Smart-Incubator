@@ -167,4 +167,16 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/empty_meetings_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_meeting"
+        android:textSize="22sp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
+
+
 </RelativeLayout>
