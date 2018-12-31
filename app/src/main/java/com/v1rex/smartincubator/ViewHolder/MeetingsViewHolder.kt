@@ -21,7 +21,6 @@ class MeetingsViewHolder(private val mView: View) : RecyclerView.ViewHolder(mVie
     }
 
     fun setmPlaceTextView(place: String) {
-
         mPlaceTextView.text = "Place: $place"
     }
 

@@ -96,104 +96,112 @@ class MeetingsFragment : Fragment() {
                 return MeetingsViewHolder(view)
             }
 
+
             override fun onBindViewHolder(holder: MeetingsViewHolder, position: Int, model: Meeting) {
-                mLoaderMessage!!.visibility = View.GONE
-                holder.setmPlaceTextView(model.mPlace)
-                holder.setmTypeEditText(model.mType)
-                holder.setmDateEditText(model.mDate)
-                holder.setmStatusEditText(model.accepte)
-                val userId = model.mUserIdSent
+                    mLoaderMessage!!.visibility = View.GONE
+                    holder.setmPlaceTextView(model.mPlace)
+                    holder.setmTypeEditText(model.mType)
+                    holder.setmDateEditText(model.mDate)
+                    holder.setmStatusEditText(model.accepte)
+                    val userId = model.mUserIdSent
 
-                // open meetings informations
-                holder.itemView.setOnClickListener {
-                    // if the user received the meeting then show this
-                    if (model.mType == "You received") {
-                        // Loading user informations who sent the meetings
-                        val valueEventListenerMeeting = object : ValueEventListener {
-                            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                // Store user informations on a object
-                                user = dataSnapshot.child(userId!!).getValue<User>(User::class.java)
+                    // open meetings informations
+                    holder.itemView.setOnClickListener {
+                        // if the user received the meeting then show this
+                        if (model.mType == "You received") {
+                            // Loading user informations who sent the meetings
+                            val valueEventListenerMeeting = object : ValueEventListener {
+                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                    // Store user informations on a object
+                                    user = dataSnapshot.child(userId!!).getValue<User>(User::class.java)
 
 
-                                if (model.accepte == "accepted") {
-                                    mAcceptButton!!.isChecked = true
-                                } else if (model.accepte == "refused") {
-                                    mRefuseButton!!.isChecked = true
-                                }
-                                mLinearLayoutReceived!!.visibility = View.VISIBLE
-                                mReceivedUserName!!.setText("UserName: " + user!!.mFirstName + " " + user!!.mLastName)
-                                mReceivedEmail!!.setText( "User Email: " + user!!.mEmail)
-                                mReceivedUserType!!.setText("User Type: " + user!!.mAccountType)
+                                    if (model.accepte == "accepted") {
+                                        mAcceptButton!!.isChecked = true
+                                    } else if (model.accepte == "refused") {
+                                        mRefuseButton!!.isChecked = true
+                                    }
+                                    mLinearLayoutReceived!!.visibility = View.VISIBLE
+                                    mReceivedUserName!!.setText("UserName: " + user!!.mFirstName + " " + user!!.mLastName)
+                                    mReceivedEmail!!.setText( "User Email: " + user!!.mEmail)
+                                    mReceivedUserType!!.setText("User Type: " + user!!.mAccountType)
 
-                                mSeeProfileReceived!!.setOnClickListener {
-                                    if (user!!.mAccountType == "Startup") {
-                                        // Open the mentors profile who sent the meetings
-                                        val intent = Intent(activity, StartupProfileActivity::class.java)
-                                        intent.putExtra("UserId Startup", user!!.mUserId)
-                                        startActivity(intent)
-                                    } else if (user!!.mAccountType == "Mentor") {
-                                        // Open the mentors profile who sent the meetings
-                                        val intent = Intent(activity, MentorProfileActivity::class.java)
-                                        intent.putExtra("Mentor userId", user!!.mUserId)
-                                        startActivity(intent)
+                                    mSeeProfileReceived!!.setOnClickListener {
+                                        if (user!!.mAccountType == "Startup") {
+                                            // Open the mentors profile who sent the meetings
+                                            val intent = Intent(activity, StartupProfileActivity::class.java)
+                                            intent.putExtra("UserId Startup", user!!.mUserId)
+                                            startActivity(intent)
+                                        } else if (user!!.mAccountType == "Mentor") {
+                                            // Open the mentors profile who sent the meetings
+                                            val intent = Intent(activity, MentorProfileActivity::class.java)
+                                            intent.putExtra("Mentor userId", user!!.mUserId)
+                                            startActivity(intent)
+                                        }
+                                    }
+
+                                    mExitReceived!!.setOnClickListener { mLinearLayoutReceived!!.visibility = View.INVISIBLE }
+
+                                    // Update data if the user clicked on the green check button
+                                    mUpdateReceived!!.setOnClickListener {
+                                        //if accepted
+                                        if (mAcceptButton!!.isChecked == true) {
+                                            // Store meeting informations in object Meeting
+                                            val meeting = Meeting(model.mUserIdSent.toString(), model.mUserIdReceived.toString(), model.mPlace.toString(), model.mDate.toString(), "accepted", model.mType.toString())
+
+                                            //Settings where to update meetings informations in the part of the part who sent
+                                            val userRef2 = ref.child(meeting.mUserIdSent).child("mettings").child(meeting.mUserIdReceived)
+                                            // Update meeting
+                                            userRef2.setValue(meeting)
+
+                                            //Settings where to update meetings informations in the part of the part who sent
+                                            val userRef = ref.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
+                                            // Update meeting
+                                            userRef.setValue(meeting)
+                                            mLinearLayoutReceived!!.visibility = View.GONE
+                                        } else if (mRefuseButton!!.isChecked == true) {
+                                            // Store meeting informations in object Meeting
+                                            val meeting = Meeting(model.mUserIdSent.toString(), model.mUserIdReceived.toString(), model.mPlace.toString(), model.mDate.toString(), "refused", model.mType.toString())
+                                            //Settings where to update meetings informations in the part of the part who sent
+                                            val userRef2 = ref.child(meeting.mUserIdSent).child("mettings").child(meeting.mUserIdReceived)
+                                            // Update meeting
+                                            userRef2.setValue(meeting)
+
+                                            //Settings where to update meetings informations in the part of the part who sent
+                                            val userRef = ref.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
+                                            // Update meeting
+                                            userRef.setValue(meeting)
+                                            mLinearLayoutReceived!!.visibility = View.GONE
+
+                                        } else {
+                                            // if the user who received the meetings didn't update anything so don't send any data to the server
+                                            mLinearLayoutReceived!!.visibility = View.GONE
+                                        }
                                     }
                                 }
 
-                                mExitReceived!!.setOnClickListener { mLinearLayoutReceived!!.visibility = View.INVISIBLE }
+                                override fun onCancelled(databaseError: DatabaseError) {
 
-                                // Update data if the user clicked on the green check button
-                                mUpdateReceived!!.setOnClickListener {
-                                    //if accepted
-                                    if (mAcceptButton!!.isChecked == true) {
-                                        // Store meeting informations in object Meeting
-                                        val meeting = Meeting(model.mUserIdSent.toString(), model.mUserIdReceived.toString(), model.mPlace.toString(), model.mDate.toString(), "accepted", model.mType.toString())
-
-                                        //Settings where to update meetings informations in the part of the part who sent
-                                        val userRef2 = ref.child(meeting.mUserIdSent).child("mettings").child(meeting.mUserIdReceived)
-                                        // Update meeting
-                                        userRef2.setValue(meeting)
-
-                                        //Settings where to update meetings informations in the part of the part who sent
-                                        val userRef = ref.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
-                                        // Update meeting
-                                        userRef.setValue(meeting)
-                                        mLinearLayoutReceived!!.visibility = View.GONE
-                                    } else if (mRefuseButton!!.isChecked == true) {
-                                        // Store meeting informations in object Meeting
-                                        val meeting = Meeting(model.mUserIdSent.toString(), model.mUserIdReceived.toString(), model.mPlace.toString(), model.mDate.toString(), "refused", model.mType.toString())
-                                        //Settings where to update meetings informations in the part of the part who sent
-                                        val userRef2 = ref.child(meeting.mUserIdSent).child("mettings").child(meeting.mUserIdReceived)
-                                        // Update meeting
-                                        userRef2.setValue(meeting)
-
-                                        //Settings where to update meetings informations in the part of the part who sent
-                                        val userRef = ref.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
-                                        // Update meeting
-                                        userRef.setValue(meeting)
-                                        mLinearLayoutReceived!!.visibility = View.GONE
-
-                                    } else {
-                                        // if the user who received the meetings didn't update anything so don't send any data to the server
-                                        mLinearLayoutReceived!!.visibility = View.GONE
-                                    }
                                 }
                             }
 
-                            override fun onCancelled(databaseError: DatabaseError) {
-
-                            }
-                        }
-
-                        ref = databaseMeetings.getReference("Data").child("users")
-                        ref.addValueEventListener(valueEventListenerMeeting)
+                            ref = databaseMeetings.getReference("Data").child("users")
+                            ref.addValueEventListener(valueEventListenerMeeting)
 
 
-                    } else if (model.mType == "You sented") {
-                        // TODO will update the app for showing a popup where the user who sented the meeeitng can change the informations about it
-                    }// if the user sented the meeting then show this
-                }
+                        } else if (model.mType == "You sented") {
+                            // TODO will update the app for showing a popup where the user who sented the meeeitng can change the informations about it
+                        }// if the user sented the meeting then show this
+                    }
 
             }
+
+
+        }
+
+        if((firebaseRecyclerAdapter as FirebaseRecyclerAdapter<Meeting, MeetingsViewHolder>).itemCount == 0){
+            mLoaderMessage!!.visibility = View.GONE
+
         }
         mList!!.adapter = firebaseRecyclerAdapter
         return view
