@@ -15,6 +15,47 @@
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
 
+        <LinearLayout
+            android:id="@+id/messages_load_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/loading"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="#2d2b2b"
+                android:fontFamily="sans-serif-condensed"
+                />
+            <ProgressBar
+                android:padding="16dp"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/empty_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_meeting"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            />
+
+
     </RelativeLayout>
 
 

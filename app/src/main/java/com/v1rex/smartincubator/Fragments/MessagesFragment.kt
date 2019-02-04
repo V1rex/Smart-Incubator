@@ -3,6 +3,7 @@ package com.v1rex.smartincubator.Fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Message
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -32,7 +33,7 @@ class MessagesFragment : Fragment() {
     private var options: FirebaseRecyclerOptions<MessageInformations>? = null
     private var mAuth: FirebaseAuth? = null
 
-    private val databaseMeetings = FirebaseDatabase.getInstance()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,6 +46,9 @@ class MessagesFragment : Fragment() {
         mReference = FirebaseDatabase.getInstance().reference.child("Data").child("LatestMessage").child(mAuth!!.uid!!)
         mReference!!.keepSynced(true)
         val query = mReference!!.orderByChild("time")
+
+        mLoaderMessage = view!!.findViewById(R.id.messages_load_progress)
+        mLoaderMessage!!.visibility = View.VISIBLE
 
         mList = view.findViewById<RecyclerView>(R.id.messages_recyclerview) as RecyclerView
         mList!!.setHasFixedSize(true)
@@ -63,6 +67,7 @@ class MessagesFragment : Fragment() {
             }
 
             override fun onBindViewHolder(holder: MessagesViewHolder, position: Int, model: MessageInformations) {
+                mLoaderMessage!!.visibility = View.GONE
                 holder.setNameTextView(model.name)
                 holder.setMessageEditText(model.latestMessage)
 
@@ -86,6 +91,10 @@ class MessagesFragment : Fragment() {
 
 
             }
+        }
+
+        if((firebaseRecyclerAdapter as FirebaseRecyclerAdapter<Message, MessagesViewHolder>).itemCount == 0){
+
         }
 
         mList!!.adapter = firebaseRecyclerAdapter

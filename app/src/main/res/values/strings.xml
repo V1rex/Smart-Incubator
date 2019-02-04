@@ -91,6 +91,7 @@
 
 
     <string name="empty_meeting">Oh ! it\'s look like that you have no meetings</string>
+    <string name="empty_messages">Oh ! it\'s look like that you have no messages</string>
 
 
 </resources>
