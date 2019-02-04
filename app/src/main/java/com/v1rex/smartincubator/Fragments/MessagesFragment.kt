@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -33,6 +34,8 @@ class MessagesFragment : Fragment() {
     private var options: FirebaseRecyclerOptions<MessageInformations>? = null
     private var mAuth: FirebaseAuth? = null
 
+    private var mEmptyMessagesText: TextView? = null
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +52,9 @@ class MessagesFragment : Fragment() {
 
         mLoaderMessage = view!!.findViewById(R.id.messages_load_progress)
         mLoaderMessage!!.visibility = View.VISIBLE
+
+        mEmptyMessagesText = view!!.findViewById(R.id.empty_message)
+        mEmptyMessagesText!!.visibility = View.GONE
 
         mList = view.findViewById<RecyclerView>(R.id.messages_recyclerview) as RecyclerView
         mList!!.setHasFixedSize(true)
@@ -94,7 +100,8 @@ class MessagesFragment : Fragment() {
         }
 
         if((firebaseRecyclerAdapter as FirebaseRecyclerAdapter<Message, MessagesViewHolder>).itemCount == 0){
-
+            mLoaderMessage!!.visibility = View.GONE
+            mEmptyMessagesText!!.visibility = View.VISIBLE
         }
 
         mList!!.adapter = firebaseRecyclerAdapter
