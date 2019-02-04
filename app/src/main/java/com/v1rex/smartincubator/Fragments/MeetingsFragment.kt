@@ -102,6 +102,15 @@ class MeetingsFragment : Fragment() {
                 return MeetingsViewHolder(view)
             }
 
+            override fun onDataChanged() {
+                super.onDataChanged()
+                if(itemCount == 0){
+                    mLoaderMessage!!.visibility = View.GONE
+                    mEmptyMeetingsText!!.visibility = View.VISIBLE
+
+                }
+            }
+
 
             override fun onBindViewHolder(holder: MeetingsViewHolder, position: Int, model: Meeting) {
                     mLoaderMessage!!.visibility = View.GONE
@@ -205,11 +214,7 @@ class MeetingsFragment : Fragment() {
 
         }
 
-        if((firebaseRecyclerAdapter as FirebaseRecyclerAdapter<Meeting, MeetingsViewHolder>).itemCount == 0){
-            mLoaderMessage!!.visibility = View.GONE
-            mEmptyMeetingsText!!.visibility = View.VISIBLE
 
-        }
         mList!!.adapter = firebaseRecyclerAdapter
         return view
     }
