@@ -42,6 +42,9 @@ class MessagesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_messages, container, false)
 
+        mEmptyMessagesText = view!!.findViewById<View>(R.id.empty_message) as TextView
+        mEmptyMessagesText!!.visibility = View.GONE
+
         // getting Auth firebase instance
         mAuth = FirebaseAuth.getInstance()
 
@@ -52,9 +55,6 @@ class MessagesFragment : Fragment() {
 
         mLoaderMessage = view!!.findViewById(R.id.messages_load_progress)
         mLoaderMessage!!.visibility = View.VISIBLE
-
-        mEmptyMessagesText = view!!.findViewById(R.id.empty_message)
-        mEmptyMessagesText!!.visibility = View.GONE
 
         mList = view.findViewById<RecyclerView>(R.id.messages_recyclerview) as RecyclerView
         mList!!.setHasFixedSize(true)
@@ -72,8 +72,16 @@ class MessagesFragment : Fragment() {
                 return MessagesViewHolder(view)
             }
 
+            override fun onDataChanged() {
+                super.onDataChanged()
+                if (itemCount == 0){
+                    mLoaderMessage!!.visibility = View.GONE
+                    mEmptyMessagesText!!.visibility = View.VISIBLE
+                }
+            }
             override fun onBindViewHolder(holder: MessagesViewHolder, position: Int, model: MessageInformations) {
                 mLoaderMessage!!.visibility = View.GONE
+                mEmptyMessagesText!!.visibility = View.GONE
                 holder.setNameTextView(model.name)
                 holder.setMessageEditText(model.latestMessage)
 
@@ -96,12 +104,14 @@ class MessagesFragment : Fragment() {
                 }
 
 
+
+
             }
         }
 
-        if((firebaseRecyclerAdapter as FirebaseRecyclerAdapter<Message, MessagesViewHolder>).itemCount == 0){
-            mLoaderMessage!!.visibility = View.GONE
-            mEmptyMessagesText!!.visibility = View.VISIBLE
+        if((firebaseRecyclerAdapter as FirebaseRecyclerAdapter<MessageInformations, MessagesViewHolder>).itemCount == 0){
+//            mLoaderMessage!!.visibility = View.GONE
+//            mEmptyMessagesText!!.visibility = View.VISIBLE
         }
 
         mList!!.adapter = firebaseRecyclerAdapter

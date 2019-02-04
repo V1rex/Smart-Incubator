@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.v1rex.smartincubator.R
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -40,6 +41,14 @@ class MessagesViewHolder (private val mView: View) : RecyclerView.ViewHolder(mVi
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = long
         var time : String = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)} "
+
+//        var date = Date(long)
+//        var format = SimpleDateFormat("HH:mm")
+//        var time = format.toString()
+
+
+
+
         timeTextView.setText(time)
     }
 
