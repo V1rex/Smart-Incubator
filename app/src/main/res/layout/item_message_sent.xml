@@ -34,15 +34,15 @@
             />
 
         <TextView
-            android:id="@+id/message_time_sent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#66ffffff"
-            android:layout_marginRight="4dp"
-            android:paddingBottom="2dp"
-            android:text="20:00"
-            android:gravity="end"
-            />
+        android:id="@+id/message_time_sent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#66ffffff"
+        android:layout_marginRight="4dp"
+        android:paddingBottom="2dp"
+        android:text="20:00"
+        android:gravity="end"
+        />
 
 
 

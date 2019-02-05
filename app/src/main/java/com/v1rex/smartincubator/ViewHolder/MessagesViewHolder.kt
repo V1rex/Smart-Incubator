@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.gms.flags.impl.DataUtils
 import com.v1rex.smartincubator.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,7 +30,11 @@ class MessagesViewHolder (private val mView: View) : RecyclerView.ViewHolder(mVi
     }
 
     fun setMessageEditText(message: String){
-        messageTextView.setText(message)
+        var messageFinal = message
+        if(message.length > 50){
+            messageFinal = "${messageFinal.substring(0,50)}..."
+        }
+        messageTextView.setText(messageFinal)
     }
 
     fun setUserImageView(resource : Int){
@@ -38,7 +43,6 @@ class MessagesViewHolder (private val mView: View) : RecyclerView.ViewHolder(mVi
 
     fun setTimeTextView(time : String){
         var long  = time.toLong()
-
 
         var date = Date(long)
         var time : String = SimpleDateFormat("HH:mm").format(date)
