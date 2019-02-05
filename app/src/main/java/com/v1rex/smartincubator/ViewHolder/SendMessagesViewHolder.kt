@@ -21,6 +21,7 @@ class SendMessagesViewHolder (private val mView: View, private var number : Int)
             timeTextView = mView.findViewById(R.id.message_time_sent)
         } else if(number == 2){
             messageTextViewReceived = mView.findViewById(R.id.message_body_received)
+            timeTextView = mView.findViewById(R.id.message_time_received)
         }
     }
 
@@ -32,7 +33,7 @@ class SendMessagesViewHolder (private val mView: View, private var number : Int)
         messageTextViewSented!!.setText(message)
     }
 
-    fun setMessageTimeTextViewSented(time : String){
+    fun setMessageTimeTextView(time : String){
         val date = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(time)
         val newString = SimpleDateFormat("HH:mm").format(date)
         timeTextView!!.setText(newString)

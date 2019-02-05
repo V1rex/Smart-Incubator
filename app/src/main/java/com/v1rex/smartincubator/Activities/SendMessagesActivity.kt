@@ -182,9 +182,10 @@ class SendMessagesActivity : AppCompatActivity() {
                 var uid = mAuth!!.uid.toString()
                 if(model.userSendId == uid){
                     holder.setMessageTextViewSented(model.message)
-                    holder.setMessageTimeTextViewSented(model.sentTime)
+                    holder.setMessageTimeTextView(model.sentTime)
                 } else {
                     holder.setMessageTextViewReceived(model.message)
+                    holder.setMessageTimeTextView(model.sentTime)
 
                 }
 
