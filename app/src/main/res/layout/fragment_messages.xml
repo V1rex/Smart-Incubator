@@ -47,7 +47,7 @@
             android:id="@+id/empty_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/empty_meeting"
+            android:text="@string/empty_messages"
             android:textSize="22sp"
             android:textAlignment="center"
             android:layout_centerHorizontal="true"

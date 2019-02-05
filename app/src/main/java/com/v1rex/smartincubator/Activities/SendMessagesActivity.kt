@@ -20,6 +20,7 @@ import java.util.*
 import android.support.v7.widget.RecyclerView.NO_POSITION
 import com.google.firebase.database.*
 import com.v1rex.smartincubator.Model.*
+import java.text.SimpleDateFormat
 
 
 class SendMessagesActivity : AppCompatActivity() {
@@ -104,15 +105,15 @@ class SendMessagesActivity : AppCompatActivity() {
         fab_message_mentor.setOnClickListener {
 
 
-            val now = Calendar.getInstance()
-            val year = now.get(Calendar.YEAR)
-            val month = now.get(Calendar.MONTH) + 1 // Note: zero based!
-            val day = now.get(Calendar.DAY_OF_MONTH)
-            val hour = now.get(Calendar.HOUR_OF_DAY)
-            val minute = now.get(Calendar.MINUTE)
+            val now = Date()
+//            val year = now.get(Calendar.YEAR)
+//            val month = now.get(Calendar.MONTH) + 1 // Note: zero based!
+//            val day = now.get(Calendar.DAY_OF_MONTH)
+//            val hour = now.get(Calendar.HOUR_OF_DAY)
+//            val minute = now.get(Calendar.MINUTE)
 
             val timeSent = System.currentTimeMillis().toString()
-            var time : String= "$day/$month/$year $hour:$minute"
+            var time : String= SimpleDateFormat("yyyy-MM-dd HH:mm").format(now)
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
             var messageInformations = MessageInformations(name, need_speciality, userId, type, timeSent , message1.message)
 

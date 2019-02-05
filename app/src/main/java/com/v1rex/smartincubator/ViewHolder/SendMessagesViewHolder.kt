@@ -33,7 +33,9 @@ class SendMessagesViewHolder (private val mView: View, private var number : Int)
     }
 
     fun setMessageTimeTextViewSented(time : String){
-        timeTextView!!.setText(time)
+        val date = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(time)
+        val newString = SimpleDateFormat("HH:mm").format(date)
+        timeTextView!!.setText(newString)
     }
 
 }
