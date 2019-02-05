@@ -57,6 +57,7 @@ class RegisterActivity : AppCompatActivity() {
         val email = user_register_edit_text.text.toString()
         val password = password_register_edit_text.text.toString()
 
+
         if (TextUtils.isEmpty(password)) {
             input_layout_password_register.error = getString(R.string.error_field_password_required)
             cancel = true

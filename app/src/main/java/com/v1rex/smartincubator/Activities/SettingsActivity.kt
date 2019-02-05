@@ -218,7 +218,6 @@ class SettingsActivity : AppCompatActivity() {
 
     }
 
-
     /**
      * update startup informations
      */

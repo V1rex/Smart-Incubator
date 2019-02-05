@@ -181,8 +181,10 @@ class SendMessagesActivity : AppCompatActivity() {
                 var uid = mAuth!!.uid.toString()
                 if(model.userSendId == uid){
                     holder.setMessageTextViewSented(model.message)
+                    holder.setMessageTimeTextViewSented(model.sentTime)
                 } else {
                     holder.setMessageTextViewReceived(model.message)
+
                 }
 
             }
@@ -285,6 +287,8 @@ class SendMessagesActivity : AppCompatActivity() {
 
             }
         }
+
+
         // listening for the change in the Startup database
         refUser!!.addValueEventListener(valueEventListenerMentor)
 
