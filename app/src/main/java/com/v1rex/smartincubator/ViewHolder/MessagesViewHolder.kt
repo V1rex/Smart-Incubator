@@ -38,16 +38,10 @@ class MessagesViewHolder (private val mView: View) : RecyclerView.ViewHolder(mVi
 
     fun setTimeTextView(time : String){
         var long  = time.toLong()
-        var calendar = Calendar.getInstance()
-        calendar.timeInMillis = long
-        var time : String = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)} "
-
-//        var date = Date(long)
-//        var format = SimpleDateFormat("HH:mm")
-//        var time = format.toString()
 
 
-
+        var date = Date(long)
+        var time : String = SimpleDateFormat("HH:mm").format(date)
 
         timeTextView.setText(time)
     }
