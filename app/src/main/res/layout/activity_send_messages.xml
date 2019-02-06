@@ -70,6 +70,16 @@
                     </LinearLayout>
 
                     <ImageButton
+                        android:id="@+id/send_meetings_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_meetings_place"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp"
+                        />
+
+                    <ImageButton
                         android:id="@+id/more_info_button"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -171,6 +181,167 @@
 
 
 
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/meeting_mentor_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#92000000"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:background="@drawable/rounded_layout"
+            android:backgroundTint="@color/colorFlatWhite"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/exit_mettings_mentor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_highlight_off_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:text="Meeting Informations:"
+                    android:textColor="#2d2b2b"
+                    android:textSize="20sp" />
+
+                <ImageButton
+                    android:id="@+id/send_mettings_mentor"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_offline_pin_black_24dp" />
+
+            </LinearLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_place_meeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/meeting_place_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:hint="Meeting Place"
+                    android:inputType="textEmailAddress" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/set_date_mentor_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:padding="4dp"
+                android:text="Set Date"
+                android:textColor="@color/colorFlatWhite" />
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/set_time_mentor_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:padding="4dp"
+                android:text="Set time"
+                android:textColor="@color/colorFlatWhite" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+         android:id="@+id/date_picker_mentor_layout"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="vertical"
+         android:visibility="gone">
+
+         <ImageButton
+             android:id="@+id/finished_date_mentor"
+
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="end"
+             android:background="@android:color/transparent"
+             app:srcCompat="@drawable/ic_offline_pin_white_24dp" />
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_margin="56dp"
+             android:orientation="vertical">
+
+             <DatePicker
+                 android:id="@+id/date_picker_mentor"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@color/colorFlatWhite" />
+
+
+         </LinearLayout>
+
+     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_picker_mentor_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/finished_time_mentor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_offline_pin_white_24dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="56dp"
+            android:orientation="vertical">
+
+            <TimePicker
+                android:id="@+id/time_picker_mentor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFlatWhite" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
