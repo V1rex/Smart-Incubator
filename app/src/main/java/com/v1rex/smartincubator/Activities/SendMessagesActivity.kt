@@ -18,6 +18,7 @@ import com.v1rex.smartincubator.ViewHolder.SendMessagesViewHolder
 import kotlinx.android.synthetic.main.activity_send_messages.*
 import java.util.*
 import android.support.v7.widget.RecyclerView.NO_POSITION
+import android.text.TextUtils
 import com.google.firebase.database.*
 import com.v1rex.smartincubator.Model.*
 import java.text.SimpleDateFormat
@@ -292,9 +293,72 @@ class SendMessagesActivity : AppCompatActivity() {
 
 
         send_meetings_button.setOnClickListener {
-
+            meeting_linearlayout.visibility = View.VISIBLE
         }
 
+        exit_mettings.setOnClickListener {
+            meeting_linearlayout.visibility = View.GONE
+        }
+
+        send_meetings.setOnClickListener {
+            var meetingPlace : String = meeting_place_edit_text.text.toString()
+
+            if (TextUtils.isEmpty(meetingPlace)) {
+                input_layout_place_meeting.error = getString(R.string.field_requierd)
+            }else{
+                val day = date_picker.dayOfMonth
+                val month = date_picker.month
+                val year = date_picker.year
+                val hour = time_picker.currentHour
+                val minute = time_picker.currentMinute
+
+                val calendar = Calendar.getInstance()
+                calendar.set(year, month, day, hour, minute)
+
+                val date = SimpleDateFormat("yyyy.MM.dd 'at' hh:mm")
+                val dateAndTime = date.format(calendar.time)
+
+                // creating a meeting object for the user who will receive the meeting
+                val meeting = Meeting(mAuth!!.uid.toString(), userId, meetingPlace, dateAndTime, "", "Received")
+
+                // setting where to store meetings informations for the user who will receive it
+                val usersRef = ref.child("users")
+                val userRef = usersRef.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
+
+                // store the meetings for user who received
+                userRef.setValue(meeting)
+                meeting_linearlayout.visibility = View.GONE
+
+                // creating a meeting object for the user who send the meeting
+                val meeting2 = Meeting(mAuth!!.uid.toString(), userId, meetingPlace, dateAndTime, "", "You sented")
+                // setting where to store meetings informations for the user who send it
+                val usersRef1 = ref.child("users")
+                val userRef2 = usersRef1.child(meeting.mUserIdSent).child("mettings").child(meeting2.mUserIdReceived)
+
+                // store the meetings for user who sent
+                userRef2.setValue(meeting2)
+            }
+        }
+
+
+
+        set_date_btn.setOnClickListener {
+            date_picker_layout.visibility = View.VISIBLE
+        }
+
+        finished_date.setOnClickListener {
+            date_picker_layout.visibility = View.GONE
+        }
+
+
+
+        set_time_btn.setOnClickListener {
+            time_picker_layout.visibility = View.VISIBLE
+        }
+
+        finished_time.setOnClickListener {
+            time_picker_layout.visibility = View.GONE
+        }
 
     }
 
