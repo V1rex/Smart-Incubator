@@ -322,8 +322,8 @@ class SendMessagesActivity : AppCompatActivity() {
                 val meeting = Meeting(mAuth!!.uid.toString(), userId, meetingPlace, dateAndTime, "", "You received")
 
                 // setting where to store meetings informations for the user who will receive it
-                val usersRef = ref.child("users")
-                val userRef = usersRef.child(meeting.mUserIdReceived).child("meetings").child(meeting.mUserIdSent)
+                val usersRef = ref.child("Meetings")
+                val userRef = usersRef.child(meeting.mUserIdReceived).child(meeting.mUserIdSent)
 
                 // store the meetings for user who received
                 userRef.setValue(meeting)
@@ -332,8 +332,8 @@ class SendMessagesActivity : AppCompatActivity() {
                 // creating a meeting object for the user who send the meeting
                 val meeting2 = Meeting(mAuth!!.uid.toString(), userId, meetingPlace, dateAndTime, "", "You sented")
                 // setting where to store meetings informations for the user who send it
-                val usersRef1 = ref.child("users")
-                val userRef2 = usersRef1.child(meeting.mUserIdSent).child("meetings").child(meeting2.mUserIdReceived)
+                val usersRef1 = ref.child("Meetings")
+                val userRef2 = usersRef1.child(meeting.mUserIdSent).child(meeting2.mUserIdReceived)
 
                 // store the meetings for user who sent
                 userRef2.setValue(meeting2)
