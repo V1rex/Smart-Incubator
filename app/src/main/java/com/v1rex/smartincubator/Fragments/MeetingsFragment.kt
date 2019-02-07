@@ -81,7 +81,7 @@ class MeetingsFragment : Fragment() {
         mAuth = FirebaseAuth.getInstance()
 
         //setting where to find meetings informations
-        mReference = FirebaseDatabase.getInstance().reference.child("Data").child("users").child(mAuth!!.uid!!).child("meetings")
+        mReference = FirebaseDatabase.getInstance().reference.child("Data").child("Meetings").child(mAuth!!.uid!!)
         mReference!!.keepSynced(true)
 
 
