@@ -165,12 +165,12 @@ class MeetingsFragment : Fragment() {
                                             val meeting = Meeting(model.mUserIdSent.toString(), model.mUserIdReceived.toString(), model.mPlace.toString(), model.mDate.toString(), "accepted", model.mType.toString())
 
                                             //Settings where to update meetings informations in the part of the part who sent
-                                            val userRef2 = ref.child(meeting.mUserIdSent).child("mettings").child(meeting.mUserIdReceived)
+                                            val userRef2 = ref.child(meeting.mUserIdSent).child("meetings").child(meeting.mUserIdReceived)
                                             // Update meeting
                                             userRef2.setValue(meeting)
 
                                             //Settings where to update meetings informations in the part of the part who sent
-                                            val userRef = ref.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
+                                            val userRef = ref.child(meeting.mUserIdReceived).child("meetings").child(meeting.mUserIdSent)
                                             // Update meeting
                                             userRef.setValue(meeting)
                                             mLinearLayoutReceived!!.visibility = View.GONE
@@ -178,12 +178,12 @@ class MeetingsFragment : Fragment() {
                                             // Store meeting informations in object Meeting
                                             val meeting = Meeting(model.mUserIdSent.toString(), model.mUserIdReceived.toString(), model.mPlace.toString(), model.mDate.toString(), "refused", model.mType.toString())
                                             //Settings where to update meetings informations in the part of the part who sent
-                                            val userRef2 = ref.child(meeting.mUserIdSent).child("mettings").child(meeting.mUserIdReceived)
+                                            val userRef2 = ref.child(meeting.mUserIdSent).child("meetings").child(meeting.mUserIdReceived)
                                             // Update meeting
                                             userRef2.setValue(meeting)
 
                                             //Settings where to update meetings informations in the part of the part who sent
-                                            val userRef = ref.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
+                                            val userRef = ref.child(meeting.mUserIdReceived).child("meetings").child(meeting.mUserIdSent)
                                             // Update meeting
                                             userRef.setValue(meeting)
                                             mLinearLayoutReceived!!.visibility = View.GONE
