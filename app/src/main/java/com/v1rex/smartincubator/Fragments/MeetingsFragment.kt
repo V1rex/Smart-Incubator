@@ -161,17 +161,20 @@ class MeetingsFragment : Fragment() {
                                     mUpdateReceived!!.setOnClickListener {
                                         //if accepted
                                         if (mAcceptButton!!.isChecked == true) {
+                                            ref = databaseMeetings.getReference("Data")
                                             // Store meeting informations in object Meeting
                                             val meeting = Meeting(model.mUserIdSent.toString(), model.mUserIdReceived.toString(), model.mPlace.toString(), model.mDate.toString(), "accepted", model.mType.toString())
 
                                             //Settings where to update meetings informations in the part of the part who sent
-                                            val userRef2 = ref.child(meeting.mUserIdSent).child("meetings").child(meeting.mUserIdReceived)
+                                            val userRef2 = ref.child("Meetings").child(meeting.mUserIdSent).child(meeting.mUserIdReceived)
                                             // Update meeting
+                                            meeting.mType = "You sented"
                                             userRef2.setValue(meeting)
 
                                             //Settings where to update meetings informations in the part of the part who sent
-                                            val userRef = ref.child(meeting.mUserIdReceived).child("meetings").child(meeting.mUserIdSent)
+                                            val userRef = ref.child("Meetings").child(meeting.mUserIdReceived).child(meeting.mUserIdSent)
                                             // Update meeting
+                                            meeting.mType = "You received"
                                             userRef.setValue(meeting)
                                             mLinearLayoutReceived!!.visibility = View.GONE
                                         } else if (mRefuseButton!!.isChecked == true) {
