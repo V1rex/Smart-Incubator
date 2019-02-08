@@ -250,12 +250,17 @@ class MeetingsFragment : Fragment() {
 
                         } else if (model.mType == "You sented") {
 
+
                             mMeetingPlaceEditText!!.setText(model.mPlace)
                             var dateTime = model.mDate
-                            var date : Date = SimpleDateFormat("yyyy.MM.dd 'at' hh:mm").parse(dateTime)
-                            mDateSented!!.updateDate(date.year,date.month, date.day)
+                            var cal = Calendar.getInstance()
+                            cal.time = SimpleDateFormat("yyyy.MM.dd 'at' hh:mm").parse(dateTime)
+                            var date = SimpleDateFormat("yyyy.MM.dd 'at' hh:mm").parse(dateTime)
+                            mDateSented!!.updateDate(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
                             mTimeSented!!.currentHour = date.hours
                             mTimeSented!!.currentMinute = date.minutes
+
+
 
 
 
