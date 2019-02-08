@@ -2,16 +2,14 @@ package com.v1rex.smartincubator.Fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.TextView
+import android.widget.*
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -27,6 +25,7 @@ import com.v1rex.smartincubator.Model.Meeting
 import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import com.v1rex.smartincubator.ViewHolder.MeetingsViewHolder
+import kotlinx.android.synthetic.main.activity_send_messages.*
 import kotlinx.android.synthetic.main.fragment_meetings.*
 
 
@@ -45,8 +44,8 @@ class MeetingsFragment : Fragment() {
 
     private var mLinearLayoutReceived: LinearLayout? = null
     private val mLinearLayoutSented: LinearLayout? = null
-    private var mExitReceived: ImageButton? = null
-    private var mUpdateReceived: ImageButton? = null
+    private var mExitReceived : ImageButton? = null
+    private var mUpdateReceived : ImageButton? = null
     private var mReceivedUserName: TextView? = null
     private var mReceivedEmail: TextView? = null
     private var mReceivedUserType: TextView? = null
@@ -55,6 +54,13 @@ class MeetingsFragment : Fragment() {
     private var mRefuseButton: RadioButton? = null
 
     private var mEmptyMeetingsText: TextView? = null
+
+    private var mExitSented : ImageButton? = null
+    private var mUpdateSented : ImageButton? = null
+    private var mInputMeetingSendtedTextLayout : TextInputLayout? = null
+    private var mMeetingPlaceEditText : EditText? = null
+    private var mSetDateSentedBtn : Button? = null
+    private var mSetTimeSentedBtn : Button? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,6 +71,20 @@ class MeetingsFragment : Fragment() {
 
         mExitReceived = view!!.findViewById<View>(R.id.exit_received) as ImageButton
         mUpdateReceived = view!!.findViewById<View>(R.id.update_received) as ImageButton
+
+
+        mExitSented = view!!.findViewById<View>(R.id.exit_mettings_sented) as ImageButton
+        mUpdateSented = view!!.findViewById<View>(R.id.send_meetings_sented) as ImageButton
+
+        mInputMeetingSendtedTextLayout = view!!.findViewById<TextInputLayout>(R.id.input_layout_place_meeting_sented) as TextInputLayout
+
+        mMeetingPlaceEditText = view!!.findViewById<EditText>(R.id.meeting_place_edit_text_sented) as EditText
+
+        mSetDateSentedBtn = view!!.findViewById<Button>(R.id.set_date_btn_sented) as Button
+
+        mSetTimeSentedBtn = view!!.findViewById<Button>(R.id.set_time_btn_sented) as Button
+
+
 
         mAcceptButton = view!!.findViewById<View>(R.id.accept_received_button) as RadioButton
         mRefuseButton = view!!.findViewById<View>(R.id.refuse_received_button) as RadioButton
@@ -208,8 +228,16 @@ class MeetingsFragment : Fragment() {
 
 
                         } else if (model.mType == "You sented") {
-                            // TODO will update the app for showing a popup where the user who sented the meeeitng can change the informations about it
-                        }// if the user sented the meeting then show this
+                            meeting_linearlayout.visibility = View.VISIBLE
+
+                            mExitSented!!.setOnClickListener {
+                                meeting_linearlayout.visibility = View.VISIBLE
+                            }
+
+                            mUpdateSented!!.setOnClickListener {
+
+                            }
+                        }
                     }
 
             }
