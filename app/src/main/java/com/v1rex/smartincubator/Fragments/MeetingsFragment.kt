@@ -261,11 +261,11 @@ class MeetingsFragment : Fragment() {
                             }
 
                             mFinishedDateSented!!.setOnClickListener {
-
+                                mLinearLayoutDateSented!!.visibility = View.GONE
                             }
 
                             mFinishedTimeSented!!.setOnClickListener {
-
+                                mLinearLayoutTimeSented!!.visibility = View.GONE
                             }
                         }
                     }

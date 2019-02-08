@@ -292,13 +292,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="56dp"
             android:orientation="vertical">
 
             <DatePicker
                 android:id="@+id/date_picker_sented"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="@color/colorFlatWhite" />
 
 
@@ -324,13 +324,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="56dp"
             android:orientation="vertical">
 
             <TimePicker
                 android:id="@+id/time_picker_sented"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="@color/colorFlatWhite" />
 
 
