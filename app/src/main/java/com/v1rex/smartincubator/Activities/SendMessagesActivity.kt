@@ -337,6 +337,8 @@ class SendMessagesActivity : AppCompatActivity() {
 
                 // store the meetings for user who sent
                 userRef2.setValue(meeting2)
+
+
             }
         }
 

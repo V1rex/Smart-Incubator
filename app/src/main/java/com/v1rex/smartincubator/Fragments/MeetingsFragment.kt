@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,9 @@ import com.v1rex.smartincubator.R
 import com.v1rex.smartincubator.ViewHolder.MeetingsViewHolder
 import kotlinx.android.synthetic.main.activity_send_messages.*
 import kotlinx.android.synthetic.main.fragment_meetings.*
+import java.sql.Time
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MeetingsFragment : Fragment() {
@@ -65,6 +69,8 @@ class MeetingsFragment : Fragment() {
     private var mFinishedDateSented : ImageButton? = null
     private var mLinearLayoutTimeSented: LinearLayout? = null
     private var mFinishedTimeSented : ImageButton? = null
+    private var mDateSented : DatePicker? = null
+    private var mTimeSented : TimePicker? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -96,7 +102,8 @@ class MeetingsFragment : Fragment() {
         mLinearLayoutTimeSented = view!!.findViewById<View>(R.id.time_picker_layout_sented) as LinearLayout
         mFinishedTimeSented = view!!.findViewById<View>(R.id.finished_time_sented) as ImageButton
 
-
+        mDateSented = view!!.findViewById<DatePicker>(R.id.date_picker_sented) as DatePicker
+        mTimeSented = view!!.findViewById<TimePicker>(R.id.time_picker_sented) as TimePicker
 
 
 
@@ -215,12 +222,12 @@ class MeetingsFragment : Fragment() {
                                             // Store meeting informations in object Meeting
                                             val meeting = Meeting(model.mUserIdSent.toString(), model.mUserIdReceived.toString(), model.mPlace.toString(), model.mDate.toString(), "refused", model.mType.toString())
                                             //Settings where to update meetings informations in the part of the part who sent
-                                            val userRef2 = ref.child(meeting.mUserIdSent).child("meetings").child(meeting.mUserIdReceived)
+                                            val userRef2 = ref.child("Meetings").child(meeting.mUserIdSent).child(meeting.mUserIdReceived)
                                             // Update meeting
                                             userRef2.setValue(meeting)
 
                                             //Settings where to update meetings informations in the part of the part who sent
-                                            val userRef = ref.child(meeting.mUserIdReceived).child("meetings").child(meeting.mUserIdSent)
+                                            val userRef = ref.child("Meetings").child(meeting.mUserIdReceived).child(meeting.mUserIdSent)
                                             // Update meeting
                                             userRef.setValue(meeting)
                                             mLinearLayoutReceived!!.visibility = View.GONE
@@ -242,15 +249,23 @@ class MeetingsFragment : Fragment() {
 
 
                         } else if (model.mType == "You sented") {
+
+                            mMeetingPlaceEditText!!.setText(model.mPlace)
+                            var dateTime = model.mDate
+                            var date : Date = SimpleDateFormat("yyyy.MM.dd 'at' hh:mm").parse(dateTime)
+                            mDateSented!!.updateDate(date.year,date.month, date.day)
+                            mTimeSented!!.currentHour = date.hours
+                            mTimeSented!!.currentMinute = date.minutes
+
+
+
                             mLinearLayoutSented!!.visibility = View.VISIBLE
 
                             mExitSented!!.setOnClickListener {
                                 mLinearLayoutSented!!.visibility = View.GONE
                             }
 
-                            mUpdateSented!!.setOnClickListener {
-                                mLinearLayoutSented!!.visibility = View.GONE
-                            }
+
 
                             mSetDateSentedBtn!!.setOnClickListener {
                                 mLinearLayoutDateSented!!.visibility = View.VISIBLE
@@ -266,6 +281,40 @@ class MeetingsFragment : Fragment() {
 
                             mFinishedTimeSented!!.setOnClickListener {
                                 mLinearLayoutTimeSented!!.visibility = View.GONE
+                            }
+
+                            mUpdateSented!!.setOnClickListener {
+
+                                var place = mMeetingPlaceEditText!!.text.toString()
+
+                                if (TextUtils.isEmpty(place)) {
+                                    mInputMeetingSendtedTextLayout!!.error = getString(R.string.field_requierd)
+                                }else{
+                                    val day = mDateSented!!.dayOfMonth
+                                    val month = mDateSented!!.month
+                                    val year = mDateSented!!.year
+                                    val hour = mTimeSented!!.currentHour
+                                    val minute = mTimeSented!!.currentMinute
+
+                                    val calendar = Calendar.getInstance()
+                                    calendar.set(year, month, day, hour, minute)
+                                    val date = SimpleDateFormat("yyyy.MM.dd 'at' hh:mm")
+                                    val dateAndTime = date.format(calendar.time)
+
+                                    // creating a meeting object for the user who will receive the meeting
+                                    val meeting = Meeting(mAuth!!.uid.toString(), model.mUserIdReceived, place, dateAndTime, model.accepte, model.mType)
+                                    var referrence = databaseMeetings.getReference("Data")
+                                    val usersRef = referrence.child("Meetings")
+                                    val userRef = usersRef.child(meeting.mUserIdSent).child(meeting.mUserIdReceived)
+                                    userRef.setValue(meeting)
+
+                                    mLinearLayoutSented!!.visibility = View.GONE
+
+                                    meeting.mType = "You received"
+                                    var userRef1 = referrence.child("Meetings")
+                                    userRef1 = userRef1.child(meeting.mUserIdReceived).child(meeting.mUserIdSent)
+                                    userRef1.setValue(meeting)
+                                }
                             }
                         }
                     }
