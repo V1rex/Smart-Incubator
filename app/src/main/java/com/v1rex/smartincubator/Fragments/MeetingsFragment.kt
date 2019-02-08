@@ -43,7 +43,6 @@ class MeetingsFragment : Fragment() {
     private var user: User? = null
 
     private var mLinearLayoutReceived: LinearLayout? = null
-    private val mLinearLayoutSented: LinearLayout? = null
     private var mExitReceived : ImageButton? = null
     private var mUpdateReceived : ImageButton? = null
     private var mReceivedUserName: TextView? = null
@@ -55,12 +54,17 @@ class MeetingsFragment : Fragment() {
 
     private var mEmptyMeetingsText: TextView? = null
 
+    private var mLinearLayoutSented: LinearLayout? = null
     private var mExitSented : ImageButton? = null
     private var mUpdateSented : ImageButton? = null
     private var mInputMeetingSendtedTextLayout : TextInputLayout? = null
     private var mMeetingPlaceEditText : EditText? = null
     private var mSetDateSentedBtn : Button? = null
     private var mSetTimeSentedBtn : Button? = null
+    private var mLinearLayoutDateSented: LinearLayout? = null
+    private var mFinishedDateSented : ImageButton? = null
+    private var mLinearLayoutTimeSented: LinearLayout? = null
+    private var mFinishedTimeSented : ImageButton? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -73,6 +77,7 @@ class MeetingsFragment : Fragment() {
         mUpdateReceived = view!!.findViewById<View>(R.id.update_received) as ImageButton
 
 
+        mLinearLayoutSented = view!!.findViewById<View>(R.id.meeting_linearlayout_sented) as LinearLayout
         mExitSented = view!!.findViewById<View>(R.id.exit_mettings_sented) as ImageButton
         mUpdateSented = view!!.findViewById<View>(R.id.send_meetings_sented) as ImageButton
 
@@ -83,6 +88,15 @@ class MeetingsFragment : Fragment() {
         mSetDateSentedBtn = view!!.findViewById<Button>(R.id.set_date_btn_sented) as Button
 
         mSetTimeSentedBtn = view!!.findViewById<Button>(R.id.set_time_btn_sented) as Button
+
+
+        mLinearLayoutDateSented = view!!.findViewById<View>(R.id.date_picker_layout_sented) as LinearLayout
+        mFinishedDateSented = view!!.findViewById<View>(R.id.finished_date_sented) as ImageButton
+
+        mLinearLayoutTimeSented = view!!.findViewById<View>(R.id.time_picker_layout_sented) as LinearLayout
+        mFinishedTimeSented = view!!.findViewById<View>(R.id.finished_time_sented) as ImageButton
+
+
 
 
 
@@ -228,13 +242,29 @@ class MeetingsFragment : Fragment() {
 
 
                         } else if (model.mType == "You sented") {
-                            meeting_linearlayout.visibility = View.VISIBLE
+                            mLinearLayoutSented!!.visibility = View.VISIBLE
 
                             mExitSented!!.setOnClickListener {
-                                meeting_linearlayout.visibility = View.VISIBLE
+                                mLinearLayoutSented!!.visibility = View.GONE
                             }
 
                             mUpdateSented!!.setOnClickListener {
+                                mLinearLayoutSented!!.visibility = View.GONE
+                            }
+
+                            mSetDateSentedBtn!!.setOnClickListener {
+                                mLinearLayoutDateSented!!.visibility = View.VISIBLE
+                            }
+
+                            mSetTimeSentedBtn!!.setOnClickListener {
+                                mLinearLayoutTimeSented!!.visibility = View.VISIBLE
+                            }
+
+                            mFinishedDateSented!!.setOnClickListener {
+
+                            }
+
+                            mFinishedTimeSented!!.setOnClickListener {
 
                             }
                         }
