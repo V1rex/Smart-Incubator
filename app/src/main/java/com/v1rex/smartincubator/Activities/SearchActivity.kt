@@ -46,6 +46,10 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        var number : Int = 0
+        linearlayout_startup_search.visibility = View.GONE
+        linearlayout_mentor_search.visibility = View.GONE
+
         // setting the return button manually
         search_back_button.setOnClickListener {
             startActivity(Intent(this@SearchActivity, BottonNavigationActivity::class.java))
@@ -56,6 +60,80 @@ class SearchActivity : AppCompatActivity() {
         mentorLinearLayoutManager = LinearLayoutManager(this)
         search_startups_recyclerview.layoutManager = startupLinearLayoutManager
         search_mentors_recyclerview.layoutManager = mentorLinearLayoutManager
+
+
+        var startupList : ArrayList<Startup> = ArrayList<Startup>()
+        mReferenceStartups = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
+
+        val valueEventListenerStartup = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (postSnapshot in dataSnapshot.children) {
+                    var data : Startup? = postSnapshot.getValue<Startup>(Startup::class.java)
+                    startupList.add(data!!)
+                }
+
+                startupAdapter = StartupAdapter(startupList, baseContext)
+                search_startups_recyclerview.adapter = startupAdapter
+
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        }
+
+        mReferenceStartups!!.addListenerForSingleValueEvent(valueEventListenerStartup)
+
+
+
+        var mentorList : ArrayList<Mentor> = ArrayList<Mentor>()
+        mReferenceMentors = FirebaseDatabase.getInstance().reference.child("Data").child("mentors")
+
+        val valueEventListenerMentor = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (postSnapshot in dataSnapshot.children) {
+                    var data : Mentor? = postSnapshot.getValue<Mentor>(Mentor::class.java)
+                    mentorList.add(data!!)
+                }
+
+                //startupAdapter = StartupAdapter(startupList, baseContext)
+                mentorAdapter = MentorAdapter(mentorList, baseContext)
+                search_mentors_recyclerview.adapter = mentorAdapter
+
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        }
+
+        mReferenceMentors!!.addListenerForSingleValueEvent(valueEventListenerMentor)
+
+
+        if (startup_radio_button_search.isChecked == true) {
+            linearlayout_startup_search.visibility = View.VISIBLE
+            number = 0
+        } else{
+            linearlayout_mentor_search.visibility = View.VISIBLE
+            number = 1
+        }
+
+        startup_radio_button_search.setOnClickListener {
+            linearlayout_startup_search.visibility = View.VISIBLE
+            linearlayout_mentor_search.visibility = View.GONE
+            number = 0
+        }
+
+        mentor_radio_button_search.setOnClickListener {
+            linearlayout_startup_search.visibility = View.GONE
+            linearlayout_mentor_search.visibility = View.VISIBLE
+            number = 1
+        }
+
 
 
 
@@ -74,57 +152,6 @@ class SearchActivity : AppCompatActivity() {
                 return true
             }
         })*/
-
-        /*var startupList : ArrayList<Startup> = ArrayList<Startup>()
-        mReferenceStartups = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
-
-        val valueEventListenerStartup = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (postSnapshot in dataSnapshot.children) {
-                  var data : Startup? = postSnapshot.getValue<Startup>(Startup::class.java)
-                    startupList.add(data!!)
-                }
-
-                startupAdapter = StartupAdapter(startupList, baseContext)
-                search_startups_recyclerview.adapter = startupAdapter
-                linearlayout_startup_search.visibility = View.VISIBLE
-
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        }
-
-        mReferenceStartups!!.addListenerForSingleValueEvent(valueEventListenerStartup)*/
-
-
-        var mentorList : ArrayList<Mentor> = ArrayList<Mentor>()
-        mReferenceMentors = FirebaseDatabase.getInstance().reference.child("Data").child("mentors")
-
-        val valueEventListenerMentor = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (postSnapshot in dataSnapshot.children) {
-                    var data : Mentor? = postSnapshot.getValue<Mentor>(Mentor::class.java)
-                    mentorList.add(data!!)
-                }
-
-                //startupAdapter = StartupAdapter(startupList, baseContext)
-                mentorAdapter = MentorAdapter(mentorList, baseContext)
-                search_mentors_recyclerview.adapter = mentorAdapter
-                linearlayout_mentor_search.visibility = View.VISIBLE
-
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        }
-
-        mReferenceMentors!!.addListenerForSingleValueEvent(valueEventListenerMentor)
-
 
     }
 
