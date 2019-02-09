@@ -145,7 +145,7 @@ class SearchActivity : AppCompatActivity() {
             var mentorListFinal : ArrayList<Mentor> = ArrayList<Mentor>()
             if(number == 0){
                 for(startupListSearch in startupList)  {
-                    if (startupListSearch.mNeed.contains(search.toString()) || startupListSearch.mDomain.contains(search.toString())  || startupListSearch.mStartupName.contains(search.toString())  ){
+                    if ((startupListSearch.mNeed.contains(search.toString()) || startupListSearch.mDomain.contains(search.toString())  || startupListSearch.mStartupName.contains(search.toString())) || (startupListSearch.mNeed.equals(search.toString(), ignoreCase = true) || startupListSearch.mDomain.equals(search.toString(), ignoreCase = true)  || startupListSearch.mStartupName.equals(search.toString(), ignoreCase = true)) ){
                         startupListFinal.add(startupListSearch)
 
                     }
@@ -155,7 +155,7 @@ class SearchActivity : AppCompatActivity() {
 
             } else if(number == 1){
                 for(mentorListSearch in mentorList){
-                    if (mentorListSearch.mSpeciality.contains(search.toString())  || mentorListSearch.mCity.contains(search.toString())  || mentorListSearch.mFirstName.contains(search.toString())   || mentorListSearch.mLastName.contains(search.toString())  ){
+                    if ((mentorListSearch.mSpeciality.contains(search.toString())  || mentorListSearch.mCity.contains(search.toString())  || mentorListSearch.mFirstName.contains(search.toString())   || mentorListSearch.mLastName.contains(search.toString())  ) || (mentorListSearch.mSpeciality.equals(search.toString(), ignoreCase = true)  || mentorListSearch.mCity.equals(search.toString(), ignoreCase = true)  || mentorListSearch.mFirstName.equals(search.toString(), ignoreCase = true)   || mentorListSearch.mLastName.equals(search.toString() , ignoreCase = true)  )){
                         mentorListFinal.add(mentorListSearch)
                     }
                 }
