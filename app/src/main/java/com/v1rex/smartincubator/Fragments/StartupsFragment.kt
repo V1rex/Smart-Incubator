@@ -13,12 +13,9 @@ import android.widget.LinearLayout
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.iid.FirebaseInstanceId
 import com.v1rex.smartincubator.Activities.StartupProfileActivity
 import com.v1rex.smartincubator.Model.Startup
-import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import com.v1rex.smartincubator.ViewHolder.StartupViewHolder
 
@@ -37,6 +34,7 @@ class StartupsFragment : Fragment() {
         mReference = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
         mReference!!.keepSynced(true)
 
+        // showing a waiting loader
         mLoaderStartup = view!!.findViewById<View>(R.id.startup_load_progress) as LinearLayout
         mLoaderStartup!!.visibility = View.VISIBLE
 
@@ -73,8 +71,6 @@ class StartupsFragment : Fragment() {
         }
 
         mList!!.adapter = firebaseRecyclerAdapter
-
-
 
         return view
 

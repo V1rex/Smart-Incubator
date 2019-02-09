@@ -26,9 +26,6 @@ import com.v1rex.smartincubator.Model.Meeting
 import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import com.v1rex.smartincubator.ViewHolder.MeetingsViewHolder
-import kotlinx.android.synthetic.main.activity_send_messages.*
-import kotlinx.android.synthetic.main.fragment_meetings.*
-import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,6 +43,8 @@ class MeetingsFragment : Fragment() {
     private var ref = databaseMeetings.getReference("Data")
     private var user: User? = null
 
+    private var mEmptyMeetingsText: TextView? = null
+
     private var mLinearLayoutReceived: LinearLayout? = null
     private var mExitReceived : ImageButton? = null
     private var mUpdateReceived : ImageButton? = null
@@ -56,7 +55,6 @@ class MeetingsFragment : Fragment() {
     private var mAcceptButton: RadioButton? = null
     private var mRefuseButton: RadioButton? = null
 
-    private var mEmptyMeetingsText: TextView? = null
 
     private var mLinearLayoutSented: LinearLayout? = null
     private var mExitSented : ImageButton? = null
@@ -77,13 +75,12 @@ class MeetingsFragment : Fragment() {
         val userId: String
 
         val view  : View? = inflater.inflate(R.layout.fragment_meetings, container, false)
-        mLinearLayoutReceived = view!!.findViewById<View>(R.id.linearlayout_received) as LinearLayout
-
-        mExitReceived = view!!.findViewById<View>(R.id.exit_received) as ImageButton
-        mUpdateReceived = view!!.findViewById<View>(R.id.update_received) as ImageButton
 
 
+        // setting the layout that will be showed if the user click on a meeting that he sented
+        //it will make him able to change the informations about the meeting
         mLinearLayoutSented = view!!.findViewById<View>(R.id.meeting_linearlayout_sented) as LinearLayout
+
         mExitSented = view!!.findViewById<View>(R.id.exit_mettings_sented) as ImageButton
         mUpdateSented = view!!.findViewById<View>(R.id.send_meetings_sented) as ImageButton
 
@@ -92,7 +89,6 @@ class MeetingsFragment : Fragment() {
         mMeetingPlaceEditText = view!!.findViewById<EditText>(R.id.meeting_place_edit_text_sented) as EditText
 
         mSetDateSentedBtn = view!!.findViewById<Button>(R.id.set_date_btn_sented) as Button
-
         mSetTimeSentedBtn = view!!.findViewById<Button>(R.id.set_time_btn_sented) as Button
 
 
@@ -107,28 +103,41 @@ class MeetingsFragment : Fragment() {
 
 
 
-        mAcceptButton = view!!.findViewById<View>(R.id.accept_received_button) as RadioButton
-        mRefuseButton = view!!.findViewById<View>(R.id.refuse_received_button) as RadioButton
+
+        // setting the layout that will be showed if the user click on a meeting that he received
+        //it will make him able to see the profile of the sender and accept or refuse the meeting
+        mLinearLayoutReceived = view!!.findViewById<View>(R.id.linearlayout_received) as LinearLayout
+
+        mExitReceived = view!!.findViewById<View>(R.id.exit_received) as ImageButton
+        mUpdateReceived = view!!.findViewById<View>(R.id.update_received) as ImageButton
 
         mReceivedUserName = view!!.findViewById<View>(R.id.received_user_name) as TextView
         mReceivedEmail = view!!.findViewById<View>(R.id.received_user_email) as TextView
         mReceivedUserType = view!!.findViewById<View>(R.id.received_user_type) as TextView
         mSeeProfileReceived = view!!.findViewById<View>(R.id.see_profile_received) as TextView
 
+        mAcceptButton = view!!.findViewById<View>(R.id.accept_received_button) as RadioButton
+        mRefuseButton = view!!.findViewById<View>(R.id.refuse_received_button) as RadioButton
+
+
+        //this layout is showed if the user have no meetings
         mEmptyMeetingsText = view!!.findViewById<View>(R.id.empty_meetings_message) as TextView
         mEmptyMeetingsText!!.visibility = View.GONE
 
+
         // getting Auth firebase instance
         mAuth = FirebaseAuth.getInstance()
+
 
         //setting where to find meetings informations
         mReference = FirebaseDatabase.getInstance().reference.child("Data").child("Meetings").child(mAuth!!.uid!!)
         mReference!!.keepSynced(true)
 
-
+        // showed a waiting loader
         mLoaderMessage = view!!.findViewById<View>(R.id.message_load_progress) as LinearLayout
         mLoaderMessage!!.visibility = View.VISIBLE
 
+        //showing the meetings in a recyclerview
         mList = view!!.findViewById<View>(R.id.meetings_recyclerview) as RecyclerView
         mList!!.setHasFixedSize(true)
         mList!!.layoutManager = LinearLayoutManager(this.activity)
@@ -136,7 +145,7 @@ class MeetingsFragment : Fragment() {
 
         options = FirebaseRecyclerOptions.Builder<Meeting>().setQuery(mReference!!, Meeting::class.java!!).build()
 
-        // setting the firebaseRecyclerAdapter for the showing Mentors
+        // setting the firebaseRecyclerAdapter for the showing meetings
         firebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Meeting, MeetingsViewHolder>(options!!) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeetingsViewHolder {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_meetings, parent, false)
@@ -329,8 +338,8 @@ class MeetingsFragment : Fragment() {
 
         }
 
-
         mList!!.adapter = firebaseRecyclerAdapter
+
         return view
     }
 

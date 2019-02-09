@@ -42,19 +42,22 @@ class MessagesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_messages, container, false)
 
+        // this layout is showed when their is no messages
         mEmptyMessagesText = view!!.findViewById<View>(R.id.empty_message) as TextView
         mEmptyMessagesText!!.visibility = View.GONE
+
+        // showed a waiting loader
+        mLoaderMessage = view!!.findViewById(R.id.messages_load_progress)
+        mLoaderMessage!!.visibility = View.VISIBLE
 
         // getting Auth firebase instance
         mAuth = FirebaseAuth.getInstance()
 
-        //setting where to find meetings informations
+        //setting where to find the latest messages
         mReference = FirebaseDatabase.getInstance().reference.child("Data").child("LatestMessage").child(mAuth!!.uid!!)
         mReference!!.keepSynced(true)
         val query = mReference!!.orderByChild("time")
 
-        mLoaderMessage = view!!.findViewById(R.id.messages_load_progress)
-        mLoaderMessage!!.visibility = View.VISIBLE
 
         mList = view.findViewById<RecyclerView>(R.id.messages_recyclerview) as RecyclerView
         mList!!.setHasFixedSize(true)
@@ -103,15 +106,7 @@ class MessagesFragment : Fragment() {
                     startActivity(intent)
                 }
 
-
-
-
             }
-        }
-
-        if((firebaseRecyclerAdapter as FirebaseRecyclerAdapter<MessageInformations, MessagesViewHolder>).itemCount == 0){
-//            mLoaderMessage!!.visibility = View.GONE
-//            mEmptyMessagesText!!.visibility = View.VISIBLE
         }
 
         mList!!.adapter = firebaseRecyclerAdapter

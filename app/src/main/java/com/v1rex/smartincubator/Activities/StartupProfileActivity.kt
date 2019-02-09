@@ -47,6 +47,7 @@ class StartupProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_startup_profile)
+
         // getting instance of the Auth firebase
         mAuth = FirebaseAuth.getInstance()
 
@@ -54,13 +55,9 @@ class StartupProfileActivity : AppCompatActivity() {
         val intent = intent
         val userId = intent.getStringExtra("UserId Startup")
 
-       /* finished_date_startup.setOnClickListener { date_picker_startup_layout.visibility = View.GONE }
 
-        finished_time_startup.setOnClickListener { time_picker_startup_layout.visibility = View.GONE } */
-
-        // showing a popup for sending a meeting
+        // showing a popup for sending a messages
         fab.setOnClickListener {
-//            meeting_startup_linearlayout.visibility = View.VISIBLE
             val intent = Intent(this, SendMessagesActivity::class.java)
             intent.putExtra("name", startup!!.mStartupName )
             intent.putExtra("needSpecialty", startup!!.mNeed )
@@ -68,51 +65,6 @@ class StartupProfileActivity : AppCompatActivity() {
             intent.putExtra("type","Startup" )
             startActivity(intent)
         }
-
-
-        /*set_date_startup_btn.setOnClickListener { date_picker_startup_layout.visibility = View.VISIBLE }
-
-        set_time_startup_btn.setOnClickListener { time_picker_startup_layout.visibility = View.VISIBLE }
-
-        exit_mettings_startup.setOnClickListener { meeting_startup_linearlayout.visibility = View.GONE } */
-
-
-       /* send_mettings_startup.setOnClickListener {
-            if (TextUtils.isEmpty(meeting_place_edit_text_startup.text.toString())) {
-                input_layout_place_meeting_startup.error = getString(R.string.field_requierd)
-            } else {
-                val day = date_picker_startup.dayOfMonth
-                val month = date_picker_startup.month
-                val year = date_picker_startup.year
-                val hour = time_picker_startup.currentHour
-                val minute = time_picker_startup.currentMinute
-
-                val calendar = Calendar.getInstance()
-                calendar.set(year, month, day, hour, minute)
-
-                val date = SimpleDateFormat("yyyy.MM.dd 'at' hh:mm")
-                val dateAndTime = date.format(calendar.time)
-
-                // creating a meeting object for the user who will receive the meeting
-                val meeting = Meeting(mAuth!!.uid.toString(), userId, meeting_place_edit_text_startup.text.toString(), dateAndTime, "", "Received")
-
-                // setting where to store meetings informations for the user who will receive it
-                val usersRef = ref.child("users")
-                val userRef = usersRef.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
-                // store the meetings for user who received
-                userRef.setValue(meeting)
-                meeting_startup_linearlayout.visibility = View.GONE
-
-                // creating a meeting object for the user who send the meeting
-                val meeting2 = Meeting(mAuth!!.uid.toString(), userId, meeting_place_edit_text_startup.text.toString(), dateAndTime, "", "You sented")
-                // setting where to store meetings informations for the user who send it
-                val usersRef1 = ref.child("users")
-                val userRef2 = usersRef1.child(meeting.mUserIdSent).child("mettings").child(meeting2.mUserIdReceived)
-
-                // store the meetings for user who sent
-                userRef2.setValue(meeting2)
-            }
-        } */
 
         // loading the specific startups informations
         refUser = database.getReference("Data").child("startups")
@@ -127,6 +79,7 @@ class StartupProfileActivity : AppCompatActivity() {
 
             }
         }
+
         // listening for the change in the Startup database
         refUser!!.addValueEventListener(valueEventListenerMentor)
 
@@ -147,7 +100,7 @@ class StartupProfileActivity : AppCompatActivity() {
 
         refUser = database.getReference("Data").child("users")
 
-        // listening for the change in the Startup database
+        // geeting informations about the user
         refUser!!.addValueEventListener(valueEventListener)
     }
 
