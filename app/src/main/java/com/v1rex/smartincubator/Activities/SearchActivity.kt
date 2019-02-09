@@ -136,10 +136,40 @@ class SearchActivity : AppCompatActivity() {
 
 
 
+        /**
+         * search between startups or mentors
+         * @param search
+         */
+        fun search(search: String?) {
+            var startupListFinal : ArrayList<Startup> = ArrayList<Startup>()
+            var mentorListFinal : ArrayList<Mentor> = ArrayList<Mentor>()
+            if(number == 0){
+                for(startupListSearch in startupList)  {
+                    if (startupListSearch.mNeed.contains(search.toString()) || startupListSearch.mDomain.contains(search.toString())  || startupListSearch.mStartupName.contains(search.toString())  ){
+                        startupListFinal.add(startupListSearch)
 
-        /*search(searchText)
+                    }
+                }
+                startupAdapter = StartupAdapter(startupListFinal, baseContext)
+                search_startups_recyclerview.adapter = startupAdapter
 
-        searchText = search_view_activity.query.toString()
+            } else if(number == 1){
+                for(mentorListSearch in mentorList){
+                    if (mentorListSearch.mSpeciality.contains(search.toString())  || mentorListSearch.mCity.contains(search.toString())  || mentorListSearch.mFirstName.contains(search.toString())   || mentorListSearch.mLastName.contains(search.toString())  ){
+                        mentorListFinal.add(mentorListSearch)
+                    }
+                }
+                mentorAdapter = MentorAdapter(mentorListFinal, baseContext)
+                search_mentors_recyclerview.adapter = mentorAdapter
+
+            }
+
+
+        }
+
+
+
+
 
         search_view_activity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -151,95 +181,14 @@ class SearchActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String): Boolean {
                 return true
             }
-        })*/
+        })
+
+
 
     }
 
 
-    /**
-     * search between startups or mentors
-     * @param search
-     */
-    private fun search(search: String?) {
-        if (startup_radio_button_search.isChecked == true) {
-            linearlayout_startup_search.visibility = View.VISIBLE
-            linearlayout_mentor_search.visibility = View.GONE
-            search_startups_recyclerview.setHasFixedSize(true)
-            search_startups_recyclerview.layoutManager = LinearLayoutManager(this@SearchActivity)
-            mReferenceStartups = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
-            mReferenceStartups!!.keepSynced(true)
-            val query = mReferenceStartups!!.orderByChild("mNeed").startAt(search)
 
-            Startupoptions = FirebaseRecyclerOptions.Builder<Startup>().setQuery(query, Startup::class.java!!).build()
-
-            StartupfirebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Startup, StartupViewHolder>(Startupoptions!!) {
-                override fun onBindViewHolder(holder: StartupViewHolder, position: Int, model: Startup) {
-                    holder.setmNeedTextView("Need :" + " " + model.mNeed)
-                    holder.setmNameTextView(model.mStartupName)
-                    holder.setmDomainTextView("Domain :" + " " + model.mDomain)
-
-
-                    holder.itemView.setOnClickListener {
-                        val intent = Intent(this@SearchActivity, StartupProfileActivity::class.java)
-                        intent.putExtra("UserId Startup", model.mUserId)
-                        startActivity(intent)
-                    }
-
-                }
-
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartupViewHolder {
-
-                    val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_startups_layout, parent, false)
-
-                    return StartupViewHolder(view)
-                }
-            }
-
-            search_startups_recyclerview.adapter = StartupfirebaseRecyclerAdapter
-            StartupfirebaseRecyclerAdapter!!.startListening()
-
-        } else if (mentor_radio_button_search.isChecked == true) {
-            linearlayout_startup_search.visibility = View.GONE
-            linearlayout_mentor_search.visibility = View.VISIBLE
-            search_mentors_recyclerview.setHasFixedSize(true)
-            search_mentors_recyclerview.layoutManager = LinearLayoutManager(this@SearchActivity)
-
-
-            mReferenceMentors = FirebaseDatabase.getInstance().reference.child("Data").child("mentors")
-            mReferenceMentors!!.keepSynced(true)
-            // setting the query for the search
-            val query = mReferenceMentors!!.orderByChild("mSpeciality").startAt(search)
-
-            Mentoroptions = FirebaseRecyclerOptions.Builder<Mentor>().setQuery(query, Mentor::class.java).build()
-
-            MentorfirebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Mentor, MentorViewHolder>(Mentoroptions!!) {
-                override fun onBindViewHolder(holder: MentorViewHolder, position: Int, model: Mentor) {
-                    holder.setmNameTextView(model.mLastName + " " + model.mFirstName)
-                    holder.setmCityTextView(model.mCity)
-                    holder.setmSpecialityTextView(model.mSpeciality)
-
-
-                    holder.itemView.setOnClickListener {
-                        val intent = Intent(this@SearchActivity, MentorProfileActivity::class.java)
-                        intent.putExtra("Mentor userId", model.mUserId)
-                        startActivity(intent)
-                    }
-
-                }
-
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MentorViewHolder {
-                    val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_mentors_layout, parent, false)
-
-                    return MentorViewHolder(view)
-                }
-            }
-
-            search_mentors_recyclerview.adapter = MentorfirebaseRecyclerAdapter
-            MentorfirebaseRecyclerAdapter!!.startListening()
-        }
-
-
-    }
 
 
     class StartupAdapter(private val startups : ArrayList<Startup>, private var context : Context) : RecyclerView.Adapter<StartupViewHolder>(){
