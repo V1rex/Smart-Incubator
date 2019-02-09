@@ -46,15 +46,18 @@ class SendMessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_messages)
 
+        return_button.setOnClickListener{
+            finish()
+        }
+
         var nameUser : String? = null
         var need_specialityUser : String? = null
         var typeUser : String? = null
         var registrationTokenUser : String? = null
 
-        return_button.setOnClickListener{
-            finish()
-        }
 
+
+        // getting informations about that we will send to messages
         val intent = intent
         var name = intent.getStringExtra("name")
         var need_speciality = intent.getStringExtra("needSpecialty")
@@ -62,12 +65,15 @@ class SendMessagesActivity : AppCompatActivity() {
         var userId = intent.getStringExtra("userId")
         var registerToken = intent.getStringExtra("registerToken")
 
+
+
         message_name.setText(name)
         message_need_specialty.setText(need_speciality)
 
         var refSented = ref.child("Messages")
 
 
+        // do not enable sending messages if the EditText is empty
         message_edit_text.addTextChangedListener(object  : TextWatcher{
             override fun afterTextChanged(p0: Editable?) {
                 if(p0.toString().trim().isEmpty()){
@@ -87,6 +93,7 @@ class SendMessagesActivity : AppCompatActivity() {
 
         })
 
+        // this button is responsible for showing the user profile
         more_info_button.setOnClickListener{
             var intent : Intent? = null
             when(type){
@@ -96,54 +103,63 @@ class SendMessagesActivity : AppCompatActivity() {
                 "Startup" -> {intent = Intent(this, StartupProfileActivity::class.java)
                     intent.putExtra("UserId Startup", userId)
                 startActivity(intent)}
-
-
-
-
             }
         }
 
         fab_message_mentor.setOnClickListener {
-
-
+            //getting the date and time
             val now = Date()
-
             val timeSent = System.currentTimeMillis().toString()
             var time : String= SimpleDateFormat("yyyy-MM-dd HH:mm").format(now)
+
+            //setting the message object so it can be added to the firebase realtime database
             var message1 = Message(message_edit_text.text.toString() , mAuth!!.uid.toString(), userId , time)
+
+            /*setting the message informations so it can be very easy to access the latest messages in MessagesFragment without loading all the messages database
+            just the latest */
             var messageInformations = MessageInformations(name, need_speciality, userId, type, timeSent , message1.message)
 
+            //setting the notifications object
             var notification = Notification(mAuth!!.uid.toString(), userId, registerToken , message_edit_text.text.toString(), nameUser.toString(), need_specialityUser.toString() , typeUser.toString() )
+
+
             message_edit_text.setText("")
 
 
-
+            // add message object to the database of the sender
             var reference1 = refSented.child(mAuth!!.uid.toString()).child(userId).child(timeSent)
             message1.parent = userId
             reference1.setValue(message1)
+
+            // add message object to the database of the receiver
             var reference2 = refSented.child(userId).child(mAuth!!.uid.toString()).child(timeSent)
             message1.parent = mAuth!!.uid.toString()
             reference2.setValue(message1)
 
-            var refLatest = ref.child("LatestMessage")
 
+            // adding the latestMessages informatons to the database of the sender
+            var refLatest = ref.child("LatestMessage")
             var reference3 = refLatest.child(mAuth!!.uid.toString()).child(userId)
             reference3.setValue(messageInformations)
 
+
+            // adding the latestMessages informatons to the database of the receiver
             var reference4 = refLatest.child(userId).child(mAuth!!.uid.toString())
             messageInformations.userId = mAuth!!.uid.toString()
-
             messageInformations.name = nameUser.toString()
             messageInformations.need_speciality = need_specialityUser.toString()
             messageInformations.typeUser = typeUser.toString()
             reference4.setValue(messageInformations)
 
+            //adding the notifications object to the database so that the cloud functions send a notifications to the receiver
             var ref = refNotif.child("Notifications").child(notification.receiverUid).child(notification.senderUid).child(timeSent)
             ref.setValue(notification)
 
+            //scroll to the latest message
             message_list.smoothScrollToPosition(firebaseRecyclerAdapter!!.itemCount)
         }
 
+        //setting the reference for getting the messages object and displaying them on a RecyclerView
         var mReference = refSented.child(mAuth!!.uid.toString()).child(userId)
         mReference!!.keepSynced(true)
 
@@ -160,6 +176,8 @@ class SendMessagesActivity : AppCompatActivity() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SendMessagesViewHolder {
                 var view : View? = null
                 var viewHolder : SendMessagesViewHolder? = null
+
+
                 if(viewType == 1){
                     view = LayoutInflater.from(this@SendMessagesActivity).inflate(R.layout.item_message_sent, parent, false)
                     viewHolder = SendMessagesViewHolder(view!!, viewType)
@@ -168,8 +186,6 @@ class SendMessagesActivity : AppCompatActivity() {
                    view = LayoutInflater.from(this@SendMessagesActivity).inflate(R.layout.item_message_received, parent, false)
                     viewHolder = SendMessagesViewHolder(view!! , viewType)
                 }
-
-
 
                 return viewHolder!!
             }
@@ -190,6 +206,8 @@ class SendMessagesActivity : AppCompatActivity() {
             override fun getItemViewType(position: Int): Int {
                 var uid = mAuth!!.uid.toString()
                 val message = getItem(position)
+
+                //see if the user who sended the message to choose which layout to display
                 if(uid.equals(message.userSendId)){
                     return 1
                 } else{
@@ -199,8 +217,8 @@ class SendMessagesActivity : AppCompatActivity() {
 
         }
 
+        // trigger messages changes
         firebaseRecyclerAdapter!!.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
-
             override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
                 super.onItemRangeChanged(positionStart, itemCount)
 
@@ -217,7 +235,7 @@ class SendMessagesActivity : AppCompatActivity() {
         list.adapter = firebaseRecyclerAdapter
 
         refUser = databaseUser.getReference("Data").child("users")
-        val valueEventListenerMentor = object : ValueEventListener {
+        val valueEventListenerUser = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // using the stored userId for getting the specific startup
                 user = dataSnapshot.child(mAuth!!.uid.toString()).getValue<User>(User::class.java)
@@ -287,19 +305,11 @@ class SendMessagesActivity : AppCompatActivity() {
         }
 
 
-        // listening for the change in the Startup database
-        refUser!!.addValueEventListener(valueEventListenerMentor)
+        // getting the user important informations
+        refUser!!.addValueEventListener(valueEventListenerUser)
 
 
-
-        send_meetings_button.setOnClickListener {
-            meeting_linearlayout.visibility = View.VISIBLE
-        }
-
-        exit_mettings.setOnClickListener {
-            meeting_linearlayout.visibility = View.GONE
-        }
-
+        //this click listener is reponsible for sending meetings
         send_meetings.setOnClickListener {
             var meetingPlace : String = meeting_place_edit_text.text.toString()
 
@@ -344,6 +354,17 @@ class SendMessagesActivity : AppCompatActivity() {
 
 
 
+        //this two click listener is reponsible for showing and hiding the layout for setting the informations about the meeting
+        send_meetings_button.setOnClickListener {
+            meeting_linearlayout.visibility = View.VISIBLE
+        }
+
+        exit_mettings.setOnClickListener {
+            meeting_linearlayout.visibility = View.GONE
+        }
+
+
+        //this two click listener is reponsible for showing and hiding the layout for picking a date for the meeting
         set_date_btn.setOnClickListener {
             date_picker_layout.visibility = View.VISIBLE
         }
@@ -354,6 +375,7 @@ class SendMessagesActivity : AppCompatActivity() {
 
 
 
+        //this two click listener is reponsible for showing and hiding the layout for picking a time for the meeting
         set_time_btn.setOnClickListener {
             time_picker_layout.visibility = View.VISIBLE
         }

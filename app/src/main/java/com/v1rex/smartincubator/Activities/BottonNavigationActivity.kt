@@ -9,19 +9,14 @@ import android.view.Menu
 import android.view.MenuItem
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.google.firebase.iid.FirebaseInstanceId
 import com.v1rex.smartincubator.Fragments.MentorsFragment
 import com.v1rex.smartincubator.Fragments.MeetingsFragment
 import com.v1rex.smartincubator.Fragments.MessagesFragment
 import com.v1rex.smartincubator.Fragments.StartupsFragment
-import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_botton_navigation.*
 
 class BottonNavigationActivity : AppCompatActivity() {
-
-
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         var selectedFragment: android.support.v4.app.Fragment? = null
@@ -90,5 +85,7 @@ class BottonNavigationActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        finish()
+    }
 }

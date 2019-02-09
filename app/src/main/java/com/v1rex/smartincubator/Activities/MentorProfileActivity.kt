@@ -37,7 +37,6 @@ class MentorProfileActivity : AppCompatActivity() {
     private val database = FirebaseDatabase.getInstance()
     private var refUser: DatabaseReference? = null
     private var mAuth: FirebaseAuth? = null
-    private val ref = database.getReference("Data")
     private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,55 +51,6 @@ class MentorProfileActivity : AppCompatActivity() {
         val intent = intent
         val userId = intent.getStringExtra("Mentor userId")
 
-        /* finished_date_mentor.setOnClickListener { date_picker_mentor_layout.visibility = View.GONE }
-
-        finished_time_mentor.setOnClickListener { time_picker_mentor_layout.visibility = View.GONE } */
-
-        /*  set_date_mentor_btn.setOnClickListener { date_picker_mentor_layout.visibility = View.VISIBLE }
-
-        set_time_mentor_btn.setOnClickListener { time_picker_mentor_layout.visibility = View.VISIBLE }
-
-        exit_mettings_mentor.setOnClickListener { meeting_mentor_linearlayout.visibility = View.GONE }
-
-        send_mettings_mentor.setOnClickListener {
-            if (TextUtils.isEmpty(meeting_place_edit_text.text.toString())) {
-                input_layout_place_meeting.error = getString(R.string.field_requierd)
-            } else {
-                val day = date_picker_mentor.dayOfMonth
-                val month = date_picker_mentor.month
-                val year = date_picker_mentor.year
-                val hour = time_picker_mentor.currentHour
-                val minute = time_picker_mentor.currentMinute
-
-                val calendar = Calendar.getInstance()
-                calendar.set(year, month, day, hour, minute)
-
-                val date = SimpleDateFormat("yyyy.MM.dd 'at' hh:mm")
-                val dateAndTime = date.format(calendar.time)
-
-                // creating a meeting object for the user who will receive the meeting
-                val meeting = Meeting(mAuth!!.uid.toString(), userId, meeting_place_edit_text.text.toString(), dateAndTime, "", "You received")
-
-                // setting where to store meetings informations for the user who will receive it
-                val usersRef = ref.child("users")
-                val userRef = usersRef.child(meeting.mUserIdReceived).child("mettings").child(meeting.mUserIdSent)
-
-
-                // store the meetings for user who received
-                userRef.setValue(meeting)
-                meeting_mentor_linearlayout.visibility = View.GONE
-
-                // creating a meeting object for the user who send the meeting
-                val meeting2 = Meeting(mAuth!!.uid.toString(), userId, meeting_place_edit_text.text.toString(), dateAndTime, "", "You sented")
-
-                // setting where to store meetings informations for the user who send it
-                val usersRef1 = ref.child("users")
-                val userRef2 = usersRef1.child(meeting.mUserIdSent).child("mettings").child(meeting2.mUserIdReceived)
-
-                // store the meetings for user who sent
-                userRef2.setValue(meeting2)
-            }
-        } */
 
         // showing a popup for sending a meeting
         fab_message_mentor.setOnClickListener {
@@ -111,6 +61,8 @@ class MentorProfileActivity : AppCompatActivity() {
             intent.putExtra("type","Mentor" )
             startActivity(intent)
         }
+
+
 
 
         val valueEventListenerMentor = object : ValueEventListener {
@@ -129,6 +81,8 @@ class MentorProfileActivity : AppCompatActivity() {
 
         // listening for the change in the Startup database
         refUser!!.addValueEventListener(valueEventListenerMentor)
+
+
 
 
         val valueEventListener = object : ValueEventListener {

@@ -4,19 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.RadioButton
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter
-import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
 import com.v1rex.smartincubator.Model.Mentor
 import com.v1rex.smartincubator.Model.Startup
@@ -28,12 +22,8 @@ import kotlinx.android.synthetic.main.activity_search.*
 class SearchActivity : AppCompatActivity() {
 
     private var mReferenceStartups: DatabaseReference? = null
-    private var StartupfirebaseRecyclerAdapter: FirebaseRecyclerAdapter<Startup, StartupViewHolder>? = null
-    private var Startupoptions: FirebaseRecyclerOptions<Startup>? = null
 
     private var mReferenceMentors: DatabaseReference? = null
-    private var MentorfirebaseRecyclerAdapter: FirebaseRecyclerAdapter<Mentor, MentorViewHolder>? = null
-    private var Mentoroptions: FirebaseRecyclerOptions<Mentor>? = null
 
     private lateinit var startupLinearLayoutManager: LinearLayoutManager
     private lateinit var mentorLinearLayoutManager: LinearLayoutManager
@@ -46,7 +36,9 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        // this variable will be used in some method to see if mentors or startups list are selected , startup list represent 0 and mentors represent 1
         var number : Int = 0
+
         linearlayout_startup_search.visibility = View.GONE
         linearlayout_mentor_search.visibility = View.GONE
 
@@ -56,12 +48,15 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
+
         startupLinearLayoutManager = LinearLayoutManager(this)
         mentorLinearLayoutManager = LinearLayoutManager(this)
         search_startups_recyclerview.layoutManager = startupLinearLayoutManager
         search_mentors_recyclerview.layoutManager = mentorLinearLayoutManager
 
 
+
+        //This code is responsible for retireving an ArrayList of Startups object
         var startupList : ArrayList<Startup> = ArrayList<Startup>()
         mReferenceStartups = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
 
@@ -75,12 +70,9 @@ class SearchActivity : AppCompatActivity() {
                 startupAdapter = StartupAdapter(startupList, baseContext)
                 search_startups_recyclerview.adapter = startupAdapter
 
-
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-
             }
         }
 
@@ -88,6 +80,7 @@ class SearchActivity : AppCompatActivity() {
 
 
 
+        //This code is responsible for retireving an ArrayList of Mentors object
         var mentorList : ArrayList<Mentor> = ArrayList<Mentor>()
         mReferenceMentors = FirebaseDatabase.getInstance().reference.child("Data").child("mentors")
 
@@ -98,12 +91,7 @@ class SearchActivity : AppCompatActivity() {
                     mentorList.add(data!!)
                 }
 
-                //startupAdapter = StartupAdapter(startupList, baseContext)
                 mentorAdapter = MentorAdapter(mentorList, baseContext)
-                search_mentors_recyclerview.adapter = mentorAdapter
-
-
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -112,6 +100,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         mReferenceMentors!!.addListenerForSingleValueEvent(valueEventListenerMentor)
+
 
 
         if (startup_radio_button_search.isChecked == true) {
@@ -126,51 +115,61 @@ class SearchActivity : AppCompatActivity() {
             linearlayout_startup_search.visibility = View.VISIBLE
             linearlayout_mentor_search.visibility = View.GONE
             number = 0
+            search_startups_recyclerview.adapter = startupAdapter
         }
 
         mentor_radio_button_search.setOnClickListener {
             linearlayout_startup_search.visibility = View.GONE
             linearlayout_mentor_search.visibility = View.VISIBLE
             number = 1
+            search_mentors_recyclerview.adapter = mentorAdapter
         }
-
-
 
         /**
          * search between startups or mentors
-         * @param search
+         * @param search string
          */
         fun search(search: String?) {
+
             var startupListFinal : ArrayList<Startup> = ArrayList<Startup>()
             var mentorListFinal : ArrayList<Mentor> = ArrayList<Mentor>()
+
+            // number means the selected list if 0 it's startupsList and if it is 1 it's mentorList that is currently showed to the user
+
             if(number == 0){
+                // this loop go throught all the ArrayList and see a matching object for our search and selects by adding it to startupListFinal ArrayList
                 for(startupListSearch in startupList)  {
                     if ((startupListSearch.mNeed.contains(search.toString()) || startupListSearch.mDomain.contains(search.toString())  || startupListSearch.mStartupName.contains(search.toString())) || (startupListSearch.mNeed.equals(search.toString(), ignoreCase = true) || startupListSearch.mDomain.equals(search.toString(), ignoreCase = true)  || startupListSearch.mStartupName.equals(search.toString(), ignoreCase = true)) ){
                         startupListFinal.add(startupListSearch)
 
                     }
                 }
+
+                //Return the result of the search into the recyclerview
                 startupAdapter = StartupAdapter(startupListFinal, baseContext)
                 search_startups_recyclerview.adapter = startupAdapter
 
-            } else if(number == 1){
+            }
+
+            else if(number == 1){
+                // this loop go throught all the ArrayList and see a matching object for our search and selects by adding it to mentorListFinal ArrayList
                 for(mentorListSearch in mentorList){
                     if ((mentorListSearch.mSpeciality.contains(search.toString())  || mentorListSearch.mCity.contains(search.toString())  || mentorListSearch.mFirstName.contains(search.toString())   || mentorListSearch.mLastName.contains(search.toString())  ) || (mentorListSearch.mSpeciality.equals(search.toString(), ignoreCase = true)  || mentorListSearch.mCity.equals(search.toString(), ignoreCase = true)  || mentorListSearch.mFirstName.equals(search.toString(), ignoreCase = true)   || mentorListSearch.mLastName.equals(search.toString() , ignoreCase = true)  )){
                         mentorListFinal.add(mentorListSearch)
                     }
                 }
+
+                //Return the result of the search into the recyclerview
                 mentorAdapter = MentorAdapter(mentorListFinal, baseContext)
                 search_mentors_recyclerview.adapter = mentorAdapter
 
             }
 
-
         }
 
-
-
-
-
+        /**
+         * retireving the text from SearchView
+         */
         search_view_activity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchText = search_view_activity.query.toString()
@@ -183,12 +182,7 @@ class SearchActivity : AppCompatActivity() {
             }
         })
 
-
-
     }
-
-
-
 
 
     class StartupAdapter(private val startups : ArrayList<Startup>, private var context : Context) : RecyclerView.Adapter<StartupViewHolder>(){
@@ -214,6 +208,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
     }
+
 
     class MentorAdapter(private val mentors : ArrayList<Mentor>, private var context : Context) : RecyclerView.Adapter<MentorViewHolder>(){
 
