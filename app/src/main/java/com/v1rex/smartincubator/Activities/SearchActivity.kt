@@ -35,8 +35,10 @@ class SearchActivity : AppCompatActivity() {
     private var MentorfirebaseRecyclerAdapter: FirebaseRecyclerAdapter<Mentor, MentorViewHolder>? = null
     private var Mentoroptions: FirebaseRecyclerOptions<Mentor>? = null
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var startupLinearLayoutManager: LinearLayoutManager
+    private lateinit var mentorLinearLayoutManager: LinearLayoutManager
     private lateinit var startupAdapter: StartupAdapter
+    private lateinit var mentorAdapter: MentorAdapter
 
     private var searchText: String? = null
 
@@ -44,16 +46,18 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-
-
-        linearLayoutManager = LinearLayoutManager(this)
-        search_startups_recyclerview.layoutManager = linearLayoutManager
-
         // setting the return button manually
         search_back_button.setOnClickListener {
             startActivity(Intent(this@SearchActivity, BottonNavigationActivity::class.java))
             finish()
         }
+
+        startupLinearLayoutManager = LinearLayoutManager(this)
+        mentorLinearLayoutManager = LinearLayoutManager(this)
+        search_startups_recyclerview.layoutManager = startupLinearLayoutManager
+        search_mentors_recyclerview.layoutManager = mentorLinearLayoutManager
+
+
 
         /*search(searchText)
 
@@ -71,10 +75,10 @@ class SearchActivity : AppCompatActivity() {
             }
         })*/
 
-        var startupList : ArrayList<Startup> = ArrayList<Startup>()
+        /*var startupList : ArrayList<Startup> = ArrayList<Startup>()
         mReferenceStartups = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
 
-        val valueEventListenerMentor = object : ValueEventListener {
+        val valueEventListenerStartup = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (postSnapshot in dataSnapshot.children) {
                   var data : Startup? = postSnapshot.getValue<Startup>(Startup::class.java)
@@ -93,7 +97,33 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        mReferenceStartups!!.addListenerForSingleValueEvent(valueEventListenerMentor)
+        mReferenceStartups!!.addListenerForSingleValueEvent(valueEventListenerStartup)*/
+
+
+        var mentorList : ArrayList<Mentor> = ArrayList<Mentor>()
+        mReferenceMentors = FirebaseDatabase.getInstance().reference.child("Data").child("mentors")
+
+        val valueEventListenerMentor = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (postSnapshot in dataSnapshot.children) {
+                    var data : Mentor? = postSnapshot.getValue<Mentor>(Mentor::class.java)
+                    mentorList.add(data!!)
+                }
+
+                //startupAdapter = StartupAdapter(startupList, baseContext)
+                mentorAdapter = MentorAdapter(mentorList, baseContext)
+                search_mentors_recyclerview.adapter = mentorAdapter
+                linearlayout_mentor_search.visibility = View.VISIBLE
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        }
+
+        mReferenceMentors!!.addListenerForSingleValueEvent(valueEventListenerMentor)
 
 
     }
@@ -203,6 +233,31 @@ class SearchActivity : AppCompatActivity() {
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, StartupProfileActivity::class.java)
                 intent.putExtra("UserId Startup", startups.get(position).mUserId)
+                context.startActivity(intent)
+            }
+        }
+
+    }
+
+    class MentorAdapter(private val mentors : ArrayList<Mentor>, private var context : Context) : RecyclerView.Adapter<MentorViewHolder>(){
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MentorViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_mentors_layout, parent, false)
+
+            return MentorViewHolder(view)
+        }
+
+        override fun getItemCount(): Int = mentors.size
+
+        override fun onBindViewHolder(holder: MentorViewHolder, position: Int) {
+            holder.setmNameTextView(mentors.get(position).mLastName + " " + mentors.get(position).mFirstName)
+            holder.setmCityTextView(mentors.get(position).mCity)
+            holder.setmSpecialityTextView(mentors.get(position).mSpeciality)
+
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, MentorProfileActivity::class.java)
+                intent.putExtra("Mentor userId", mentors.get(position).mUserId)
                 context.startActivity(intent)
             }
         }
