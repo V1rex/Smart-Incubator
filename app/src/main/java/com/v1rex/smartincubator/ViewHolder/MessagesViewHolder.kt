@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.android.gms.flags.impl.DataUtils
 import com.v1rex.smartincubator.R
 import java.text.SimpleDateFormat
 import java.util.*
