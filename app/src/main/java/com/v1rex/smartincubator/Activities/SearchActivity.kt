@@ -1,8 +1,10 @@
 package com.v1rex.smartincubator.Activities
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
@@ -33,11 +35,19 @@ class SearchActivity : AppCompatActivity() {
     private var MentorfirebaseRecyclerAdapter: FirebaseRecyclerAdapter<Mentor, MentorViewHolder>? = null
     private var Mentoroptions: FirebaseRecyclerOptions<Mentor>? = null
 
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var startupAdapter: StartupAdapter
+
     private var searchText: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+
+
+        linearLayoutManager = LinearLayoutManager(this)
+        search_startups_recyclerview.layoutManager = linearLayoutManager
 
         // setting the return button manually
         search_back_button.setOnClickListener {
@@ -45,31 +55,36 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
-//        search(searchText)
-//
-//        searchText = search_view_activity.query.toString()
-//
-//        search_view_activity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String): Boolean {
-//                searchText = search_view_activity.query.toString()
-//                search(searchText)
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String): Boolean {
-//                return true
-//            }
-//        })
+        /*search(searchText)
 
-        var startupList : List<Startup> = ArrayList<Startup>()
+        searchText = search_view_activity.query.toString()
+
+        search_view_activity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchText = search_view_activity.query.toString()
+                search(searchText)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return true
+            }
+        })*/
+
+        var startupList : ArrayList<Startup> = ArrayList<Startup>()
         mReferenceStartups = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
 
         val valueEventListenerMentor = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (postSnapshot in dataSnapshot.children) {
                   var data : Startup? = postSnapshot.getValue<Startup>(Startup::class.java)
-                    var stringat = data!!.mAssociate
+                    startupList.add(data!!)
                 }
+
+                startupAdapter = StartupAdapter(startupList, baseContext)
+                search_startups_recyclerview.adapter = startupAdapter
+                linearlayout_startup_search.visibility = View.VISIBLE
+
 
             }
 
@@ -165,7 +180,32 @@ class SearchActivity : AppCompatActivity() {
             search_mentors_recyclerview.adapter = MentorfirebaseRecyclerAdapter
             MentorfirebaseRecyclerAdapter!!.startListening()
         }
+
+
     }
 
 
+    class StartupAdapter(private val startups : ArrayList<Startup>, private var context : Context) : RecyclerView.Adapter<StartupViewHolder>(){
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartupViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_startups_layout, parent, false)
+
+            return StartupViewHolder(view)
+        }
+
+        override fun getItemCount(): Int = startups.size
+
+        override fun onBindViewHolder(holder: StartupViewHolder, position: Int) {
+            holder.setmNeedTextView("Need :" + " " + startups.get(position).mNeed)
+            holder.setmNameTextView(startups.get(position).mStartupName)
+            holder.setmDomainTextView("Domain :" + " " + startups.get(position).mDomain)
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, StartupProfileActivity::class.java)
+                intent.putExtra("UserId Startup", startups.get(position).mUserId)
+                context.startActivity(intent)
+            }
+        }
+
+    }
 }
