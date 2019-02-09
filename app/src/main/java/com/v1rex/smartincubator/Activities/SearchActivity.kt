@@ -15,9 +15,7 @@ import android.widget.RadioButton
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
+import com.google.firebase.database.*
 import com.v1rex.smartincubator.Model.Mentor
 import com.v1rex.smartincubator.Model.Startup
 import com.v1rex.smartincubator.R
@@ -47,21 +45,42 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
-        search(searchText)
+//        search(searchText)
+//
+//        searchText = search_view_activity.query.toString()
+//
+//        search_view_activity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                searchText = search_view_activity.query.toString()
+//                search(searchText)
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                return true
+//            }
+//        })
 
-        searchText = search_view_activity.query.toString()
+        var startupList : List<Startup> = ArrayList<Startup>()
+        mReferenceStartups = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
 
-        search_view_activity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                searchText = search_view_activity.query.toString()
-                search(searchText)
-                return true
+        val valueEventListenerMentor = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (postSnapshot in dataSnapshot.children) {
+                  var data : Startup? = postSnapshot.getValue<Startup>(Startup::class.java)
+                    var stringat = data!!.mAssociate
+                }
+
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                return true
+            override fun onCancelled(databaseError: DatabaseError) {
+
             }
-        })
+        }
+
+        mReferenceStartups!!.addListenerForSingleValueEvent(valueEventListenerMentor)
+
+
     }
 
 
