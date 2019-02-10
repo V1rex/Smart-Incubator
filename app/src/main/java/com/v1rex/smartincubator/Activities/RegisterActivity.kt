@@ -137,7 +137,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
         finish()
     }
 }

@@ -77,7 +77,7 @@ class BottonNavigationActivity : AppCompatActivity() {
             }
             R.id.action_logout -> {
                 FirebaseAuth.getInstance().signOut()
-                startActivity(Intent(this@BottonNavigationActivity, MainActivity::class.java))
+                startActivity(Intent(this@BottonNavigationActivity, LoginActivity::class.java))
                 return super.onOptionsItemSelected(item)
             }
             else -> return super.onOptionsItemSelected(item)

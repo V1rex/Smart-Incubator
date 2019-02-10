@@ -19,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(this@SplashActivity, BottonNavigationActivity::class.java))
 
         } else if (FirebaseAuth.getInstance().currentUser == null) {
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
         }
 
 

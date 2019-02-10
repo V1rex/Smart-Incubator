@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Smart Incubator</string>
-    <string name="login_text">Login</string>
+    <string name="app_slogon">Find new ways of boosting your startup</string>
+
+    <string name="login_text">Sign In</string>
     <string name="register_text">Register</string>
     <string name="username_text">Email</string>
     <string name="password_text">Password</string>
-    <string name="login_dont_have_account">Don\'t have account? Register</string>
+    <string name="login_dont_have_account">Register</string>
+    <string name="login_dont_have_account_long">Don\'t have account ?</string>
     <string name="login_action">Login right now ...</string>
     <string name="register_action">Registering right now ...</string>
 
