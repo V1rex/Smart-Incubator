@@ -1,5 +1,5 @@
 # Smart Incubator
-> Find new ways of boosting your startup
+![App Slogon](https://i.imgur.com/DH6zHkr.png)
 
 ## Table of contents
 * [General info](#general-info)
