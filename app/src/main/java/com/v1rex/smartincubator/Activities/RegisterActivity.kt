@@ -1,6 +1,8 @@
 package com.v1rex.smartincubator.Activities
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -58,7 +60,10 @@ class RegisterActivity : AppCompatActivity() {
         val password = password_register_edit_text.text.toString()
 
 
-        if (TextUtils.isEmpty(password)) {
+        if(!isNetworkAvailable()){
+            input_layout_password_register.error = getString(R.string.error_internet_required)
+            cancel = true
+        } else if (TextUtils.isEmpty(password)) {
             input_layout_password_register.error = getString(R.string.error_field_password_required)
             cancel = true
         } else if (!isPasswordValid(password)) {
@@ -94,6 +99,12 @@ class RegisterActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
     /**
