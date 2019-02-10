@@ -95,6 +95,8 @@ class LoginActivity : AppCompatActivity() {
             user_login_edit_text.visibility = View.INVISIBLE
             password_login_edit_text.visibility = View.INVISIBLE
             login_action_btn.visibility = View.INVISIBLE
+            input_layout_email.visibility = View.INVISIBLE
+            input_layout_password.visibility = View.INVISIBLE
             progress_login.visibility = View.VISIBLE
 
             mAuth!!.signInWithEmailAndPassword(emailOrUserName, password).addOnCompleteListener(this) { task ->
@@ -104,15 +106,15 @@ class LoginActivity : AppCompatActivity() {
                     user_login_edit_text.visibility = View.VISIBLE
                     password_login_edit_text.visibility = View.VISIBLE
                     login_action_btn.visibility = View.VISIBLE
+                    input_layout_email.visibility = View.VISIBLE
+                    input_layout_password.visibility = View.VISIBLE
                     input_layout_email.error = getString(R.string.error_action_loging_failed)
 
                 } else {
-
                     loginView.visibility = View.GONE
                     val intent = Intent(this@LoginActivity, BottonNavigationActivity::class.java)
                     startActivity(intent)
                     finish()
-
                 }
             }
 
