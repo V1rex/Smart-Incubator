@@ -12,8 +12,10 @@
     <string name="register_action">Registering right now ...</string>
 
 
-    <string name="register_have_account">Already a member? Login</string>
-    <string name="title_activity_login2">Sign in</string>
+    <string name="register_have_account">Already a member ?</string>
+    <string name="register_have_account_short">Login</string>
+    <string name="title_activity_register">Sign in</string>
+    <string name="activity_register_button">Create</string>
     <string name="field_requierd">This field is requierd</string>
     <string name="user_informations_activity">User Informations</string>
     <string name="mentor_informations_activity">Mentor Informations</string>
@@ -21,7 +23,7 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="age">Age</string>
-    <string name="im">I am :</string>
+    <string name="Sexe">Sexe :</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="startup">Startup</string>
