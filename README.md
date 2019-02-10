@@ -1,5 +1,5 @@
 # Smart Incubator
-![App Slogon](https://i.imgur.com/DH6zHkr.png)
+![App Slogon](https://i.imgur.com/vVTEVrH.png)
 
 ## Table of contents
 * [General info](#general-info)
