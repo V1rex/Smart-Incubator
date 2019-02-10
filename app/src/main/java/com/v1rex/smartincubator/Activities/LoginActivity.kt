@@ -1,6 +1,7 @@
 package com.v1rex.smartincubator.Activities
 
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,11 @@ import com.google.firebase.auth.FirebaseAuth
 
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_login.*
+import android.net.NetworkInfo
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
+
+
 
 
 class LoginActivity : AppCompatActivity() {
@@ -58,10 +64,12 @@ class LoginActivity : AppCompatActivity() {
         val emailOrUserName = user_login_edit_text.text.toString()
         val password = password_login_edit_text.text.toString()
 
-        if (!TextUtils.isEmpty(password)) {
+        if(!isNetworkAvailable()){
+            input_layout_password.error = getString(R.string.error_internet_required)
+            cancel = true
+        } else if (!TextUtils.isEmpty(password)) {
             input_layout_password.error = getString(R.string.error_field_password_required)
             cancel = true
-
 
         } else if (!isPasswordValid(password)) {
             input_layout_password.error = getString(R.string.error_invalid_password)
@@ -110,6 +118,13 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+    }
+
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
     /**

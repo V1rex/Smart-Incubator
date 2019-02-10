@@ -64,6 +64,7 @@
 
     <!-- Strings related to login -->
 
+    <string name="error_internet_required">You need to be connected to the internet</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
