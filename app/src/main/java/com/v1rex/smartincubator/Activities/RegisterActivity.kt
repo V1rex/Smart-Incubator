@@ -70,13 +70,6 @@ class RegisterActivity : AppCompatActivity() {
             age_edit_text.setText(sdf)
         }
 
-        age_input_text.setOnClickListener {
-            DatePickerDialog(this, dateSetLisener,
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)).show()
-        }
-
         age_edit_text.setOnClickListener {
             DatePickerDialog(this, dateSetLisener,
                     cal.get(Calendar.YEAR),

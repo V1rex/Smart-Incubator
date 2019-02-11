@@ -119,7 +119,8 @@
                         android:hint="@string/birthday"
                         android:inputType="number"
                         android:clickable="true"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:focusableInTouchMode="false"/>
 
 
                 </android.support.design.widget.TextInputLayout>
