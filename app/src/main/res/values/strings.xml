@@ -22,7 +22,7 @@
     <string name="startup_informations_activity">Startup Informations</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="age">Age</string>
+    <string name="birthday">Birthday</string>
     <string name="Sexe">Sexe :</string>
     <string name="male">Male</string>
     <string name="female">Female</string>

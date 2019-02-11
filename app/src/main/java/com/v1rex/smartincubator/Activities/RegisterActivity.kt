@@ -1,5 +1,6 @@
 package com.v1rex.smartincubator.Activities
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -18,7 +19,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
+import com.v1rex.smartincubator.R.drawable.calendar
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_send_messages.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -51,9 +56,35 @@ class RegisterActivity : AppCompatActivity() {
         sexe_requierd_text_view.visibility = View.GONE
         account_type_requierd_text_view.visibility = View.GONE
 
-        age_edit_text.setOnClickListener {
 
+        var cal = Calendar.getInstance()
+
+        val dateSetLisener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val myFormat = "dd.MM.yyyy" // mention the format you need
+            val sdf : String = SimpleDateFormat(myFormat, Locale.US).format(cal.time)
+
+            age_edit_text.setText(sdf)
         }
+
+        age_input_text.setOnClickListener {
+            DatePickerDialog(this, dateSetLisener,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        age_edit_text.setOnClickListener {
+            DatePickerDialog(this, dateSetLisener,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+
     }
 
     /**
@@ -221,3 +252,5 @@ class RegisterActivity : AppCompatActivity() {
         finish()
     }
 }
+
+
