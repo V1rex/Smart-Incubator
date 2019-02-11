@@ -14,12 +14,17 @@ import android.widget.LinearLayout
 import android.widget.TextView
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.iid.FirebaseInstanceId
+import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
     private var mAuth: FirebaseAuth? = null
+    private val database = FirebaseDatabase.getInstance()
+    private val ref = database.getReference("Data")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,13 @@ class RegisterActivity : AppCompatActivity() {
             val savedPassword = savedInstanceState.getString(KEY_PASSWORD_ENTRY)
             password_register_edit_text.setText(savedPassword)
         }
+
+        sexe_requierd_text_view.visibility = View.GONE
+        account_type_requierd_text_view.visibility = View.GONE
+
+        age_edit_text.setOnClickListener {
+
+        }
     }
 
     /**
@@ -58,6 +70,16 @@ class RegisterActivity : AppCompatActivity() {
 
         val email = user_register_edit_text.text.toString()
         val password = password_register_edit_text.text.toString()
+        val lastName = last_name_edit_text.text.toString()
+        val firstName = first_name_edit_text.text.toString()
+        val age = age_edit_text.text.toString()
+        var sexe = ""
+        var accountType = ""
+
+        val maleSelected = male_selected.isChecked
+        val femaleSelected = female_selected.isChecked
+        val startupSelected = startup_button.isChecked
+        val mentorSlected = mentor_button.isChecked
 
 
         if(!isNetworkAvailable()){
@@ -80,6 +102,50 @@ class RegisterActivity : AppCompatActivity() {
             cancel = true
         }
 
+
+        if (TextUtils.isEmpty(lastName)) {
+            last_name_input_text.error = getString(R.string.field_requierd)
+            cancel = true
+        }
+
+        if (TextUtils.isEmpty(firstName)) {
+            first_name_input_text.error = getString(R.string.field_requierd)
+            cancel = true
+        }
+
+        if (TextUtils.isEmpty(age)) {
+            age_input_text.error = getString(R.string.field_requierd)
+            cancel = true
+        }
+
+        if (maleSelected == false && femaleSelected == false) {
+            cancel = true
+            sexe_requierd_text_view.visibility = View.VISIBLE
+
+        } else {
+            if (maleSelected == true) {
+                sexe = "Male"
+
+            } else {
+                sexe = "Female"
+            }
+
+        }
+
+        if (startupSelected == false && mentorSlected == false) {
+            cancel = true
+            account_type_requierd_text_view.visibility = View.VISIBLE
+        } else {
+            if (startupSelected == true) {
+                accountType = "Startup"
+
+            } else if (mentorSlected == true) {
+                accountType = "Mentor"
+            }
+
+        }
+
+
         // if everything is good , register the user
         if (cancel == false) {
             registerView.visibility = View.INVISIBLE
@@ -93,8 +159,22 @@ class RegisterActivity : AppCompatActivity() {
                     register_action_btn.visibility = View.VISIBLE
                     input_layout_email_register.error = getString(R.string.error_action_registration_failed)
                 } else {
+
+                    val user = User(lastName, firstName, email, sexe, age, accountType, mAuth!!.uid.toString())
+                    var firebaseMessaging = FirebaseInstanceId.getInstance().token
+                    user.registrationToken = firebaseMessaging.toString()
+                    // Setting where to submit the user in the firebase realtime database
+                    val usersRef = ref.child("users")
+                    val userRef = usersRef.child(user.mUserId)
+                    userRef.setValue(user)
                     registerView.visibility = View.GONE
-                    startActivity(Intent(this@RegisterActivity, UserInformationsActivity::class.java))
+
+                    if (mentorSlected == true) {
+                    startActivity(Intent(this, MentorRegisterActivity::class.java))
+                    } else if (startupSelected == true) {
+                    startActivity(Intent(this, StartupRegisterActivity::class.java))
+                    }
+
                 }
             }
 

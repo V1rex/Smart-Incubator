@@ -33,102 +33,102 @@ class UserInformationsActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         // get the email of the user
-        email_edit_text.setText(mAuth!!.currentUser!!.email)
-        submit_action_btn.setOnClickListener { submit() }
+//        email_edit_text.setText(mAuth!!.currentUser!!.email)
+//        submit_action_btn.setOnClickListener { submit() }
     }
 
     /**
      * Method for submitting the user informations
      */
-    private fun submit() {
-        sexe_requierd_text_view.visibility = View.GONE
-        account_type_requierd_text_view.visibility = View.GONE
-        // a boolean to cancel submit if something is not good
-        var cancel = false
-
-        val lastName = last_name_edit_text.text.toString()
-        val firstName = first_name_edit_text.text.toString()
-        val email = email_edit_text.text.toString()
-        val age = age_edit_text.text.toString()
-        var sexe = ""
-        var accountType = ""
-
-
-        val maleSelected = male_selected.isChecked
-        val femaleSelected = female_selected.isChecked
-        val startupSelected = startup_button.isChecked
-        val mentorSlected = mentor_button.isChecked
-
-        if (!isEmailValid(email)) {
-            email_input_text.error = getString(R.string.error_invalid_email)
-            cancel = true
-        } else if (TextUtils.isEmpty(email)) {
-            email_input_text.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-
-        if (TextUtils.isEmpty(lastName)) {
-            last_name_input_text.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-
-        if (TextUtils.isEmpty(firstName)) {
-            first_name_input_text.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-
-        if (TextUtils.isEmpty(age)) {
-            age_input_text.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-
-        if (maleSelected == false && femaleSelected == false) {
-            cancel = true
-            sexe_requierd_text_view.visibility = View.VISIBLE
-
-        } else {
-            if (maleSelected == true) {
-                sexe = "Male"
-
-            } else {
-                sexe = "Female"
-            }
-
-        }
-
-        if (startupSelected == false && mentorSlected == false) {
-            cancel = true
-            account_type_requierd_text_view.visibility = View.VISIBLE
-        } else {
-            if (startupSelected == true) {
-                accountType = "Startup"
-
-            } else if (mentorSlected == true) {
-                accountType = "Mentor"
-            }
-
-        }
-
-        if (cancel == false) {
-            //Creating a new User object for submitting it
-            val user = User(lastName, firstName, email, sexe, age, accountType, mAuth!!.uid.toString())
-            var firebaseMessaging = FirebaseInstanceId.getInstance().token
-            user.registrationToken = firebaseMessaging.toString()
-            // Setting where to submit the user in the firebase realtime database
-            val usersRef = ref.child("users")
-            val userRef = usersRef.child(user.mUserId)
-            userRef.setValue(user)
-
-
-            if (mentorSlected == true) {
-                startActivity(Intent(this@UserInformationsActivity, MentorRegisterActivity::class.java))
-            } else if (startupSelected == true) {
-                startActivity(Intent(this@UserInformationsActivity, StartupRegisterActivity::class.java))
-            }
-        }
-
-
-    }
+//    private fun submit() {
+//        sexe_requierd_text_view.visibility = View.GONE
+//        account_type_requierd_text_view.visibility = View.GONE
+//        // a boolean to cancel submit if something is not good
+//        var cancel = false
+//
+//        val lastName = last_name_edit_text.text.toString()
+//        val firstName = first_name_edit_text.text.toString()
+//        val email = email_edit_text.text.toString()
+//        val age = age_edit_text.text.toString()
+//        var sexe = ""
+//        var accountType = ""
+//
+//
+//        val maleSelected = male_selected.isChecked
+//        val femaleSelected = female_selected.isChecked
+//        val startupSelected = startup_button.isChecked
+//        val mentorSlected = mentor_button.isChecked
+//
+//        if (!isEmailValid(email)) {
+//            email_input_text.error = getString(R.string.error_invalid_email)
+//            cancel = true
+//        } else if (TextUtils.isEmpty(email)) {
+//            email_input_text.error = getString(R.string.field_requierd)
+//            cancel = true
+//        }
+//
+//        if (TextUtils.isEmpty(lastName)) {
+//            last_name_input_text.error = getString(R.string.field_requierd)
+//            cancel = true
+//        }
+//
+//        if (TextUtils.isEmpty(firstName)) {
+//            first_name_input_text.error = getString(R.string.field_requierd)
+//            cancel = true
+//        }
+//
+//        if (TextUtils.isEmpty(age)) {
+//            age_input_text.error = getString(R.string.field_requierd)
+//            cancel = true
+//        }
+//
+//        if (maleSelected == false && femaleSelected == false) {
+//            cancel = true
+//            sexe_requierd_text_view.visibility = View.VISIBLE
+//
+//        } else {
+//            if (maleSelected == true) {
+//                sexe = "Male"
+//
+//            } else {
+//                sexe = "Female"
+//            }
+//
+//        }
+//
+//        if (startupSelected == false && mentorSlected == false) {
+//            cancel = true
+//            account_type_requierd_text_view.visibility = View.VISIBLE
+//        } else {
+//            if (startupSelected == true) {
+//                accountType = "Startup"
+//
+//            } else if (mentorSlected == true) {
+//                accountType = "Mentor"
+//            }
+//
+//        }
+//
+//        if (cancel == false) {
+//            //Creating a new User object for submitting it
+//            val user = User(lastName, firstName, email, sexe, age, accountType, mAuth!!.uid.toString())
+//            var firebaseMessaging = FirebaseInstanceId.getInstance().token
+//            user.registrationToken = firebaseMessaging.toString()
+//            // Setting where to submit the user in the firebase realtime database
+//            val usersRef = ref.child("users")
+//            val userRef = usersRef.child(user.mUserId)
+//            userRef.setValue(user)
+//
+//
+//            if (mentorSlected == true) {
+//                startActivity(Intent(this@UserInformationsActivity, MentorRegisterActivity::class.java))
+//            } else if (startupSelected == true) {
+//                startActivity(Intent(this@UserInformationsActivity, StartupRegisterActivity::class.java))
+//            }
+//        }
+//
+//
+//    }
 
     // check if the email is good
     private fun isEmailValid(email: String): Boolean {
