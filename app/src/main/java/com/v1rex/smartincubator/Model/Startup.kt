@@ -17,6 +17,7 @@ class Startup{
     var mUserId: String = ""
     var mNeed: String = ""
     var  mDomain: String = ""
+    var mPhotoProfileUrl : String = ""
 
     constructor (startupName: String , associate: String , description: String, website: String , pageFacebook: String , dateOfIncubation: String , juridiqueSatatus: String , creationDate: String ,numberEmployees: String , objective: String, fond: String , chiffre: String , userId: String , need: String , domain: String ){
         mStartupName = startupName
@@ -34,7 +35,16 @@ class Startup{
         mUserId = userId
         mNeed = need
         mDomain = domain
-
-
     }
+
+    constructor (startupName: String , description: String, userId: String , need: String , domain: String , profilePhotoUrl : String  ){
+        mStartupName = startupName
+        mDescription = description
+        mUserId = userId
+        mNeed = need
+        mDomain = domain
+        mPhotoProfileUrl = profilePhotoUrl
+    }
+
+
 }
