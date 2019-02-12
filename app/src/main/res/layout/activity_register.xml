@@ -106,14 +106,14 @@
 
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/age_input_text"
+                    android:id="@+id/birthday_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="18dp"
                     android:backgroundTint="@color/colorFlatWhite">
 
                     <EditText
-                        android:id="@+id/age_edit_text"
+                        android:id="@+id/birthday_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/birthday"
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="@string/Sexe"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                     <RadioGroup
                         android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="@string/account_type"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <RadioGroup
                         android:layout_width="wrap_content"

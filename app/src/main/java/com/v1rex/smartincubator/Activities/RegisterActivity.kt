@@ -4,24 +4,17 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
-import com.v1rex.smartincubator.R.drawable.calendar
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_send_messages.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,10 +60,10 @@ class RegisterActivity : AppCompatActivity() {
             val myFormat = "dd.MM.yyyy" // mention the format you need
             val sdf : String = SimpleDateFormat(myFormat, Locale.US).format(cal.time)
 
-            age_edit_text.setText(sdf)
+            birthday_edit_text.setText(sdf)
         }
 
-        age_edit_text.setOnClickListener {
+        birthday_edit_text.setOnClickListener {
             DatePickerDialog(this, dateSetLisener,
                     cal.get(Calendar.YEAR),
                     cal.get(Calendar.MONTH),
@@ -96,7 +89,7 @@ class RegisterActivity : AppCompatActivity() {
         val password = password_register_edit_text.text.toString()
         val lastName = last_name_edit_text.text.toString()
         val firstName = first_name_edit_text.text.toString()
-        val age = age_edit_text.text.toString()
+        val age = birthday_edit_text.text.toString()
         var sexe = ""
         var accountType = ""
 
@@ -138,7 +131,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         if (TextUtils.isEmpty(age)) {
-            age_input_text.error = getString(R.string.field_requierd)
+            birthday_input_text.error = getString(R.string.field_requierd)
             cancel = true
         }
 
