@@ -1,6 +1,7 @@
 package com.v1rex.smartincubator.Activities
 
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,6 +12,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.v1rex.smartincubator.Model.Mentor
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_mentor_register.*
+import android.provider.MediaStore
+import android.graphics.Bitmap
+import android.R.attr.data
+import android.app.Activity
+import android.view.View
+import java.io.IOException
 
 
 class MentorRegisterActivity : AppCompatActivity() {
@@ -19,6 +26,11 @@ class MentorRegisterActivity : AppCompatActivity() {
     private val ref = database.getReference("Data")
     private var mAuth: FirebaseAuth? = null
 
+    private val PICK_IMAGE_REQUEST : Int = 71
+    private var filePath : Uri? = null
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mentor_register)
@@ -26,8 +38,41 @@ class MentorRegisterActivity : AppCompatActivity() {
         // get instance of the Auth firebase
         mAuth = FirebaseAuth.getInstance()
 
+        fun chooseImage(){
+            var intent : Intent  = Intent()
+            intent.setType("image/*")
+            intent.setAction(Intent.ACTION_GET_CONTENT)
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+        }
+
         submit_action_btn_mentor.setOnClickListener { submit() }
+
+        upload_photo_mentor.setOnClickListener {
+            chooseImage()
+        }
+
+
+
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === PICK_IMAGE_REQUEST && resultCode === Activity.RESULT_OK
+                && data != null && data.data != null) {
+            filePath = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                upload_photo_mentor.visibility = View.GONE
+                uploaded_mentor_photo.visibility = View.VISIBLE
+                profile_image_mentor.setImageBitmap(bitmap)
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+        }
+    }
+
 
     private fun submit() {
         val lastName = last_name_edit_text_mentor.text.toString()
