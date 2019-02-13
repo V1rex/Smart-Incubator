@@ -13,10 +13,26 @@
         app:titleTextColor="@color/colorFlatWhite"
         app:subtitleTextColor="@color/colorFlatWhite"
         android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        app:title="@string/mentor_informations_activity"
         android:theme="@style/Theme.AppCompat.Light"
-        app:popupTheme="@style/Theme.AppCompat.Light"/>
+        app:popupTheme="@style/Theme.AppCompat.Light">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_vertical"
+                android:text="@string/mentor_informations_activity"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
     <ScrollView
         android:layout_marginTop="?android:attr/actionBarSize"
         android:layout_width="match_parent"
@@ -133,17 +149,18 @@
 
             </android.support.design.widget.TextInputLayout>
 
+
+
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/submit_action_btn_mentor"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:padding="12dp"
-                android:textColor="@color/colorFlatWhite"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorAccent"
                 android:text="@string/submit"
-                />
+                android:textColor="@color/colorFlatWhite" />
 
 
         </LinearLayout>
