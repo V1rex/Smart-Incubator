@@ -17,6 +17,8 @@ import android.graphics.Bitmap
 import android.R.attr.data
 import android.app.Activity
 import android.view.View
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.IOException
 
 
@@ -26,9 +28,17 @@ class MentorRegisterActivity : AppCompatActivity() {
     private val ref = database.getReference("Data")
     private var mAuth: FirebaseAuth? = null
 
+    private val storage : FirebaseStorage = FirebaseStorage.getInstance()
+    private val storageReference : StorageReference = storage.reference
+
     private val PICK_IMAGE_REQUEST : Int = 71
     private var filePath : Uri? = null
 
+    val IMAGE_PHOTO_FIREBASE : String = "firebase"
+
+    val IMAGE_PHOTO_MAN : String = "man"
+
+    val REFERENCE_PROFILE_PHOTO : String = "profileImages/"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +55,15 @@ class MentorRegisterActivity : AppCompatActivity() {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
         }
 
+
+
         submit_action_btn_mentor.setOnClickListener { submit() }
 
         upload_photo_mentor.setOnClickListener {
+            chooseImage()
+        }
+
+        profile_image_mentor.setOnClickListener {
             chooseImage()
         }
 
@@ -111,9 +127,21 @@ class MentorRegisterActivity : AppCompatActivity() {
             cancel = true
         }
 
+
         if (cancel == false) {
+
+            var profilePhoto : String = IMAGE_PHOTO_MAN
+            if(filePath == null){
+                profilePhoto = IMAGE_PHOTO_MAN
+            }else if (filePath != null){
+                profilePhoto = IMAGE_PHOTO_FIREBASE
+
+                var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
+                referrencePhoto.putFile(filePath!!)
+            }
+
             // Creating a Mentor object
-            val mentor = Mentor(city, specialty, lastName, firstName, email, phoneNumber, mAuth!!.uid.toString())
+            val mentor = Mentor(city, specialty, lastName, firstName, email, phoneNumber, mAuth!!.uid.toString(), profilePhoto)
 
             // Setting where to store informations about the mentor in the firebase Realtime Database
             val mentorsRef = ref.child("mentors")
