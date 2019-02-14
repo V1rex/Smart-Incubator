@@ -22,6 +22,10 @@ class Mentor  {
         mUserId = userId
     }
 
+    constructor(){
+
+    }
+
     constructor(city: String , speciality: String ,lastName: String, firstName: String ,email: String , phoneNumber: String , userId: String , photoProfileUrl : String ){
         mCity = city
         mSpeciality = speciality
