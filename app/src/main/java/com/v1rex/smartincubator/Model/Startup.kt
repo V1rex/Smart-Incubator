@@ -37,6 +37,10 @@ class Startup{
         mDomain = domain
     }
 
+    constructor(){
+
+    }
+
     constructor (startupName: String , description: String, userId: String , need: String , domain: String , profilePhotoUrl : String  ){
         mStartupName = startupName
         mDescription = description

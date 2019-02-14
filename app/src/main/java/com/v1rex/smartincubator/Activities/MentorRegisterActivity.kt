@@ -34,11 +34,11 @@ class MentorRegisterActivity : AppCompatActivity() {
     private val PICK_IMAGE_REQUEST : Int = 71
     private var filePath : Uri? = null
 
-    val IMAGE_PHOTO_FIREBASE : String = "firebase"
+    private val IMAGE_PHOTO_FIREBASE : String = "firebase"
 
-    val IMAGE_PHOTO_MAN : String = "man"
+    private val IMAGE_PHOTO_MAN : String = "man"
 
-    val REFERENCE_PROFILE_PHOTO : String = "profileImages/"
+    private val REFERENCE_PROFILE_PHOTO : String = "profileImages/"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
