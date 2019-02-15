@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -28,6 +29,8 @@ class MentorsFragment : Fragment() {
     private var firebaseRecyclerAdapter: FirebaseRecyclerAdapter<Mentor, MentorViewHolder>? = null
     private var options: FirebaseRecyclerOptions<Mentor>? = null
 
+    private var mEmptyMentorsText: TextView? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -44,12 +47,16 @@ class MentorsFragment : Fragment() {
         mList!!.setHasFixedSize(true)
         mList!!.layoutManager = LinearLayoutManager(this.activity)
 
+        mEmptyMentorsText = view!!.findViewById<View>(R.id.empty_mentors_message) as TextView
+        mEmptyMentorsText!!.visibility = View.GONE
+
         options = FirebaseRecyclerOptions.Builder<Mentor>().setQuery(mReference!!, Mentor::class.java!!).build()
 
         // setting the firebaseRecyclerAdapter for the showing Mentors
         firebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Mentor, MentorViewHolder>(options!!) {
             override fun onBindViewHolder(holder: MentorViewHolder, position: Int, model: Mentor) {
                 mLoaderMentor!!.visibility = View.GONE
+                mEmptyMentorsText!!.visibility = View.GONE
                 holder.setmNameTextView(model.mLastName + " " + model.mFirstName)
                 holder.setmCityTextView(model.mCity)
                 holder.setmSpecialityTextView(model.mSpeciality)
@@ -61,6 +68,15 @@ class MentorsFragment : Fragment() {
                     startActivity(intent)
                 }
 
+            }
+
+            override fun onDataChanged() {
+                super.onDataChanged()
+                if(itemCount == 0){
+                    mLoaderMentor!!.visibility = View.GONE
+                    mEmptyMentorsText!!.visibility = View.VISIBLE
+
+                }
             }
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MentorViewHolder {
