@@ -164,6 +164,7 @@ class MeetingsFragment : Fragment() {
 
             override fun onBindViewHolder(holder: MeetingsViewHolder, position: Int, model: Meeting) {
                     mLoaderMessage!!.visibility = View.GONE
+                    mEmptyMeetingsText!!.visibility = View.GONE
                     holder.setmPlaceTextView(model.mPlace)
                     holder.setmTypeEditText(model.mType)
                     holder.setmDateEditText(model.mDate)

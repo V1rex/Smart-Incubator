@@ -56,7 +56,6 @@ class MentorRegisterActivity : AppCompatActivity() {
         }
 
 
-
         submit_action_btn_mentor.setOnClickListener { submit() }
 
         upload_photo_mentor.setOnClickListener {
@@ -66,8 +65,6 @@ class MentorRegisterActivity : AppCompatActivity() {
         profile_image_mentor.setOnClickListener {
             chooseImage()
         }
-
-
 
     }
 

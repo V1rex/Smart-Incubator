@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -27,6 +28,8 @@ class StartupsFragment : Fragment() {
     private var firebaseRecyclerAdapter: FirebaseRecyclerAdapter<Startup, StartupViewHolder>? = null
     private var options: FirebaseRecyclerOptions<Startup>? = null
 
+    private var mEmptyStartupsText: TextView? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View? = inflater.inflate(R.layout.fragment_startups, container, false)
 
@@ -42,12 +45,16 @@ class StartupsFragment : Fragment() {
         mList!!.setHasFixedSize(true)
         mList!!.layoutManager = LinearLayoutManager(this.activity)
 
+        mEmptyStartupsText = view!!.findViewById<View>(R.id.empty_startups_message) as TextView
+        mEmptyStartupsText!!.visibility = View.GONE
+
         options = FirebaseRecyclerOptions.Builder<Startup>().setQuery(mReference!!, Startup::class.java!!).build()
 
         // setting the firebaseRecyclerAdapter for the showing Startups
         firebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Startup, StartupViewHolder>(options!!) {
             override fun onBindViewHolder(holder: StartupViewHolder, position: Int, model: Startup) {
                 mLoaderStartup!!.visibility = View.GONE
+                mEmptyStartupsText!!.visibility = View.GONE
                 holder.setmNeedTextView("Need :" + " " + model.mNeed)
                 holder.setmNameTextView(model.mStartupName)
                 holder.setmDomainTextView("Domain :" + " " + model.mDomain)
@@ -61,10 +68,21 @@ class StartupsFragment : Fragment() {
                 }
             }
 
+
+
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartupViewHolder {
 
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_startups_layout, parent, false)
                 return StartupViewHolder(view)
+            }
+
+            override fun onDataChanged() {
+                super.onDataChanged()
+                if(itemCount == 0){
+                    mLoaderStartup!!.visibility = View.GONE
+                    mEmptyStartupsText!!.visibility = View.VISIBLE
+
+                }
             }
 
 
