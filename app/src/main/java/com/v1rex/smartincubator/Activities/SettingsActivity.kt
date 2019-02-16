@@ -92,6 +92,10 @@ class SettingsActivity : AppCompatActivity() {
             chooseImage()
         }
 
+        profile_image_mentor_settings.setOnClickListener {
+            chooseImage()
+        }
+
     }
 
     /**
@@ -289,8 +293,8 @@ class SettingsActivity : AppCompatActivity() {
             filePath = data.data
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
-
                 profile_image_startup_settings.setImageBitmap(bitmap)
+                profile_image_mentor_settings.setImageBitmap(bitmap)
 
             } catch (e: IOException) {
                 e.printStackTrace()
