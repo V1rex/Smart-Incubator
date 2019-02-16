@@ -105,6 +105,10 @@ class SettingsActivity : AppCompatActivity() {
             valueEventListenerMentor = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     mentor = dataSnapshot.child(mAuth!!.uid!!).getValue<Mentor>(Mentor::class.java)
+                    var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
+                    if(mentor!!.mProfilePhotoUrl == IMAGE_PHOTO_FIREBASE){
+                        Glide.with(baseContext).load(referrencePhoto).placeholder(R.drawable.profile).into(profile_image_mentor_settings)
+                    }
                     openMentor()
                     progress_loading.visibility = View.GONE
                     refMentors!!.removeEventListener(this)
