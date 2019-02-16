@@ -14,6 +14,9 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TimePicker
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -22,6 +25,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.v1rex.smartincubator.Model.Meeting
 import com.v1rex.smartincubator.Model.Startup
 import com.v1rex.smartincubator.Model.User
@@ -43,6 +48,13 @@ class StartupProfileActivity : AppCompatActivity() {
     private val ref = databaseMeetings.getReference("Data")
 
     private var user: User? = null
+
+    private val storage : FirebaseStorage = FirebaseStorage.getInstance()
+    private val storageReference : StorageReference = storage.reference
+
+    private val IMAGE_PHOTO_FIREBASE : String = "firebase"
+
+    private val REFERENCE_PROFILE_PHOTO : String = "profileImages/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,5 +123,15 @@ class StartupProfileActivity : AppCompatActivity() {
         startup_name_profile.text = startup!!.mStartupName
         startup_domain_profile.text = startup!!.mDomain
         startup_need_profile.text = startup!!.mNeed
+        startup_description_profile.text = startup!!.mDescription
+
+        var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + startup!!.mUserId)
+        if(startup!!.mPhotoProfile == IMAGE_PHOTO_FIREBASE){
+            Glide.with(baseContext).load(referrencePhoto)
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                    .placeholder(R.drawable.startup)
+                    .into(profile_photo_startup)
+        }
     }
 }
