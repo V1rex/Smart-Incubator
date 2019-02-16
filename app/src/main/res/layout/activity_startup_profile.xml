@@ -29,11 +29,15 @@
                     android:orientation="vertical"
                     >
 
-                    <ImageView
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_photo_startup"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        app:srcCompat="@drawable/startup" />
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/colorFlatWhite"/>
 
                     <TextView
                         android:id="@+id/startup_name_profile"
@@ -116,8 +120,46 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
+                                app:srcCompat="@drawable/description"
+                                android:tint="@color/colorAccent"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingLeft="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-condensed"
+                                    android:text="@string/description_startup"
+                                    android:textSize="20sp" />
+
+                                <TextView
+                                    android:id="@+id/startup_description_profile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="18sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
+
 
 
                 </ScrollView>
