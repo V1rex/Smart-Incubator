@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.StorageReference
 
 import com.v1rex.smartincubator.R
@@ -37,6 +39,10 @@ class MentorViewHolder(internal var mView: View) : RecyclerView.ViewHolder(mView
     }
 
     fun setImageProfileImageView(storageRef : StorageReference, context : Context?){
-        Glide.with(context!!).load(storageRef).placeholder(R.drawable.profile).into(mImageProfile)
+        Glide.with(context!!).load(storageRef)
+                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                .placeholder(R.drawable.profile)
+                .into(mImageProfile)
     }
 }
