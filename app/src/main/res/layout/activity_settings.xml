@@ -21,7 +21,25 @@
             android:elevation="4dp"
             app:title="@string/mentor_informations_activity"
             android:theme="@style/Theme.AppCompat.Light"
-            app:popupTheme="@style/Theme.AppCompat.Light"/>
+            app:popupTheme="@style/Theme.AppCompat.Light">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_vertical"
+                    android:text="@string/mentor_informations_activity"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
         <ScrollView
             android:layout_marginTop="?android:attr/actionBarSize"
             android:layout_width="match_parent"
@@ -32,6 +50,32 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_margin="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/uploaded_mentor_photo_settings"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="vertical"
+                        android:layout_margin="12dp"
+                        android:visibility="visible"
+                        >
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/profile_image_mentor_settings"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/profile"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="@color/colorFlatWhite"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/first_name_input_text_mentor_settings"
@@ -146,7 +190,7 @@
                     android:layout_marginBottom="24dp"
                     android:padding="12dp"
                     android:textColor="@color/colorFlatWhite"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorAccent"
                     android:text="@string/submit"
                     />
 
@@ -444,7 +488,7 @@
         android:background="#92000000"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <LinearLayout
