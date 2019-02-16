@@ -326,9 +326,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Thread(Runnable { Glide.get(this).clearDiskCache()
-            Glide.get(this).clearMemory()
-        }).start()
         finish()
     }
 

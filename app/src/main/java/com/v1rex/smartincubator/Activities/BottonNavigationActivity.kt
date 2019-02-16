@@ -1,10 +1,12 @@
 package com.v1rex.smartincubator.Activities
 
 import android.content.Intent
+import android.os.Build
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.view.Menu
 import android.view.MenuItem
 import com.bumptech.glide.Glide
@@ -16,6 +18,10 @@ import com.v1rex.smartincubator.Fragments.MessagesFragment
 import com.v1rex.smartincubator.Fragments.StartupsFragment
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_botton_navigation.*
+import android.support.v4.content.ContextCompat
+import android.view.WindowManager
+
+
 
 class BottonNavigationActivity : AppCompatActivity() {
 
@@ -59,6 +65,14 @@ class BottonNavigationActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener(navListener)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, StartupsFragment()).commit()
 
+        val window = this.getWindow()
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccentDark))
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -88,9 +102,7 @@ class BottonNavigationActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Thread(Runnable { Glide.get(this).clearDiskCache()
-            Glide.get(this).clearMemory()
-        }).start()
+
         finish()
     }
 
