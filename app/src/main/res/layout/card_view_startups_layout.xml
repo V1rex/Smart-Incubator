@@ -56,8 +56,7 @@
             android:layout_height="86dp"
             android:layout_centerInParent="true"
             android:src="@drawable/startup"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/colorFlatWhite"/>
+            />
 
         <TextView
             android:id="@+id/startup_name_text_view"
