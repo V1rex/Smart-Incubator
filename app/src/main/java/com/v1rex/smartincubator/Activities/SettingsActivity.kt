@@ -9,6 +9,8 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -104,7 +106,11 @@ class SettingsActivity : AppCompatActivity() {
                     startup = dataSnapshot.child(mAuth!!.uid!!).getValue<Startup>(Startup::class.java)
                     var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
                     if(startup!!.mPhotoProfile == IMAGE_PHOTO_FIREBASE){
-                        Glide.with(baseContext).load(referrencePhoto).placeholder(R.drawable.startup).into(profile_image_startup_settings)
+                        Glide.with(baseContext).load(referrencePhoto)
+                                .apply(RequestOptions.skipMemoryCacheOf(true))
+                                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                                .placeholder(R.drawable.startup)
+                                .into(profile_image_startup_settings)
                     }
                     openStartup()
                     progress_loading.visibility = View.GONE
@@ -125,7 +131,11 @@ class SettingsActivity : AppCompatActivity() {
                     mentor = dataSnapshot.child(mAuth!!.uid!!).getValue<Mentor>(Mentor::class.java)
                     var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
                     if(mentor!!.mProfilePhoto == IMAGE_PHOTO_FIREBASE){
-                        Glide.with(baseContext).load(referrencePhoto).placeholder(R.drawable.profile).into(profile_image_mentor_settings)
+                        Glide.with(baseContext).load(referrencePhoto)
+                                .apply(RequestOptions.skipMemoryCacheOf(true))
+                                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                                .placeholder(R.drawable.profile)
+                                .into(profile_image_mentor_settings)
                     }
                     openMentor()
                     progress_loading.visibility = View.GONE
@@ -226,7 +236,6 @@ class SettingsActivity : AppCompatActivity() {
             var profilePhoto : String = mentor!!.mProfilePhoto
             if (filePath != null){
                 profilePhoto = IMAGE_PHOTO_FIREBASE
-
                 var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
                 referrencePhoto.putFile(filePath!!)
             }
