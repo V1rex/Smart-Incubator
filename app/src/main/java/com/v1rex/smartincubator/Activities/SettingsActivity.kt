@@ -1,9 +1,12 @@
 package com.v1rex.smartincubator.Activities
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
 import android.widget.Button
@@ -25,6 +28,8 @@ import com.v1rex.smartincubator.Model.Startup
 import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_startup_register.*
+import java.io.IOException
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -47,6 +52,9 @@ class SettingsActivity : AppCompatActivity() {
     private val IMAGE_PHOTO_FIREBASE : String = "firebase"
 
     private val REFERENCE_PROFILE_PHOTO : String = "profileImages/"
+
+    private val PICK_IMAGE_REQUEST : Int = 71
+    private var filePath : Uri? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +79,18 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         refUsers!!.addValueEventListener(valueEventListenerUser as ValueEventListener)
+
+
+        fun chooseImage(){
+            var intent : Intent  = Intent()
+            intent.setType("image/*")
+            intent.setAction(Intent.ACTION_GET_CONTENT)
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+        }
+
+        profile_image_startup_settings.setOnClickListener {
+            chooseImage()
+        }
 
     }
 
@@ -259,5 +279,23 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent(this@SettingsActivity, BottonNavigationActivity::class.java))
         }
 
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === PICK_IMAGE_REQUEST && resultCode === Activity.RESULT_OK
+                && data != null && data.data != null) {
+            filePath = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+
+                profile_image_startup_settings.setImageBitmap(bitmap)
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+        }
     }
 }
