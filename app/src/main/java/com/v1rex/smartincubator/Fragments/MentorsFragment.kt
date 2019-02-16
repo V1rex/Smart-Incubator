@@ -15,6 +15,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.v1rex.smartincubator.Activities.MentorProfileActivity
 import com.v1rex.smartincubator.Model.Mentor
 import com.v1rex.smartincubator.R
@@ -28,6 +30,13 @@ class MentorsFragment : Fragment() {
     private var mReference: DatabaseReference? = null
     private var firebaseRecyclerAdapter: FirebaseRecyclerAdapter<Mentor, MentorViewHolder>? = null
     private var options: FirebaseRecyclerOptions<Mentor>? = null
+
+    private val storage : FirebaseStorage = FirebaseStorage.getInstance()
+    private val storageReference : StorageReference = storage.reference
+
+    private val IMAGE_PHOTO_FIREBASE : String = "firebase"
+
+    private val REFERENCE_PROFILE_PHOTO : String = "profileImages/"
 
     private var mEmptyMentorsText: TextView? = null
 
@@ -60,6 +69,12 @@ class MentorsFragment : Fragment() {
                 holder.setmNameTextView(model.mLastName + " " + model.mFirstName)
                 holder.setmCityTextView(model.mCity)
                 holder.setmSpecialityTextView(model.mSpeciality)
+
+                var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + model.mUserId)
+                var string = model.mProfilePhotoUrl
+                if(string == IMAGE_PHOTO_FIREBASE){
+                    holder.setImageProfileImageView(referrencePhoto , context)
+                }
 
                 // open the mentor profile if the item is clicked
                 holder.itemView.setOnClickListener {

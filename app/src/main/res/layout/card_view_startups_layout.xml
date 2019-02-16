@@ -52,8 +52,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/startup_profile_image_view"
-            android:layout_width="82dp"
-            android:layout_height="82dp"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
             android:layout_centerInParent="true"
             android:src="@drawable/startup"
             app:civ_border_width="2dp"
