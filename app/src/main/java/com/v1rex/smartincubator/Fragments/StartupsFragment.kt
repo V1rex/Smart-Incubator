@@ -14,7 +14,10 @@ import android.widget.TextView
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.v1rex.smartincubator.Activities.StartupProfileActivity
 import com.v1rex.smartincubator.Model.Startup
 import com.v1rex.smartincubator.R
@@ -28,10 +31,23 @@ class StartupsFragment : Fragment() {
     private var firebaseRecyclerAdapter: FirebaseRecyclerAdapter<Startup, StartupViewHolder>? = null
     private var options: FirebaseRecyclerOptions<Startup>? = null
 
+    private val storage : FirebaseStorage = FirebaseStorage.getInstance()
+    private val storageReference : StorageReference = storage.reference
+
+    private val IMAGE_PHOTO_MAN : String = "man"
+
+    private val IMAGE_PHOTO_FIREBASE : String = "firebase"
+
+    private val REFERENCE_PROFILE_PHOTO : String = "profileImages/"
+
+    private var mAuth: FirebaseAuth? = null
+
     private var mEmptyStartupsText: TextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View? = inflater.inflate(R.layout.fragment_startups, container, false)
+
+        mAuth = FirebaseAuth.getInstance()
 
         //Setting where to find data in the realtime database
         mReference = FirebaseDatabase.getInstance().reference.child("Data").child("startups")
@@ -50,6 +66,8 @@ class StartupsFragment : Fragment() {
 
         options = FirebaseRecyclerOptions.Builder<Startup>().setQuery(mReference!!, Startup::class.java!!).build()
 
+
+
         // setting the firebaseRecyclerAdapter for the showing Startups
         firebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Startup, StartupViewHolder>(options!!) {
             override fun onBindViewHolder(holder: StartupViewHolder, position: Int, model: Startup) {
@@ -58,6 +76,12 @@ class StartupsFragment : Fragment() {
                 holder.setmNeedTextView("Need :" + " " + model.mNeed)
                 holder.setmNameTextView(model.mStartupName)
                 holder.setmDomainTextView("Domain :" + " " + model.mDomain)
+
+                var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + model.mUserId)
+                var string = model.mPhotoProfileUrl
+                if(string == IMAGE_PHOTO_FIREBASE){
+                   holder.setImageProfileImageView(referrencePhoto , context)
+                }
 
 
                 // open the startup profile if the item is clicked
@@ -69,13 +93,6 @@ class StartupsFragment : Fragment() {
             }
 
 
-
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartupViewHolder {
-
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_startups_layout, parent, false)
-                return StartupViewHolder(view)
-            }
-
             override fun onDataChanged() {
                 super.onDataChanged()
                 if(itemCount == 0){
@@ -84,6 +101,13 @@ class StartupsFragment : Fragment() {
 
                 }
             }
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartupViewHolder {
+
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_startups_layout, parent, false)
+                return StartupViewHolder(view)
+            }
+
+
 
 
         }

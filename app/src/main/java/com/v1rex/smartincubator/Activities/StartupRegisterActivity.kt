@@ -129,7 +129,7 @@ class StartupRegisterActivity : AppCompatActivity() {
             }
 
             //Creating a new Startup object
-            val startup = Startup(mStartupName, mDescription, mNeed, mDomain,  mAuth!!.uid.toString(), profilePhoto)
+            val startup = Startup(mStartupName, mDescription, mAuth!!.uid.toString() , mNeed , mDomain , profilePhoto)
 
             // setting where to store startup informations in the firebase Realtime Database
             val startupsRef = ref.child("startups")
