@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/message_layout"
-    android:backgroundTint="#e67e22"
+    android:backgroundTint="#7d5fff"
     android:layout_marginTop="4dp"
     android:layout_alignParentTop="true"
     android:layout_marginRight="4dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:maxWidth="240dp"
-            android:padding="8dp"
+            android:padding="12dp"
             android:textColor="#fff"
             android:text="@string/empty_messages"
             />

@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/nav_messages"
-        android:icon="@drawable/mail"
+        android:icon="@drawable/ic_mail"
         android:title="@string/messages_name_fragments"/>
 
     <item

@@ -110,11 +110,6 @@ class StartupProfileActivity : AppCompatActivity() {
     private fun show() {
         startup_name_profile.text = startup!!.mStartupName
         startup_domain_profile.text = startup!!.mDomain
-        startup_fond_profile.text = startup!!.mFond
-        startup_chiffre_profile.text = startup!!.mChiffre
         startup_need_profile.text = startup!!.mNeed
-        startup_jurdique_profile.text = startup!!.mJuridiqueSatatus
-        startup_date_creation_profile.text = startup!!.mCreationDate
-        startup_number_employees_profile.text = startup!!.mNumberEmployees
     }
 }
