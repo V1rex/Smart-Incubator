@@ -271,8 +271,14 @@ class SettingsActivity : AppCompatActivity() {
 
 
         if (cancel == false) {
-            var emptyString : String = ""
-            val startup = Startup(mStartupName, mDescription, mAuth!!.uid.toString(), mNeed, mDomain , emptyString)
+            var profilePhoto : String = startup!!.mPhotoProfileUrl
+            if (filePath != null){
+                profilePhoto = IMAGE_PHOTO_FIREBASE
+
+                var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
+                referrencePhoto.putFile(filePath!!)
+            }
+            val startup = Startup(mStartupName, mDescription, mAuth!!.uid.toString(), mNeed, mDomain , profilePhoto)
 
             refStartups = database.getReference("Data")
 
