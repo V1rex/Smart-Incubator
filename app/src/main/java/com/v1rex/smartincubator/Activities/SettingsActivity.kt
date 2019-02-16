@@ -136,27 +136,7 @@ class SettingsActivity : AppCompatActivity() {
         if (startup != null) {
             startup_name_edit_text_startp_settings.setText(startup!!.mStartupName)
 
-            associate_edit_text_startp_settings.setText(startup!!.mAssociate)
-
             description_edit_text_startp_settings.setText(startup!!.mDescription)
-
-            website_edit_text_startp_settings.setText(startup!!.mWebsite)
-
-            facebook_edit_text_startp_settings.setText(startup!!.mPageFacebook)
-
-            date_incubation_edit_text_startp_settings.setText(startup!!.mDateOfIncubation)
-
-            juridique_status_edit_text_startp_settings.setText(startup!!.mJuridiqueSatatus)
-
-            creation_date_edit_text_startp_settings.setText(startup!!.mCreationDate)
-
-            number_employees_edit_text_startp_settings.setText(startup!!.mNumberEmployees)
-
-            objective_edit_text_startp_settings.setText(startup!!.mObjective)
-
-            fond_edit_text_startp_settings.setText(startup!!.mFond)
-
-            chiffre_edit_text_startp_settings.setText(startup!!.mChiffre)
 
             domain_edit_text_startp_settings.setText(startup!!.mDomain)
 
@@ -224,17 +204,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun submitStartup() {
 
         val mStartupName = startup_name_edit_text_startp_settings.text.toString()
-        val mAssociate = associate_edit_text_startp_settings.text.toString()
         val mDescription = description_edit_text_startp_settings.text.toString()
-        val mWebsite = website_edit_text_startp_settings.text.toString()
-        val mPageFacebook = facebook_edit_text_startp_settings.text.toString()
-        val mDateOfIncubation = date_incubation_edit_text_startp_settings.text.toString()
-        val mJuridiqueSatatus = juridique_status_edit_text_startp_settings.text.toString()
-        val mCreationDate = creation_date_edit_text_startp_settings.text.toString()
-        val mNumberEmployees = number_employees_edit_text_startp_settings.text.toString()
-        val mObjective = objective_edit_text_startp_settings.text.toString()
-        val mFond = fond_edit_text_startp_settings.text.toString()
-        val mChiffre = chiffre_edit_text_startp_settings.text.toString()
         val mNeed = need_edit_text_startp_settings.text.toString()
         val mDomain = domain_edit_text_startp_settings.text.toString()
 
@@ -248,30 +218,6 @@ class SettingsActivity : AppCompatActivity() {
             description_input_text_startup_settings.error = getString(R.string.field_requierd)
             cancel = true
         }
-        if (TextUtils.isEmpty(mDateOfIncubation)) {
-            date_incubation_input_text_startup_settings.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-        if (TextUtils.isEmpty(mJuridiqueSatatus)) {
-            juridique_status_input_text_startup_settings.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-        if (TextUtils.isEmpty(mCreationDate)) {
-            creation_date_input_text_startup_settings.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-        if (TextUtils.isEmpty(mNumberEmployees)) {
-            number_employees_input_text_startup_settings.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-        if (TextUtils.isEmpty(mFond)) {
-            fond_input_text_startup_settings.error = getString(R.string.field_requierd)
-            cancel = true
-        }
-        if (TextUtils.isEmpty(mChiffre)) {
-            chiffre_input_text_startup_settings.error = getString(R.string.field_requierd)
-            cancel = true
-        }
         if (TextUtils.isEmpty(mDomain)) {
             domain_input_text_startup_settings.error = getString(R.string.field_requierd)
             cancel = true
@@ -283,7 +229,8 @@ class SettingsActivity : AppCompatActivity() {
 
 
         if (cancel == false) {
-            val startup = Startup(mStartupName, mAssociate, mDescription, mWebsite, mPageFacebook, mDateOfIncubation, mJuridiqueSatatus, mCreationDate, mNumberEmployees, mObjective, mFond, mChiffre, mAuth!!.uid.toString(), mNeed, mDomain)
+            var emptyString : String = ""
+            val startup = Startup(mStartupName, mDescription, mAuth!!.uid.toString(), mNeed, mDomain , emptyString)
 
             refStartups = database.getReference("Data")
 
