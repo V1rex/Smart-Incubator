@@ -14,6 +14,9 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TimePicker
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -22,6 +25,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.v1rex.smartincubator.Model.Meeting
 import com.v1rex.smartincubator.Model.Mentor
 import com.v1rex.smartincubator.Model.User
@@ -38,6 +43,13 @@ class MentorProfileActivity : AppCompatActivity() {
     private var refUser: DatabaseReference? = null
     private var mAuth: FirebaseAuth? = null
     private var user: User? = null
+
+    private val storage : FirebaseStorage = FirebaseStorage.getInstance()
+    private val storageReference : StorageReference = storage.reference
+
+    private val IMAGE_PHOTO_FIREBASE : String = "firebase"
+
+    private val REFERENCE_PROFILE_PHOTO : String = "profileImages/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +127,15 @@ class MentorProfileActivity : AppCompatActivity() {
         mentor_city_profile.text = mentor!!.mCity
         mentor_email_profile.text = mentor!!.mEmail
         mentor_number_phone_profile.text = mentor!!.mPhoneNumber
+
+        var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mentor!!.mUserId)
+        if(mentor!!.mProfilePhoto == IMAGE_PHOTO_FIREBASE){
+            Glide.with(baseContext).load(referrencePhoto)
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                    .placeholder(R.drawable.profile)
+                    .into(profile_photo_mentor)
+        }
 
     }
 }

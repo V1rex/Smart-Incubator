@@ -29,13 +29,15 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_photo_mentor"
                     android:layout_width="145dp"
                     android:layout_height="145dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="32dp"
-                    app:srcCompat="@drawable/profile"
-                    />
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/colorFlatWhite"/>
 
                 <TextView
                     android:id="@+id/mentor_name_profile"

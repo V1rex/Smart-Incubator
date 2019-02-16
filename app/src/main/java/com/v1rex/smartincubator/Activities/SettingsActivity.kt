@@ -109,7 +109,7 @@ class SettingsActivity : AppCompatActivity() {
                         Glide.with(baseContext).load(referrencePhoto)
                                 .apply(RequestOptions.skipMemoryCacheOf(true))
                                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                                .placeholder(R.drawable.startup)
+                                .placeholder(R.drawable.profile)
                                 .into(profile_image_startup_settings)
                     }
                     openStartup()
