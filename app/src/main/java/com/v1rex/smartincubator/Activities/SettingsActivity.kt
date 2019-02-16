@@ -247,6 +247,7 @@ class SettingsActivity : AppCompatActivity() {
             val mentorRef = mentorsRef.child(mentor.mUserId)
 
             mentorRef.setValue(mentor)
+
             startActivity(Intent(this@SettingsActivity, BottonNavigationActivity::class.java))
             finish()
         }
@@ -299,7 +300,9 @@ class SettingsActivity : AppCompatActivity() {
             val startupRef = startupsRef.child(startup.mUserId)
             startupRef.setValue(startup)
 
+
             startActivity(Intent(this@SettingsActivity, BottonNavigationActivity::class.java))
+            finish()
         }
 
     }
@@ -321,4 +324,15 @@ class SettingsActivity : AppCompatActivity() {
 
         }
     }
+
+    override fun onBackPressed() {
+        Thread(Runnable { Glide.get(this).clearDiskCache()
+            Glide.get(this).clearMemory()
+        }).start()
+        finish()
+    }
+
+
+
+
 }

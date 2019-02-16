@@ -3,6 +3,7 @@ package com.v1rex.smartincubator.Activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -21,7 +22,6 @@ class SplashActivity : AppCompatActivity() {
         } else if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
         }
-
 
 
         finish()

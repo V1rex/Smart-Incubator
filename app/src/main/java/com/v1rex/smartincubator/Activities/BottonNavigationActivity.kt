@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.bumptech.glide.Glide
 
 import com.google.firebase.auth.FirebaseAuth
 import com.v1rex.smartincubator.Fragments.MentorsFragment
@@ -87,6 +88,10 @@ class BottonNavigationActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        Thread(Runnable { Glide.get(this).clearDiskCache()
+            Glide.get(this).clearMemory()
+        }).start()
         finish()
     }
+
 }
