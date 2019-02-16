@@ -71,7 +71,7 @@ class MentorsFragment : Fragment() {
                 holder.setmSpecialityTextView(model.mSpeciality)
 
                 var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + model.mUserId)
-                var string = model.mProfilePhotoUrl
+                var string = model.mProfilePhoto
                 if(string == IMAGE_PHOTO_FIREBASE){
                     holder.setImageProfileImageView(referrencePhoto , context)
                 }

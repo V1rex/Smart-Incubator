@@ -17,7 +17,7 @@ class Startup{
     var mUserId: String = ""
     var mNeed: String = ""
     var  mDomain: String = ""
-    var mPhotoProfileUrl : String = ""
+    var mPhotoProfile : String = ""
 
     constructor (startupName: String , associate: String , description: String, website: String , pageFacebook: String , dateOfIncubation: String , juridiqueSatatus: String , creationDate: String ,numberEmployees: String , objective: String, fond: String , chiffre: String , userId: String , need: String , domain: String ){
         mStartupName = startupName
@@ -47,7 +47,7 @@ class Startup{
         mUserId = userId
         mNeed = need
         mDomain = domain
-        mPhotoProfileUrl = profilePhotoUrl
+        mPhotoProfile = profilePhotoUrl
     }
 
 

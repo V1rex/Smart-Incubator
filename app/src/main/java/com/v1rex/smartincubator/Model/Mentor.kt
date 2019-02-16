@@ -1,7 +1,5 @@
 package com.v1rex.smartincubator.Model
 
-import java.io.Serializable
-
 class Mentor  {
     var mCity : String = ""
     var mSpeciality : String = ""
@@ -10,7 +8,7 @@ class Mentor  {
     var mEmail : String = ""
     var mPhoneNumber : String = ""
     var mUserId : String = ""
-    var mProfilePhotoUrl : String = ""
+    var mProfilePhoto : String = ""
 
     constructor(city: String , speciality: String ,lastName: String, firstName: String ,email: String , phoneNumber: String , userId: String ){
         mCity = city
@@ -34,7 +32,7 @@ class Mentor  {
         mEmail = email
         mPhoneNumber = phoneNumber
         mUserId = userId
-        mProfilePhotoUrl = photoProfileUrl
+        mProfilePhoto = photoProfileUrl
     }
 
 

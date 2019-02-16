@@ -78,7 +78,7 @@ class StartupsFragment : Fragment() {
                 holder.setmDomainTextView("Domain :" + " " + model.mDomain)
 
                 var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + model.mUserId)
-                var string = model.mPhotoProfileUrl
+                var string = model.mPhotoProfile
                 if(string == IMAGE_PHOTO_FIREBASE){
                    holder.setImageProfileImageView(referrencePhoto , context)
                 }

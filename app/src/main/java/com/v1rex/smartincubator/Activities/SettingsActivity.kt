@@ -3,16 +3,11 @@ package com.v1rex.smartincubator.Activities
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 
 import com.google.firebase.auth.FirebaseAuth
@@ -28,7 +23,6 @@ import com.v1rex.smartincubator.Model.Startup
 import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_startup_register.*
 import java.io.IOException
 
 class SettingsActivity : AppCompatActivity() {
@@ -109,7 +103,7 @@ class SettingsActivity : AppCompatActivity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     startup = dataSnapshot.child(mAuth!!.uid!!).getValue<Startup>(Startup::class.java)
                     var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
-                    if(startup!!.mPhotoProfileUrl == IMAGE_PHOTO_FIREBASE){
+                    if(startup!!.mPhotoProfile == IMAGE_PHOTO_FIREBASE){
                         Glide.with(baseContext).load(referrencePhoto).placeholder(R.drawable.startup).into(profile_image_startup_settings)
                     }
                     openStartup()
@@ -130,7 +124,7 @@ class SettingsActivity : AppCompatActivity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     mentor = dataSnapshot.child(mAuth!!.uid!!).getValue<Mentor>(Mentor::class.java)
                     var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
-                    if(mentor!!.mProfilePhotoUrl == IMAGE_PHOTO_FIREBASE){
+                    if(mentor!!.mProfilePhoto == IMAGE_PHOTO_FIREBASE){
                         Glide.with(baseContext).load(referrencePhoto).placeholder(R.drawable.profile).into(profile_image_mentor_settings)
                     }
                     openMentor()
@@ -228,8 +222,18 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         if (cancel == false) {
+
+            var profilePhoto : String = mentor!!.mProfilePhoto
+            if (filePath != null){
+                profilePhoto = IMAGE_PHOTO_FIREBASE
+
+                var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
+                referrencePhoto.putFile(filePath!!)
+            }
+
+            val mentor = Mentor(city, specialty, lastName, firstName, email, phoneNumber, mAuth!!.uid.toString(), profilePhoto)
+
             refMentors = database.getReference("Data")
-            val mentor = Mentor(city, specialty, lastName, firstName, email, phoneNumber, mAuth!!.uid.toString())
             val mentorsRef = refMentors!!.child("mentors")
             val mentorRef = mentorsRef.child(mentor.mUserId)
 
@@ -271,7 +275,7 @@ class SettingsActivity : AppCompatActivity() {
 
 
         if (cancel == false) {
-            var profilePhoto : String = startup!!.mPhotoProfileUrl
+            var profilePhoto : String = startup!!.mPhotoProfile
             if (filePath != null){
                 profilePhoto = IMAGE_PHOTO_FIREBASE
 
