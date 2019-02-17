@@ -131,6 +131,7 @@ class StartupProfileActivity : AppCompatActivity() {
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .placeholder(R.drawable.startup)
+                    .fitCenter()
                     .into(profile_photo_startup)
         }
     }

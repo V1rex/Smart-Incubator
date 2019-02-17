@@ -134,6 +134,7 @@ class MentorProfileActivity : AppCompatActivity() {
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .placeholder(R.drawable.profile)
+                    .fitCenter()
                     .into(profile_photo_mentor)
         }
 

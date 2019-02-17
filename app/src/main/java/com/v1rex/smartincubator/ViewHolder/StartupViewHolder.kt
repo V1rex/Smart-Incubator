@@ -45,6 +45,8 @@ class StartupViewHolder(private val mView: View) : RecyclerView.ViewHolder(mView
     fun setImageProfileImageView(storageRef : StorageReference , context : Context?){
         Glide.with(context!!).load(storageRef)
                 .placeholder(R.drawable.startup)
+                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                 .fitCenter()
                 .into(mImageProfile)
     }

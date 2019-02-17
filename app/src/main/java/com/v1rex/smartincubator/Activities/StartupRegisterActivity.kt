@@ -2,6 +2,7 @@ package com.v1rex.smartincubator.Activities
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import com.bumptech.glide.Glide
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -21,6 +23,7 @@ import com.v1rex.smartincubator.Model.Startup
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_mentor_register.*
 import kotlinx.android.synthetic.main.activity_startup_register.*
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 class StartupRegisterActivity : AppCompatActivity() {
@@ -76,7 +79,7 @@ class StartupRegisterActivity : AppCompatActivity() {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                 upload_photo_startup.visibility = View.GONE
                 uploaded_startup_photo.visibility = View.VISIBLE
-                profile_image_startup.setImageBitmap(bitmap)
+                Glide.with(this).load(filePath).fitCenter().into(profile_image_startup)
 
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -125,7 +128,11 @@ class StartupRegisterActivity : AppCompatActivity() {
                 profilePhoto = IMAGE_PHOTO_FIREBASE
 
                 var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
-                referrencePhoto.putFile(filePath!!)
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
+                val data = byteArrayOutputStream.toByteArray()
+                referrencePhoto.putBytes(data)
             }
 
             //Creating a new Startup object
