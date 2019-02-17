@@ -17,8 +17,10 @@ import android.graphics.Bitmap
 import android.R.attr.data
 import android.app.Activity
 import android.view.View
+import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 
@@ -77,7 +79,7 @@ class MentorRegisterActivity : AppCompatActivity() {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                 upload_photo_mentor.visibility = View.GONE
                 uploaded_mentor_photo.visibility = View.VISIBLE
-                profile_image_mentor.setImageBitmap(bitmap)
+                Glide.with(this).load(filePath).fitCenter().into(profile_image_mentor)
 
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -134,7 +136,11 @@ class MentorRegisterActivity : AppCompatActivity() {
                 profilePhoto = IMAGE_PHOTO_FIREBASE
 
                 var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
-                referrencePhoto.putFile(filePath!!)
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
+                val data = byteArrayOutputStream.toByteArray()
+                referrencePhoto.putBytes(data)
             }
 
             // Creating a Mentor object
