@@ -26,6 +26,16 @@ import com.v1rex.smartincubator.Model.User
 import com.v1rex.smartincubator.R
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.IOException
+import com.google.android.gms.common.util.IOUtils.toByteArray
+import android.graphics.Bitmap
+import android.R.attr.bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
+import id.zelory.compressor.Compressor
+import java.io.ByteArrayOutputStream
+import java.io.File
+
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -236,8 +246,13 @@ class SettingsActivity : AppCompatActivity() {
             var profilePhoto : String = mentor!!.mProfilePhoto
             if (filePath != null){
                 profilePhoto = IMAGE_PHOTO_FIREBASE
+
                 var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
-                referrencePhoto.putFile(filePath!!)
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
+                val data = byteArrayOutputStream.toByteArray()
+                referrencePhoto.putBytes(data)
             }
 
             val mentor = Mentor(city, specialty, lastName, firstName, email, phoneNumber, mAuth!!.uid.toString(), profilePhoto)
@@ -290,7 +305,11 @@ class SettingsActivity : AppCompatActivity() {
                 profilePhoto = IMAGE_PHOTO_FIREBASE
 
                 var referrencePhoto : StorageReference = storageReference.child(REFERENCE_PROFILE_PHOTO + mAuth!!.uid.toString())
-                referrencePhoto.putFile(filePath!!)
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
+                val data = byteArrayOutputStream.toByteArray()
+                referrencePhoto.putBytes(data)
             }
             val startup = Startup(mStartupName, mDescription, mAuth!!.uid.toString(), mNeed, mDomain , profilePhoto)
 
@@ -314,9 +333,36 @@ class SettingsActivity : AppCompatActivity() {
                 && data != null && data.data != null) {
             filePath = data.data
             try {
+                var file = File(filePath!!.path)
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
-                profile_image_startup_settings.setImageBitmap(bitmap)
-                profile_image_mentor_settings.setImageBitmap(bitmap)
+//                val byteArrayOutputStream = ByteArrayOutputStream()
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
+//                val data = byteArrayOutputStream.toByteArray()
+//                var bitmapFinal = BitmapFactory.decodeByteArray(data,0, data.size)
+
+
+                var bitmapFinal = getResizedBitmap(bitmap, 400)
+
+                try {
+                var exif : ExifInterface  = ExifInterface(filePath!!.path)
+                var orientation : Int = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1)
+                var matrix : Matrix =  Matrix()
+                if (orientation == 6) {
+                    matrix.postRotate(90F);
+                }
+                else if (orientation == 3) {
+                    matrix.postRotate(180F);
+                }
+                else if (orientation == 8) {
+                    matrix.postRotate(270F);
+                }
+                bitmapFinal = Bitmap.createBitmap(bitmapFinal, 0, 0, bitmapFinal.getWidth(), bitmapFinal.getHeight(), matrix, true)
+            }
+            catch (e : Exception) {
+
+            }
+                profile_image_startup_settings.setImageBitmap(bitmapFinal)
+                profile_image_mentor_settings.setImageBitmap(bitmapFinal)
 
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -324,6 +370,22 @@ class SettingsActivity : AppCompatActivity() {
 
         }
     }
+
+    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap {
+        var width = image.width
+        var height = image.height
+
+        val bitmapRatio = width.toFloat() / height.toFloat()
+        if (bitmapRatio > 1) {
+            width = maxSize
+            height = (width / bitmapRatio).toInt()
+        } else {
+            height = maxSize
+            width = (height * bitmapRatio).toInt()
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true)
+    }
+
 
     override fun onBackPressed() {
         finish()
