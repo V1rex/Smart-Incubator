@@ -341,49 +341,16 @@ class SettingsActivity : AppCompatActivity() {
 //                var bitmapFinal = BitmapFactory.decodeByteArray(data,0, data.size)
 
 
-                var bitmapFinal = getResizedBitmap(bitmap, 400)
-
-                try {
-                var exif : ExifInterface  = ExifInterface(filePath!!.path)
-                var orientation : Int = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1)
-                var matrix : Matrix =  Matrix()
-                if (orientation == 6) {
-                    matrix.postRotate(90F);
-                }
-                else if (orientation == 3) {
-                    matrix.postRotate(180F);
-                }
-                else if (orientation == 8) {
-                    matrix.postRotate(270F);
-                }
-                bitmapFinal = Bitmap.createBitmap(bitmapFinal, 0, 0, bitmapFinal.getWidth(), bitmapFinal.getHeight(), matrix, true)
-            }
-            catch (e : Exception) {
-
-            }
-                profile_image_startup_settings.setImageBitmap(bitmapFinal)
-                profile_image_mentor_settings.setImageBitmap(bitmapFinal)
+                Glide.with(this).load(filePath).fitCenter().into(profile_image_startup_settings)
+                Glide.with(this).load(filePath).fitCenter().into(profile_image_mentor_settings)
+//                profile_image_startup_settings.setImageBitmap(bitmapFinal)
+//                profile_image_mentor_settings.setImageBitmap(bitmapFinal)
 
             } catch (e: IOException) {
                 e.printStackTrace()
             }
 
         }
-    }
-
-    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap {
-        var width = image.width
-        var height = image.height
-
-        val bitmapRatio = width.toFloat() / height.toFloat()
-        if (bitmapRatio > 1) {
-            width = maxSize
-            height = (width / bitmapRatio).toInt()
-        } else {
-            height = maxSize
-            width = (height * bitmapRatio).toInt()
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true)
     }
 
 
