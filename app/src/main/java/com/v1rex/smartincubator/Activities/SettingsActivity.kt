@@ -120,6 +120,7 @@ class SettingsActivity : AppCompatActivity() {
                                 .apply(RequestOptions.skipMemoryCacheOf(true))
                                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                                 .placeholder(R.drawable.profile)
+                                .fitCenter()
                                 .into(profile_image_startup_settings)
                     }
                     openStartup()
@@ -145,6 +146,7 @@ class SettingsActivity : AppCompatActivity() {
                                 .apply(RequestOptions.skipMemoryCacheOf(true))
                                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                                 .placeholder(R.drawable.profile)
+                                .fitCenter()
                                 .into(profile_image_mentor_settings)
                     }
                     openMentor()

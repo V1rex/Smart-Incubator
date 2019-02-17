@@ -41,6 +41,7 @@ class MentorViewHolder(internal var mView: View) : RecyclerView.ViewHolder(mView
     fun setImageProfileImageView(storageRef : StorageReference, context : Context?){
         Glide.with(context!!).load(storageRef)
                 .placeholder(R.drawable.profile)
+                .fitCenter()
                 .into(mImageProfile)
     }
 }
