@@ -24,6 +24,7 @@ Smart incubator is an app that allows startups to find people that will help the
 * Searching in a list of mentors (by : specialty) and startups (by : need) . 
 * Sending messages between the users (mentors and startups) in the app . 
 * Sending meetings invitations between the users (mentors and startups) in the app .  
+* Adding a Profile Photo for the startups and mentors . 
 
 
 ## Setup
@@ -49,6 +50,8 @@ This app show many codes example in kotlin on :
 * Sending Messages between users by Firebase Realtime Database . 
 * Retrieving an ArrayList of object from firebase realtime database , searching in them and returning a list on RecyclerView .
 * Changing informations in firebase realtime database (example : settings pages) . 
+* Uploading a photo to firebase storage 
+* Retrieving photos from firebase storage using Glide Library 
 
 
 # Setup firebase:
