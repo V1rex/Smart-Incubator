@@ -27,22 +27,6 @@ Smart incubator is an app that allows startups to find people that will help the
 * Sending meetings invitations between the users (mentors and startups) in the app .  
 * Adding a Profile Photo for the startups and mentors . 
 
-
-## Setup
-1. Create an new firebase project 
-2. Add just the google-services.json to /app folder
-3. Enable email authentication method in your firebase project
-4. Change Realtime Database rules with this : 
-
-```sh
-{
-  "rules": {
-    ".read": true,
-    ".write": "auth != null"
-  }
-}
-```
-
 ## Code examples in the app 
 This app show many codes example in kotlin on :
 * Login / Register from firebase auth .  
