@@ -11,7 +11,7 @@
 * [Code examples in the app](#code-examples-in-the-app)
 
 ## General info
-Smart incubator is an app that allows startups to find people that will help them grow . Those people are called in the app "Mentors" and every mentor have a specialty wich make him able to search about startups that needs his specialty and contact them by sending messages or meetings in the app.
+Smart incubator is an app that allows startups to find people that will help them grow . Those people are called in the app "Mentors" and every mentor have a specialty which make him able to search about startups that needs his specialty and contact them by sending messages or meetings in the app.
 
 ## Screenshots
 ![Screenshot 1](https://i.imgur.com/7DCO3r8.png)
